@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-.poppins {
-  font-family: "Poppins", sans-serif;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -103,7 +99,17 @@
   }
 }
 
-/* HTML: <div class="loader"></div> */
+/* Font family */
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Container */
+.container-xl {
+  @apply max-w-screen-xl mx-auto;
+}
+
+/* Loaders start */
 .loader {
   width: 90px;
   height: 14px;
@@ -132,10 +138,6 @@
   }
 }
 
-.container-xl {
-  @apply max-w-screen-xl mx-auto;
-}
-
 .loader2 {
   width: 35px;
   aspect-ratio: 1;
@@ -157,3 +159,53 @@
       0 0;
   }
 }
+/* Loaders end */
+
+/* Configuration start */
+.flex-center {
+  @apply flex items-center justify-center;
+}
+.hero {
+  @apply text-black text-8xl font-medium leading-[100%] tracking-tight;
+}
+h1 {
+  @apply text-black text-[5rem] font-medium leading-[5.25rem] tracking-[-0.1875rem];
+}
+h2 {
+  @apply text-black text-[4.5rem] font-medium leading-[4.75rem] tracking-[-0.125rem];
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+h3 {
+  @apply text-black text-[3.375rem] font-medium leading-[3.625rem] tracking-[-0.0625rem];
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+h4 {
+  @apply text-black text-[2.5rem] font-medium leading-[2.75rem] tracking-[-0.025rem];
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+h5 {
+  @apply text-black text-[2.125rem] font-medium leading-[2.375rem] tracking-[-0.0375rem];
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+h6 {
+  @apply text-black text-[1.75rem] font-medium leading-[2.125rem] tracking-[-0.0375rem];
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+.h7 {
+  @apply text-black text-[1.25rem] font-medium leading-[1.75rem] text-sm;
+  font-feature-settings:
+    "liga" off,
+    "clig" off;
+}
+
+/* Configuration end */

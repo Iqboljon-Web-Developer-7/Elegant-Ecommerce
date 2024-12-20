@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
+import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import { LazyLoadImage } from "./CarouselLazyLoading";
 import {
@@ -8,22 +8,26 @@ import {
   usePrevNextButtons,
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
-import { urlFor } from "@/utils/Client";
+import { client, urlFor } from "@/utils/Client";
+import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 
-type PropType = {
-  slides: slidesType[];
-  options?: EmblaOptionsType;
-};
+import "./css/base.css";
+import "./css/embla.css";
+import { slideType } from "@/lib/types";
 
-type slidesType = {
-  images: {
-    asset: { _ref: string };
-  };
-};
+const EmblaCarousel: React.FC = () => {
+  const [slides, setSLIDES] = useState<slideType[]>([]);
+  const [slidesError, setSlidesError] = useState("");
 
-const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
-  const [emblaRed, emblaApi] = useEmblaCarousel(options);
+  useEffect(() => {
+    client
+      .fetch(SANITY_SLIDES_QUERY)
+      .then((data) => setSLIDES(data))
+      .catch((err) => setSlidesError(err));
+  }, []);
+
+  // const { slides, options, slidesError } = props;
+  const [emblaRed, emblaApi] = useEmblaCarousel();
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -56,27 +60,38 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
-  console.log(slides);
+  if (slidesError)
+    return <p className="text-center my-4">"Check internet connection!";</p>;
+
+  if (!slides[0]?.images)
+    return (
+      <div className="min-h-40 bg-black w-full flex-center rounded-sm">
+        <div className="loader"></div>
+      </div>
+    );
+
+  const Slides = slides?.map((item, index) => (
+    <LazyLoadImage
+      key={index}
+      index={index}
+      imgSrc={`${urlFor(item?.images?.asset?._ref)}`}
+      inView={slidesInView.indexOf(index) > -1}
+    />
+  ));
+  const Dots = scrollSnaps.map((_, index) => (
+    <DotButton
+      key={index}
+      onClick={() => onDotButtonClick(index)}
+      className={"w-3 h-3 rounded-full bg-white transition-all".concat(
+        index === selectedIndex ? " !w-10" : ""
+      )}
+    />
+  ));
 
   return (
     <div className="embla relative">
       <div className="embla__viewport" ref={emblaRed}>
-        <div className="embla__container">
-          {slides[0]?.images ? (
-            slides?.map((item, index) => (
-              <LazyLoadImage
-                key={index}
-                index={index}
-                imgSrc={`${urlFor(item?.images?.asset?._ref)}`}
-                inView={slidesInView.indexOf(index) > -1}
-              />
-            ))
-          ) : (
-            <div className="min-h-40 bg-black-800 w-full flex items-center justify-center">
-              <div className="loader"></div>
-            </div>
-          )}
-        </div>
+        <div className="embla__container">{Slides}</div>
       </div>
 
       <div className="embla__controls">
@@ -94,15 +109,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         </div>
 
         <div className="w-full absolute bottom-12 left-0 right-0 flex items-center justify-center gap-3">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={"w-3 h-3 rounded-full bg-white transition-all".concat(
-                index === selectedIndex ? " !w-10" : ""
-              )}
-            />
-          ))}
+          {Dots}
         </div>
       </div>
     </div>

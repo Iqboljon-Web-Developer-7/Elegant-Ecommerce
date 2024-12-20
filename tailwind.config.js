@@ -4,47 +4,27 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      keyframes: {
-        gradientToBlack: {
-          "0%": {
-            background: "linear-gradient(to right, white 0%, black 0%)",
-          },
-          "20%": {
-            background: "linear-gradient(to right, white 0%, black 0% 20%)",
-          },
-          "40%": {
-            background: "linear-gradient(to right, white 0%, black 0% 40%)",
-          },
-          "60%": {
-            background: "linear-gradient(to right, white 0%, black 0% 60%)",
-          },
-          "80%": {
-            background: "linear-gradient(to right, white 0%, black 0% 80%)",
-          },
-          "100%": {
-            background: "linear-gradient(to right, white 0%, black 0% 100%)",
-          },
-        },
-      },
-      animation: {
-        gradientToBlack: "gradientToBlack ease-in-out forwards 2s",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      fontSize: {
+        xl: "1.375rem",
+        "2xl": "1.625rem",
       },
       colors: {
-        grey: {
+        secondary: {
+          blue: "#377DFF",
+          green: "#38CB89",
+          orange: "#FFAB00",
+          red: "#FF5630",
+        },
+        neutral: {
+          100: "#FEFEFE",
           200: "#F3F5F7",
-          500: "#6c7275",
+          300: "#E8ECEF",
+          400: "#6C7275",
+          500: "#343839",
+          600: "#232627",
+          700: "#141718",
         },
-        black: {
-          800: "#121212",
-        },
-        productGreen: {
-          500: "#38CB89",
-        },
+
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -95,6 +75,11 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },

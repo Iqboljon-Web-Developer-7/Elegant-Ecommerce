@@ -15,7 +15,7 @@ import {
 import { IoMdClose } from "react-icons/io";
 import { SearchForm } from "./SidebarSearch";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import CartIcon from "@/assets/header/cartIcon.svg";
+import CartIcon from "@/assets/icons/cart.svg";
 import { IoHeartOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { CiInstagram } from "react-icons/ci";
