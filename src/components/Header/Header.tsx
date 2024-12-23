@@ -27,15 +27,20 @@ const Header = () => {
   ));
 
   return (
-    <header className="flex items-center justify-between py-4 px-2 md:px-0">
-      <img src={WebsiteLogo} width={105} alt="website-logo" />
-      <div className="header__links hidden md:flex items-center justify-center gap-6 text-sm">
+    <header className="flex items-center justify-between py-4 px-2 md:px-[1%]">
+      <img
+        src={WebsiteLogo}
+        width={105}
+        alt="website-logo"
+        className="max-w-[4.5rem] sm:max-w-[6.5rem]"
+      />
+      <div className="header__links hidden md:flex items-center justify-center gap-6 lg:gap-10 text-sm">
         {Links}
       </div>
-      <div className="header__icons flex items-center justify-center gap-2 md:gap-4">
+      <div className="header__icons flex items-center justify-center gap-4 md:gap-4">
         <img src={SearchIcon} alt="search-icon" className="hidden md:block" />
         <img src={UserIcont} alt="user-icon" className="hidden md:block" />
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center gap-1">
           <img src={CartIcon} alt="cart-icon" />
           <p className="w-5 h-5 rounded-full bg-black text-[.7rem] font-bold text-white flex items-center justify-center">
             2

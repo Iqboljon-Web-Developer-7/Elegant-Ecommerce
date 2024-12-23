@@ -25,12 +25,7 @@ html {
 *::after {
   box-sizing: inherit;
 }
-body {
-  background-color: var(--background-site);
-  color: var(--text-high-contrast);
-  font-size: 1.6rem;
-  line-height: 1.65;
-}
+
 .theme-light {
   --brand-primary: rgb(47, 112, 193);
   --brand-secondary: rgb(116, 97, 195);

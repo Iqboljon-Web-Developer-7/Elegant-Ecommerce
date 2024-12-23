@@ -11,7 +11,7 @@ const Products = () => {
         </h3>
         <Link
           to={"/products"}
-          className="text-base flex items-center justify-center gap-2 border-b border-b-black-800"
+          className="text-base flex items-center justify-center gap-2 border-b border-b-neutral-900"
         >
           More Products <GoArrowRight />
         </Link>

@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { GoHeart } from "react-icons/go";
-import { CiStar } from "react-icons/ci";
-import { TiStarHalf } from "react-icons/ti";
-import { TiStarFullOutline } from "react-icons/ti";
+import { IoStar } from "react-icons/io5";
+
 import { Scrollbar } from "swiper/modules";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/scrollbar";
+
 import "./styles.css";
 
 const products = [1, 2, 3, 4, 5, 6];
@@ -44,8 +44,8 @@ export default function ProductsCarousel() {
         modules={[Scrollbar]}
         className="mySwiper"
       >
-        {products?.map((_) => (
-          <SwiperSlide className="pb-14">
+        {products?.map((_, index) => (
+          <SwiperSlide key={index} className="pb-14">
             <div className="flex items-start justify-start flex-col gap-3">
               <div className="product__main w-full h-full relative group flex-grow">
                 <img
@@ -54,10 +54,10 @@ export default function ProductsCarousel() {
                   className="object-cover h-full w-full max-h-80"
                 />
                 <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 font-bold text-base text-center">
-                  <h4 className="px-3 rounded-md bg-white">NEW</h4>
-                  <h4 className="px-3 rounded-md bg-productGreen-500 text-white">
+                  <p className="px-3 rounded-md bg-white">NEW</p>
+                  <p className="px-3 rounded-md bg-secondary-green text-white">
                     -50%
-                  </h4>
+                  </p>
                 </div>
                 <div className="product__main--wishlishtBtn absolute right-4 top-4">
                   <button className="bg-white p-[.35rem] rounded-full opacity-0 group-hover:opacity-100 duration-300">
@@ -69,17 +69,21 @@ export default function ProductsCarousel() {
                 </Button>
               </div>
               <div className="product__info w-full h-full flex-grow-[2]">
-                <div className="stars w-full flex justify-start gap-1">
-                  {new Array(5).fill(5).map((_) => (
-                    <TiStarFullOutline size={18} />
+                <div className="stars w-full flex justify-start gap-1 text-neutral-900">
+                  {new Array(5).fill(5).map((_, index) => (
+                    <IoStar key={index} size={16} />
                   ))}
                 </div>
-                <h4 className="text-left text-black-800 font-semibold text-base leading-8">
+                <p className="text-black-800 font-semibold leading-8">
                   Loveseat Sofa
-                </h4>
-                <p className="flex items-start justify-start gap-2 text-sm">
-                  <span className="font-semibold">$199.00</span>
-                  <span className="opacity-75 line-through">$400.00</span>
+                </p>
+                <p className="flex gap-2 text-sm">
+                  <span className="font-semibold text-neutral-700">
+                    $199.00
+                  </span>
+                  <span className="opacity-75 line-through text-neutral-400">
+                    $400.00
+                  </span>
                 </p>
               </div>
             </div>

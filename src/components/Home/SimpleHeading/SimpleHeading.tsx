@@ -1,10 +1,11 @@
 const SimpleHeading = () => {
   return (
-    <div className="m-3 flex items-start sm:items-center justify-between flex-col lg:flex-row text-left sm:text-center lg:text-left gap-3">
-      <h1 className="text-4xl lg:text-7xl font-medium tracking-tighter sm:w-[14ch]">
-        Simply Unique/ Simply Better.
-      </h1>
-      <p className="text-sm sm:text-base text-grey-500 max-w-[27rem]">
+    <div className="mt-8 flex items-start sm:items-center justify-between flex-col sm:flex-row text-left lg:text-left gap-3">
+      <h2 className="text-[2.5rem] leading-[2.75rem] tracking-[-0.025rem] md:text-6xl lg:text-7xl font-medium w-[14ch] flex-shrink-0">
+        Simply Unique<span className="text-neutral-400">/</span> Simply Better
+        <span className="text-neutral-400">.</span>
+      </h2>
+      <p className="max-w-[27rem] text-sm lg:text-base text-grey-500 flex-grow">
         <strong className="text-black">3legant</strong> is a gift & decorations
         store based in HCMC, Vietnam. Est since 2019.{" "}
       </p>

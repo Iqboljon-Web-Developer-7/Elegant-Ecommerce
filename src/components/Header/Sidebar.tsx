@@ -68,7 +68,7 @@ export function HeaderSidebar() {
         <SidebarGroup className="h-full">
           <SidebarGroupLabel className="flex items-center justify-between text-black">
             Elegant
-            <IoMdClose onClick={toggleSidebar} />
+            <IoMdClose className="cursor-pointer" onClick={toggleSidebar} />
           </SidebarGroupLabel>
           <SearchForm />
           <SidebarGroupContent>

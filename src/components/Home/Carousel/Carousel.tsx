@@ -14,10 +14,13 @@ import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 import "./css/base.css";
 import "./css/embla.css";
 import { slideType } from "@/lib/types";
+import { useToast } from "@/hooks/use-toast";
+import NoInternet from "@/components/noInternet";
 
 const EmblaCarousel: React.FC = () => {
   const [slides, setSLIDES] = useState<slideType[]>([]);
   const [slidesError, setSlidesError] = useState("");
+  const { toast } = useToast();
 
   useEffect(() => {
     client
@@ -26,7 +29,16 @@ const EmblaCarousel: React.FC = () => {
       .catch((err) => setSlidesError(err));
   }, []);
 
-  // const { slides, options, slidesError } = props;
+  useEffect(() => {
+    if (slidesError) {
+      toast({
+        title: "Check internet connection!",
+        description: "try to check your internet and then refresh the page!",
+        variant: "destructive",
+      });
+    }
+  }, [slidesError]);
+
   const [emblaRed, emblaApi] = useEmblaCarousel();
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
 
@@ -60,15 +72,9 @@ const EmblaCarousel: React.FC = () => {
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
-  if (slidesError)
-    return <p className="text-center my-4">"Check internet connection!";</p>;
-
-  if (!slides[0]?.images)
-    return (
-      <div className="min-h-40 bg-black w-full flex-center rounded-sm">
-        <div className="loader"></div>
-      </div>
-    );
+  if (slidesError) {
+    return <NoInternet />;
+  }
 
   const Slides = slides?.map((item, index) => (
     <LazyLoadImage
@@ -90,28 +96,35 @@ const EmblaCarousel: React.FC = () => {
 
   return (
     <div className="embla relative">
-      <div className="embla__viewport" ref={emblaRed}>
-        <div className="embla__container">{Slides}</div>
-      </div>
-
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton
-            className="absolute w-10 h-10 rounded-full items-center justify-center left-4 top-[50%] translate-y-[-50%]  bg-white disabled:opacity-60 hidden md:flex"
-            onClick={onPrevButtonClick}
-            disabled={prevBtnDisabled}
-          />
-          <NextButton
-            className="absolute w-10 h-10 rounded-full items-center justify-center right-4 top-[50%] translate-y-[-50%]  bg-white disabled:opacity-60 hidden md:flex"
-            onClick={onNextButtonClick}
-            disabled={nextBtnDisabled}
-          />
+      {!slides[0]?.images ? (
+        <div className="min-h-[31.8rem] bg-black w-full flex-center rounded-sm">
+          <div className="loader"></div>
         </div>
+      ) : (
+        <>
+          <div className="embla__viewport" ref={emblaRed}>
+            <div className="embla__container">{Slides && Slides}</div>
+          </div>
+          <div className="embla__controls">
+            <div className="embla__buttons">
+              <PrevButton
+                className="absolute w-14 h-14 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+                onClick={onPrevButtonClick}
+                disabled={prevBtnDisabled}
+              />
+              <NextButton
+                className="absolute w-14 h-14 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+                onClick={onNextButtonClick}
+                disabled={nextBtnDisabled}
+              />
+            </div>
 
-        <div className="w-full absolute bottom-12 left-0 right-0 flex items-center justify-center gap-3">
-          {Dots}
-        </div>
-      </div>
+            <div className="w-full absolute bottom-12 left-0 right-0 flex items-center justify-center gap-3">
+              {Dots}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
