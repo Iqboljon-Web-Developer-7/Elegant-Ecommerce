@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import { GoArrowRight } from "react-icons/go";
 import ProductsCarousel from "./Carousel/Carousel";
+import { useEffect, useState } from "react";
+import { client } from "@/utils/Client";
+import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    client.fetch(SANITY_PRODUCTS_QUERY(0, 20)).then((res) => {
+      setProducts(res);
+    });
+  }, []);
+
   return (
     <div className="products mb-12">
       <div className="products__info my-12 flex items-end justify-between">
@@ -16,7 +27,7 @@ const Products = () => {
           More Products <GoArrowRight />
         </Link>
       </div>
-      <ProductsCarousel />
+      <ProductsCarousel products={products} />
     </div>
   );
 };
