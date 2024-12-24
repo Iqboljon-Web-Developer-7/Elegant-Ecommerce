@@ -86,6 +86,7 @@ const EmblaCarousel: React.FC = () => {
   ));
   const Dots = scrollSnaps.map((_, index) => (
     <DotButton
+      id={`indicator button ${index + 1}`}
       key={index}
       onClick={() => onDotButtonClick(index)}
       className={"w-3 h-3 rounded-full bg-white transition-all".concat(
@@ -108,11 +109,13 @@ const EmblaCarousel: React.FC = () => {
           <div className="embla__controls">
             <div className="embla__buttons">
               <PrevButton
+                id="prev-button"
                 className="absolute w-14 h-14 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
                 onClick={onPrevButtonClick}
                 disabled={prevBtnDisabled}
               />
               <NextButton
+                id="next-button"
                 className="absolute w-14 h-14 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
                 onClick={onNextButtonClick}
                 disabled={nextBtnDisabled}
