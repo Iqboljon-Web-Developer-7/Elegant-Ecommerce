@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 
 const App = lazy(() => import("./App.tsx"));
 
-import { SidebarProvider } from "./components/ui/sidebar.tsx";
 import { Toaster } from "@/components/ui/toaster";
 import Loading from "./loading.tsx";
 
@@ -13,11 +12,9 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <SidebarProvider>
-        <Suspense fallback={<Loading />}>
-          <App />
-        </Suspense>
-      </SidebarProvider>
+      <Suspense fallback={<Loading />}>
+        <App />
+      </Suspense>
       <Toaster />
     </BrowserRouter>
   </StrictMode>
