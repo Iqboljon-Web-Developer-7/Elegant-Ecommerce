@@ -30,7 +30,7 @@ const ShopCollection = () => {
       }`}
     >
       <div className="absolute bottom-10 left-10 grid text-black-800">
-        <h4 className="text-[2.125rem]">{collection[index]?.title}</h4>
+        <h3 className="text-[2.125rem]">{collection[index]?.title}</h3>
         <Link
           to={collection[index]?.url}
           className="text-base w-fit flex items-center gap-2 border-b border-b-neutral-900"
