@@ -83,7 +83,7 @@ const CarouselItem = ({ product }: { product: Product }) => {
         </div>
         <div className="product__main--wishlistBtn absolute right-4 top-4">
           <button
-            id="addWishlist"
+            aria-label="addWishlist"
             className="bg-white p-[.35rem] rounded-full opacity-0 group-hover:opacity-100 duration-300"
           >
             <GoHeart size={22} />
