@@ -47,7 +47,7 @@ const ShopCollection = () => {
         Shop Collection
       </h2>
       {collection.length <= 0 && !collectionError && <Loading />}
-      {collectionError && <NoInternet />}
+      {collectionError && <NoInternet className="mt-4" />}
       {collection.length >= 1 && (
         <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-6 md:mt-12">
           {Collections}
