@@ -98,7 +98,7 @@ const EmblaCarousel: React.FC = () => {
   return (
     <div className="embla relative">
       {!slides[0]?.images ? (
-        <div className="min-h-[36.777rem] bg-black w-full flex-center rounded-sm">
+        <div className="min-h-[15rem] object-cover bg-black w-full flex-center rounded-sm">
           <div className="loader"></div>
         </div>
       ) : (
