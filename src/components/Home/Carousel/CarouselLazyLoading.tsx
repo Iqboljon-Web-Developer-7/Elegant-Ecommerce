@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 
-const PLACEHOLDER_SRC = `data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D`;
+const PLACEHOLDER_SRC = `https://via.placeholder.com/1280x426`;
 
 type PropType = {
   imgSrc: string;
