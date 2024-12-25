@@ -20,7 +20,6 @@
 }
 .embla__slide__img {
   display: block;
-  height: -webkit-fit-available;
   height: -moz-available;
   height: fit-content;
   max-height: 28rem;

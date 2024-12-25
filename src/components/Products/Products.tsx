@@ -48,6 +48,10 @@ const Products = () => {
     </SwiperSlide>
   ));
 
+  if (products?.length <= 0 && !productsError) {
+    return SwiperContentsLoading;
+  }
+
   return (
     <div className="products mb-6">
       <div className="products__info my-12 flex items-end justify-between">
@@ -61,7 +65,6 @@ const Products = () => {
           More Products <GoArrowRight />
         </Link>
       </div>
-      {products?.length <= 0 && !productsError && SwiperContentsLoading}
       {productsError && <NoInternet />}
       {!productsError && (
         <Swiper

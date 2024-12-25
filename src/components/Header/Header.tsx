@@ -31,6 +31,7 @@ const Header = () => {
       <img
         src={WebsiteLogo}
         width={105}
+        height={24}
         alt="website-logo"
         className="max-w-[4.5rem] sm:max-w-[6.5rem]"
       />

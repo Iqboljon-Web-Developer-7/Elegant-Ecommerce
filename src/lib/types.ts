@@ -2,6 +2,7 @@ export interface slideType {
   images: {
     asset: { _ref: string };
   };
+  media: string;
 }
 export interface collectionType {
   image: { asset: { _ref: string } };

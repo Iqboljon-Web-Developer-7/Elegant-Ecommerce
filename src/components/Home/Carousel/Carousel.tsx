@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
-import { LazyLoadImage } from "./CarouselLazyLoading";
 import {
   NextButton,
   PrevButton,
@@ -10,58 +9,61 @@ import {
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
-
 import "./css/base.css";
 import "./css/embla.css";
 import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import NoInternet from "@/components/noInternet";
+import { LazyLoadImage } from "./CarouselLazyLoading";
 
 const EmblaCarousel: React.FC = () => {
-  const [slides, setSLIDES] = useState<slideType[]>([]);
+  const [slides, setSlides] = useState<slideType[]>([]);
+  const [filteredSlides, setFilteredSlides] = useState<slideType[]>([]);
   const [slidesError, setSlidesError] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+  const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const { toast } = useToast();
+
+  const updateScreenSize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
 
   useEffect(() => {
     client
       .fetch(SANITY_SLIDES_QUERY)
-      .then((data) => setSLIDES(data))
+      .then((data) => setSlides(data))
       .catch((err) => setSlidesError(err));
   }, []);
+
+  useEffect(() => {
+    const filtered = slides.filter(
+      (item) =>
+        (isMobile && item?.media === "mobile") ||
+        (!isMobile && item?.media === "desktop")
+    );
+    setFilteredSlides(filtered);
+  }, [slides, isMobile]);
 
   useEffect(() => {
     if (slidesError) {
       toast({
         title: "Check internet connection!",
-        description: "try to check your internet and then refresh the page!",
+        description: "Try to check your internet and then refresh the page!",
         variant: "destructive",
       });
     }
   }, [slidesError]);
 
-  const [emblaRed, emblaApi] = useEmblaCarousel();
-  const [slidesInView, setSlidesInView] = useState<number[]>([]);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
-
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick,
-  } = usePrevNextButtons(emblaApi);
+  const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const updateSlidesInView = useCallback((emblaApi: EmblaCarouselType) => {
-    setSlidesInView((slidesInView) => {
-      if (slidesInView.length === emblaApi.slideNodes().length) {
-        emblaApi.off("slidesInView", updateSlidesInView);
-      }
-      const inView = emblaApi
-        .slidesInView()
-        .filter((index) => !slidesInView.includes(index));
-      return slidesInView.concat(inView);
-    });
+    setSlidesInView(emblaApi.slidesInView());
   }, []);
 
   useEffect(() => {
@@ -76,14 +78,29 @@ const EmblaCarousel: React.FC = () => {
     return <NoInternet />;
   }
 
-  const Slides = slides?.map((item, index) => (
-    <LazyLoadImage
-      key={index}
-      index={index}
-      imgSrc={`${urlFor(item?.images?.asset?._ref)}`}
-      inView={slidesInView.indexOf(index) > -1}
-    />
-  ));
+  const Slides = filteredSlides.map((item, index) => {
+    const image = `${urlFor(item?.images?.asset?._ref)}`;
+
+    return (
+      <LazyLoadImage
+        key={index}
+        index={index}
+        imgSrc={image}
+        inView={slidesInView.includes(index)}
+      />
+    );
+  });
+
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+
   const Dots = scrollSnaps.map((_, index) => (
     <DotButton
       aria-label={`indicator button ${index + 1}`}
@@ -97,26 +114,26 @@ const EmblaCarousel: React.FC = () => {
 
   return (
     <div className="embla relative">
-      {!slides[0]?.images ? (
-        <div className="min-h-[15rem] object-cover bg-black w-full flex-center rounded-sm">
+      {!filteredSlides.length ? (
+        <div className="min-h-[18.5rem] object-cover bg-black w-full flex-center rounded-sm">
           <div className="loader"></div>
         </div>
       ) : (
         <>
-          <div className="embla__viewport" ref={emblaRed}>
-            <div className="embla__container">{Slides && Slides}</div>
+          <div className="embla__viewport" ref={emblaRef}>
+            <div className="embla__container">{Slides}</div>
           </div>
           <div className="embla__controls">
             <div className="embla__buttons">
               <PrevButton
                 aria-label="prev-button"
-                className="absolute w-14 h-14 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+                className="absolute w-11 h-11 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
                 onClick={onPrevButtonClick}
                 disabled={prevBtnDisabled}
               />
               <NextButton
                 aria-label="next-button"
-                className="absolute w-14 h-14 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+                className="absolute w-11 h-11 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
                 onClick={onNextButtonClick}
                 disabled={nextBtnDisabled}
               />
