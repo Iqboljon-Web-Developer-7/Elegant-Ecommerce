@@ -15,6 +15,8 @@ import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import NoInternet from "@/components/noInternet";
 import { LazyLoadImage } from "./CarouselLazyLoading";
+import loaderImgDesktop from "@/assets/mainCarousel/loading-desktop.svg";
+import loaderImgMobile from "@/assets/mainCarousel/loading-mobile.svg";
 
 const EmblaCarousel: React.FC = () => {
   const [slides, setSlides] = useState<slideType[]>([]);
@@ -38,7 +40,7 @@ const EmblaCarousel: React.FC = () => {
     client
       .fetch(SANITY_SLIDES_QUERY)
       .then((data) => setSlides(data))
-      .catch((err) => setSlidesError(err));
+      .catch((err) => setSlidesError(err.message));
   }, []);
 
   useEffect(() => {
@@ -76,16 +78,35 @@ const EmblaCarousel: React.FC = () => {
 
   const Slides = filteredSlides.map((item, index) => {
     const image = `${urlFor(item?.images?.asset?._ref)}`;
-
     return (
-      <LazyLoadImage
+      <div
         key={index}
-        index={index}
-        imgSrc={image}
-        inView={slidesInView.includes(index)}
-      />
+        className="embla__slide flex justify-center items-center"
+      >
+        <LazyLoadImage
+          index={index}
+          imgSrc={image}
+          inView={slidesInView.includes(index)}
+        />
+      </div>
     );
   });
+
+  const PlaceholderSlides = Array.from({ length: 3 }).map((_, index) => (
+    <div
+      key={index}
+      className="embla__slide flex justify-center items-center bg-gray-200"
+    >
+      {Slides?.length <= 0 && !isMobile ? (
+        <img src={loaderImgDesktop} />
+      ) : Slides?.length <= 0 && isMobile ? (
+        <img src={loaderImgMobile} />
+      ) : (
+        ""
+      )}
+      <div className="w-full h-full bg-gray-300 animate-pulse"></div>
+    </div>
+  ));
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -114,37 +135,31 @@ const EmblaCarousel: React.FC = () => {
 
   return (
     <div className="embla relative">
-      {!filteredSlides.length ? (
-        <div className="min-h-[28.45rem] object-cover bg-black w-full flex-center rounded-sm">
-          <div className="loader"></div>
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {Slides.length > 0 ? Slides : PlaceholderSlides}
         </div>
-      ) : (
-        <>
-          <div className="embla__viewport" ref={emblaRef}>
-            <div className="embla__container">{Slides}</div>
-          </div>
-          <div className="embla__controls">
-            <div className="embla__buttons">
-              <PrevButton
-                aria-label="prev-button"
-                className="absolute w-11 h-11 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
-                onClick={onPrevButtonClick}
-                disabled={prevBtnDisabled}
-              />
-              <NextButton
-                aria-label="next-button"
-                className="absolute w-11 h-11 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
-                onClick={onNextButtonClick}
-                disabled={nextBtnDisabled}
-              />
-            </div>
+      </div>
+      <div className="embla__controls">
+        <div className="embla__buttons">
+          <PrevButton
+            aria-label="prev-button"
+            className="absolute w-11 h-11 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+            onClick={onPrevButtonClick}
+            disabled={prevBtnDisabled}
+          />
+          <NextButton
+            aria-label="next-button"
+            className="absolute w-11 h-11 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+            onClick={onNextButtonClick}
+            disabled={nextBtnDisabled}
+          />
+        </div>
 
-            <div className="w-full absolute bottom-12 left-0 right-0 flex items-center justify-center gap-3">
-              {Dots}
-            </div>
-          </div>
-        </>
-      )}
+        <div className="w-full absolute top-[90%] left-0 right-0 flex items-center justify-center gap-3">
+          {Dots}
+        </div>
+      </div>
     </div>
   );
 };

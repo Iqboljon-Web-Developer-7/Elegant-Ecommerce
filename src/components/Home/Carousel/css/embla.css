@@ -15,7 +15,6 @@
   transform: translate3d(0, 0, 0);
   flex: 0 0 var(--slide-size);
   min-width: 0;
-  padding-left: var(--slide-spacing);
   align-self: center;
 }
 .embla__slide__img {
@@ -23,7 +22,6 @@
   height: -moz-available;
   height: fit-content;
   max-height: 28rem;
-  min-height: 15rem;
   width: fit-content;
   object-fit: cover;
   object-position: left;
@@ -33,7 +31,6 @@
   grid-template-columns: auto 1fr;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-top: 1.8rem;
 }
 .embla__buttons {
   display: grid;

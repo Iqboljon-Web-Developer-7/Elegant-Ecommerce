@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 
-// const PLACEHOLDER_SRC = `https://picsum.photos/1280/426`;
 import PLACEHOLDER_SRC from "@/assets/mainCarousel/carousel-placeholder-img.jpg";
 
 type PropType = {

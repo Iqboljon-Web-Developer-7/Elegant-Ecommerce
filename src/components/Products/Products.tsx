@@ -16,15 +16,13 @@ const Products = () => {
   useEffect(() => {
     client
       .fetch(SANITY_PRODUCTS_QUERY(0, 20))
-      .then((res) => {
-        setProducts(res);
-      })
-      .catch((error) => setProductsError(error));
+      .then((res) => setProducts(res))
+      .catch((error) => setProductsError(error.message));
   }, []);
 
-  const SwiperContentsLoading = (
+  const SkeletonLoader = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      {new Array(4).fill(4).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}
           className="flex flex-col animate-pulse items-start bg-white p-4 rounded-lg shadow-md"
@@ -42,14 +40,30 @@ const Products = () => {
       ))}
     </div>
   );
-  const SwiperContents = products?.map((product) => (
+
+  const SwiperContents = products.map((product) => (
     <SwiperSlide key={product._id} className="pb-14">
       <CarouselItem product={product} />
     </SwiperSlide>
   ));
 
-  if (products?.length <= 0 && !productsError) {
-    return SwiperContentsLoading;
+  if (products.length <= 0 && !productsError) {
+    return (
+      <div className="products mb-6">
+        <div className="products__info my-12 flex items-end justify-between">
+          <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
+            New Arrival
+          </h3>
+          <Link
+            to={"/products"}
+            className="text-base flex items-center justify-center gap-2 border-b border-b-neutral-900"
+          >
+            More Products <GoArrowRight />
+          </Link>
+        </div>
+        <SkeletonLoader />
+      </div>
+    );
   }
 
   return (

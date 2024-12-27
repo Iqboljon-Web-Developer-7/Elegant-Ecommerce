@@ -5,7 +5,7 @@ import { client, urlFor } from "@/utils/Client";
 import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
 import { collectionType } from "@/lib/types";
 
-import Loading from "./Loading";
+import SkeletonLoader from "./SkeletonLoader";
 import NoInternet from "@/components/noInternet";
 
 const ShopCollection = () => {
@@ -16,10 +16,10 @@ const ShopCollection = () => {
     client
       .fetch(SANITY_COLLECTIONS_QUERY)
       .then((data) => setCollection(data))
-      .catch((error) => setCollectionError(error));
+      .catch((error) => setCollectionError(error.message));
   }, []);
 
-  const Collections = collection?.map((_, index) => (
+  const Collections = collection.map((_, index) => (
     <div
       key={index}
       style={{
@@ -42,7 +42,16 @@ const ShopCollection = () => {
   ));
 
   if (collection.length <= 0 && !collectionError) {
-    return <Loading />;
+    return (
+      <div className="mt-8 md:mt-12">
+        <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
+          Shop Collection
+        </h2>
+        <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-6 md:mt-12">
+          <SkeletonLoader count={3} />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -50,7 +59,6 @@ const ShopCollection = () => {
       <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
         Shop Collection
       </h2>
-      {/* {collection.length <= 0 && !collectionError && <Loading />} */}
       {collectionError && <NoInternet className="mt-4" />}
       {collection.length >= 1 && (
         <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-6 md:mt-12">
