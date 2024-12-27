@@ -15,8 +15,6 @@ import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 import NoInternet from "@/components/noInternet";
 import { LazyLoadImage } from "./CarouselLazyLoading";
-import loaderImgDesktop from "@/assets/mainCarousel/loading-desktop.svg";
-import loaderImgMobile from "@/assets/mainCarousel/loading-mobile.svg";
 
 const EmblaCarousel: React.FC = () => {
   const [slides, setSlides] = useState<slideType[]>([]);
@@ -76,12 +74,26 @@ const EmblaCarousel: React.FC = () => {
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
+  const PlaceholderSlide = () => (
+    <div className="embla__slide flex justify-center items-center bg-gray-200">
+      <div
+        className="w-full h-full bg-gray-300 animate-pulse"
+        style={{
+          aspectRatio: isMobile ? "16 / 9" : "3 / 1",
+        }}
+      ></div>
+    </div>
+  );
+
   const Slides = filteredSlides.map((item, index) => {
     const image = `${urlFor(item?.images?.asset?._ref)}`;
     return (
       <div
         key={index}
         className="embla__slide flex justify-center items-center"
+        style={{
+          aspectRatio: isMobile ? "16 / 9" : "3 / 1",
+        }}
       >
         <LazyLoadImage
           index={index}
@@ -91,22 +103,6 @@ const EmblaCarousel: React.FC = () => {
       </div>
     );
   });
-
-  const PlaceholderSlides = Array.from({ length: 3 }).map((_, index) => (
-    <div
-      key={index}
-      className="embla__slide flex justify-center items-center bg-gray-200"
-    >
-      {Slides?.length <= 0 && !isMobile ? (
-        <img src={loaderImgDesktop} />
-      ) : Slides?.length <= 0 && isMobile ? (
-        <img src={loaderImgMobile} />
-      ) : (
-        ""
-      )}
-      <div className="w-full h-full bg-gray-300 animate-pulse"></div>
-    </div>
-  ));
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -137,7 +133,11 @@ const EmblaCarousel: React.FC = () => {
     <div className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {Slides.length > 0 ? Slides : PlaceholderSlides}
+          {Slides.length > 0
+            ? Slides
+            : Array.from({ length: 3 }).map((_, i) => (
+                <PlaceholderSlide key={i} />
+              ))}
         </div>
       </div>
       <div className="embla__controls">
