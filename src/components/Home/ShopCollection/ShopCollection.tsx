@@ -43,11 +43,11 @@ const ShopCollection = () => {
 
   if (collection.length <= 0 && !collectionError) {
     return (
-      <div className="mt-8 md:mt-12">
+      <div className="mt-5 md:mt-12">
         <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
           Shop Collection
         </h2>
-        <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-6 md:mt-12">
+        <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-0 md:mt-12">
           <SkeletonLoader count={3} />
         </div>
       </div>
@@ -55,13 +55,13 @@ const ShopCollection = () => {
   }
 
   return (
-    <div className="mt-8 md:mt-12">
+    <div className="mt-5 md:mt-12">
       <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
         Shop Collection
       </h2>
       {collectionError && <NoInternet className="mt-4" />}
       {collection.length >= 1 && (
-        <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-6 md:mt-12">
+        <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-0 md:mt-12">
           {Collections}
         </div>
       )}
