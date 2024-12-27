@@ -9,7 +9,6 @@ import {
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
-import "./css/base.css";
 import "./css/embla.css";
 import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
