@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /admin/
-Disallow: /login/
-Allow: /public/
-Sitemap: https://elegant-ecommerce-nine.vercel.app/sitemap.xml
