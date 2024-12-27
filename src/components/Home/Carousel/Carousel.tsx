@@ -74,10 +74,6 @@ const EmblaCarousel: React.FC = () => {
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
-  if (slidesError) {
-    return <NoInternet />;
-  }
-
   const Slides = filteredSlides.map((item, index) => {
     const image = `${urlFor(item?.images?.asset?._ref)}`;
 
@@ -112,10 +108,14 @@ const EmblaCarousel: React.FC = () => {
     />
   ));
 
+  if (slidesError) {
+    return <NoInternet />;
+  }
+
   return (
     <div className="embla relative">
       {!filteredSlides.length ? (
-        <div className="min-h-[18.5rem] object-cover bg-black w-full flex-center rounded-sm">
+        <div className="min-h-[28.45rem] object-cover bg-black w-full flex-center rounded-sm">
           <div className="loader"></div>
         </div>
       ) : (
