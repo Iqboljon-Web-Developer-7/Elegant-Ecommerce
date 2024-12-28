@@ -101,6 +101,10 @@
 .poppins {
   font-family: "Poppins", sans-serif;
 }
+.inter {
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+}
 
 /* Container */
 .container-xl {
@@ -165,6 +169,9 @@
 }
 .hero {
   @apply text-black text-8xl font-medium leading-[100%] tracking-tight;
+}
+.fs-20{
+  @apply text-[1.25rem]
 }
 h1 {
   @apply text-black text-[5rem] font-medium leading-[5.25rem] tracking-[-0.1875rem];
