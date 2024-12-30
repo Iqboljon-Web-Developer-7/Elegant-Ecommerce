@@ -4,12 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 
 const App = lazy(() => import("./App.tsx"));
 
-import { Toaster } from "@/components/ui/toaster";
-import Loading from "./loading.tsx";
-
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/index.ts";
+
+import { Toaster } from "@/components/ui/toaster";
+import Loading from "./loading.tsx";
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

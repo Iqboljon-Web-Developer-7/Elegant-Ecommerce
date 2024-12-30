@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { client } from "@/utils/Client";
 import { useToast } from "@/hooks/use-toast";
+import { error } from "console";
 
 export interface userType {
   name?: string;
@@ -15,8 +16,8 @@ export interface userType {
 const Register = () => {
   const [user, setUser] = useState<userType>();
   const [userExists, setuserExists] = useState(false);
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
@@ -46,9 +47,7 @@ const Register = () => {
             });
           } else {
             client.createIfNotExists(doc).then((user) => {
-              console.log(user);
               localStorage.setItem("userInfo", JSON.stringify(user));
-
               toast({
                 title: "User successfully created",
                 description: "Welcome to ELEGANT!",
@@ -57,6 +56,14 @@ const Register = () => {
               navigate("/");
             });
           }
+        })
+        .catch((error) => {
+          toast({
+            title: error.message,
+            variant: "destructive",
+          });
+      setLoading(false);
+
         });
     }
   }, [user]);

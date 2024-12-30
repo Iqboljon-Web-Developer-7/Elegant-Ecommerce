@@ -50,12 +50,11 @@ const items = [
 
 export function HeaderSidebar() {
   const { toggleSidebar } = useSidebar();
+  const navigate = useNavigate();
 
   const user = localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo")!)
     : null;
-
-  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.clear();

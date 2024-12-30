@@ -21,11 +21,11 @@ const Products = () => {
   }, []);
 
   const SkeletonLoader = () => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      {Array.from({ length: 4 }).map((_, index) => (
+    <div className="flex items-center gap-6 overflow-x-auto">
+      {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
-          className="flex flex-col animate-pulse items-start bg-white p-4 rounded-lg shadow-md"
+          className="flex flex-col flex-grow animate-pulse items-start bg-white p-3 rounded-lg shadow-md flex-shrink-0"
         >
           <div className="w-full h-64 bg-gray-200 rounded-md"></div>
           <div className="w-12 h-6 bg-gray-200 mt-3 rounded"></div>
@@ -41,30 +41,11 @@ const Products = () => {
     </div>
   );
 
-  const SwiperContents = products.map((product) => (
+  const SwiperContents = products?.map((product) => (
     <SwiperSlide key={product._id} className="pb-14">
       <CarouselItem product={product} />
     </SwiperSlide>
   ));
-
-  if (products.length <= 0 && !productsError) {
-    return (
-      <div className="products mb-6">
-        <div className="products__info my-12 flex items-end justify-between">
-          <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
-            New Arrival
-          </h3>
-          <Link
-            to={"/products"}
-            className="text-base flex items-center justify-center gap-2 border-b border-b-neutral-900"
-          >
-            More Products <GoArrowRight />
-          </Link>
-        </div>
-        <SkeletonLoader />
-      </div>
-    );
-  }
 
   return (
     <div className="products mb-6">
@@ -95,6 +76,8 @@ const Products = () => {
           className="mySwiper"
         >
           {SwiperContents}
+          {products?.length <= 0 && <SkeletonLoader />}
+          
         </Swiper>
       )}
     </div>

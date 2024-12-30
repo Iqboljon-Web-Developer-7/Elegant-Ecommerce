@@ -6,9 +6,11 @@ import { SidebarProvider } from "./ui/sidebar";
 const Layout = () => {
   return (
     <SidebarProvider>
-      <main className="w-full container-xl">
-        <Header />
-        <HeaderSidebar />
+      <main className="w-full">
+        <div className="container-xl">
+          <Header />
+          <HeaderSidebar />
+        </div>
         <div>
           <Outlet />
         </div>

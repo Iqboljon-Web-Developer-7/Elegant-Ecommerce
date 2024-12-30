@@ -10,10 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SearchIcon } from "lucide-react";
 
 const formSchema = z.object({
-  search: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  search: z.string().min(4, {
+    message: "Username must be at least 4 characters.",
   }),
 });
 
@@ -31,15 +32,22 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 my-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="my-2">
         <FormField
           control={form.control}
           name="search"
           render={({ field }) => (
             <FormItem>
-              <FormControl>
-                <Input className="text-sm" placeholder="Search" {...field} />
-              </FormControl>
+              <div className="flex items-center gap-3 border border-slate-900 rounded-lg">
+                <SearchIcon className="bg-black h-full self-stretch " />
+                <FormControl>
+                  <Input
+                    className="text-sm border-transparent !outline-transparent"
+                    placeholder="Search"
+                    {...field}
+                  />
+                </FormControl>
+              </div>
               <FormMessage />
             </FormItem>
           )}

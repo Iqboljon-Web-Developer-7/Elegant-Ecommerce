@@ -1,12 +1,14 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginForm } from "./LoginForm";
-import { useEffect, useState } from "react";
 import { userType } from "./Register";
 import { client } from "@/utils/Client";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [user, setUser] = useState<userType>();
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
@@ -26,6 +28,10 @@ const Login = () => {
               navigate("/");
             }, 0);
           }
+        })
+        .catch((err) => {
+          setLoading(false)
+          toast({ title: err?.message, variant:"destructive" });
         });
     }
   }, [user]);

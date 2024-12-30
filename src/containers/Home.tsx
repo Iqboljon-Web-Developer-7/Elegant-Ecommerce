@@ -7,11 +7,15 @@ import BigDiscount from "@/components/Home/BigDiscount/BigDiscount";
 const Home = () => {
   return (
     <>
-      <EmblaCarousel />
-      <SimpleHeading />
-      <ShopCollection />
-      <Products />
-      <BigDiscount />
+      <div className="container-xl">
+        <EmblaCarousel />
+        <SimpleHeading />
+        <ShopCollection />
+        <Products />
+      </div>
+      <div className="container-2xl">
+        <BigDiscount />
+      </div>
     </>
   );
 };

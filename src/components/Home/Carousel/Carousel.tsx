@@ -7,13 +7,16 @@ import {
   usePrevNextButtons,
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
+
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
-import "./css/embla.css";
+
 import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
+
 import NoInternet from "@/components/noInternet";
 import { LazyLoadImage } from "./CarouselLazyLoading";
+import "./css/embla.css";
 
 const EmblaCarousel: React.FC = () => {
   const [slides, setSlides] = useState<slideType[]>([]);
@@ -28,16 +31,14 @@ const EmblaCarousel: React.FC = () => {
   };
 
   useEffect(() => {
-    updateScreenSize();
-    window.addEventListener("resize", updateScreenSize);
-    return () => window.removeEventListener("resize", updateScreenSize);
-  }, []);
-
-  useEffect(() => {
     client
       .fetch(SANITY_SLIDES_QUERY)
       .then((data) => setSlides(data))
       .catch((err) => setSlidesError(err.message));
+
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+    return () => window.removeEventListener("resize", updateScreenSize);
   }, []);
 
   useEffect(() => {
@@ -67,16 +68,26 @@ const EmblaCarousel: React.FC = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-
     updateSlidesInView(emblaApi);
     emblaApi.on("slidesInView", updateSlidesInView);
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
+  
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+  useDotButton(emblaApi);
+  
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+  
   const PlaceholderSlide = () => (
-    <div className="embla__slide flex justify-center items-center bg-gray-200">
+    <div className="embla__slide flex justify-center items-center">
       <div
-        className="w-full h-full bg-gray-300 animate-pulse"
+        className="w-full h-full bg-sky-50 animate-pulse"
         style={{
           aspectRatio: isMobile ? "16 / 9" : "3 / 1",
         }}
@@ -103,16 +114,6 @@ const EmblaCarousel: React.FC = () => {
     );
   });
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
-
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick,
-  } = usePrevNextButtons(emblaApi);
-
   const Dots = scrollSnaps.map((_, index) => (
     <DotButton
       aria-label={`indicator button ${index + 1}`}
@@ -134,7 +135,7 @@ const EmblaCarousel: React.FC = () => {
         <div className="embla__container">
           {Slides.length > 0
             ? Slides
-            : Array.from({ length: 3 }).map((_, i) => (
+            : Array.from({ length: 1 }).map((_, i) => (
                 <PlaceholderSlide key={i} />
               ))}
         </div>

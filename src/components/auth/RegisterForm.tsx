@@ -89,6 +89,7 @@ export function RegisterForm({
             <FormItem>
               <FormControl>
                 <Input
+                  type="email"
                   className="outline-none border-none"
                   placeholder="Your Email"
                   {...field}
@@ -115,7 +116,7 @@ export function RegisterForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button disabled={loading} type="submit" className="w-full">
           {loading ? <div className="loader"></div> : "Submit"}
         </Button>
       </form>
