@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { client } from "@/utils/Client";
 import { useToast } from "@/hooks/use-toast";
-import { error } from "console";
 
 export interface userType {
   name?: string;
@@ -62,8 +61,7 @@ const Register = () => {
             title: error.message,
             variant: "destructive",
           });
-      setLoading(false);
-
+          setLoading(false);
         });
     }
   }, [user]);
