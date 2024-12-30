@@ -185,6 +185,9 @@
 .fs-20 {
   @apply text-[1.25rem];
 }
+.fs-40 {
+  @apply text-[2.5rem];
+}
 h1 {
   @apply text-black text-[5rem] font-medium leading-[5.25rem] tracking-[-0.1875rem];
 }

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { GoArrowRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { client } from "@/utils/Client";
 import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
@@ -8,6 +6,7 @@ import CarouselItem from "./Carousel/CarouselItem";
 import { Product } from "@/lib/types";
 import { Scrollbar } from "swiper/modules";
 import NoInternet from "../noInternet";
+import StyledLink from "@/styledComponents/StyledLink";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -53,12 +52,7 @@ const Products = () => {
         <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
           New Arrival
         </h3>
-        <Link
-          to={"/products"}
-          className="text-base flex items-center justify-center gap-2 border-b border-b-neutral-900"
-        >
-          More Products <GoArrowRight />
-        </Link>
+        <StyledLink destination={"/products"} name="More Products" />
       </div>
       {productsError && <NoInternet />}
       {!productsError && (
@@ -77,7 +71,6 @@ const Products = () => {
         >
           {SwiperContents}
           {products?.length <= 0 && <SkeletonLoader />}
-          
         </Swiper>
       )}
     </div>

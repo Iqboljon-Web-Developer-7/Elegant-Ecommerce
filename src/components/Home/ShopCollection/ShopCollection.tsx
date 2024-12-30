@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { GoArrowRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
@@ -7,6 +5,7 @@ import { collectionType } from "@/lib/types";
 
 import SkeletonLoader from "./SkeletonLoader";
 import NoInternet from "@/components/noInternet";
+import StyledLink from "@/styledComponents/StyledLink";
 
 const ShopCollection = () => {
   const [collection, setCollection] = useState<collectionType[]>([]);
@@ -31,12 +30,10 @@ const ShopCollection = () => {
     >
       <div className="absolute bottom-10 left-10 grid text-black-800">
         <h3 className="text-[2.125rem]">{collection[index]?.title}</h3>
-        <Link
-          to={collection[index]?.url}
-          className="text-base w-fit flex items-center gap-2 border-b border-b-neutral-900"
-        >
-          {collection[index]?.urlName} <GoArrowRight />
-        </Link>
+        <StyledLink
+          destination={collection[index]?.url}
+          name={collection[index]?.urlName}
+        />
       </div>
     </div>
   ));
