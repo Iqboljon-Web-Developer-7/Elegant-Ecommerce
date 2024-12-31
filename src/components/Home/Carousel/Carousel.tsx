@@ -19,27 +19,26 @@ import { LazyLoadImage } from "./CarouselLazyLoading";
 import "./css/embla.css";
 
 const EmblaCarousel: React.FC = () => {
-  const [slides, setSlides] = useState<slideType[]>([]);
   const [filteredSlides, setFilteredSlides] = useState<slideType[]>([]);
   const [slidesError, setSlidesError] = useState("");
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const { toast } = useToast();
 
+  const winwodWidth = window.innerWidth;
+
   useEffect(() => {
     client
       .fetch(SANITY_SLIDES_QUERY)
-      .then((data) => setSlides(data))
+      .then((data) => {
+        const filtered = data?.filter(
+          (item: slideType) =>
+            (winwodWidth <= 768 && item?.media === "mobile") ||
+            (winwodWidth > 768 && item?.media === "desktop")
+        );
+        setFilteredSlides(filtered);
+      })
       .catch((err) => setSlidesError(err.message));
   }, []);
-
-  useEffect(() => {
-    const filtered = slides.filter(
-      (item) =>
-        (window.innerWidth <= 768 && item?.media === "mobile") ||
-        (window.innerWidth > 768 && item?.media === "desktop")
-    );
-    setFilteredSlides(filtered);
-  }, [slides]);
 
   useEffect(() => {
     if (slidesError) {
@@ -79,7 +78,7 @@ const EmblaCarousel: React.FC = () => {
       <div
         className="w-full h-full bg-sky-50 animate-pulse"
         style={{
-          aspectRatio: window.innerWidth <= 768 ? "16 / 9" : "3 / 1",
+          aspectRatio: winwodWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       ></div>
     </div>
@@ -92,7 +91,7 @@ const EmblaCarousel: React.FC = () => {
         key={index}
         className="embla__slide flex justify-center items-center"
         style={{
-          aspectRatio: window.innerWidth <= 768 ? "16 / 9" : "3 / 1",
+          aspectRatio: winwodWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       >
         <LazyLoadImage

@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from "react";
 
-import PLACEHOLDER_SRC from "@/assets/mainCarousel/carousel-placeholder-img.jpg";
-
 type PropType = {
   imgSrc: string;
   inView: boolean;
@@ -27,9 +25,9 @@ export const LazyLoadImage: React.FC<PropType> = (props) => {
         <img
           className="embla__slide__img embla__lazy-load__img"
           onLoad={setLoaded}
-          src={inView ? imgSrc : PLACEHOLDER_SRC}
+          // @ts-ignore
+          src={inView && imgSrc}
           alt="Your alt text"
-          data-src={imgSrc}
         />
       </div>
     </div>
