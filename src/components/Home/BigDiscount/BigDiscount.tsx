@@ -6,6 +6,7 @@ const BigDiscount = () => {
     <div className="flex items-center bg-neutral-200 gap-[6%] flex-col md:flex-row">
       <div className="w-full md:w-1/2">
         <img
+          style={{ aspectRatio: "4 / 3" }}
           src={discountImage}
           alt="Person wearing a red winter jacket"
           className="w-full h-auto object-cover"
