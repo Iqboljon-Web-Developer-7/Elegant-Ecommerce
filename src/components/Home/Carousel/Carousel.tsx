@@ -73,23 +73,22 @@ const EmblaCarousel: React.FC = () => {
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
 
-  
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
-  useDotButton(emblaApi);
-  
+    useDotButton(emblaApi);
+
   const {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-  
+
   const PlaceholderSlide = () => (
     <div className="embla__slide flex justify-center items-center">
       <div
         className="w-full h-full bg-sky-50 animate-pulse"
         style={{
-          aspectRatio: isMobile ? "16 / 9" : "3 / 1",
+          aspectRatio: window.innerWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       ></div>
     </div>

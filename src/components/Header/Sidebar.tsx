@@ -1,5 +1,3 @@
-import { Calendar, Home, Inbox, Search } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -12,39 +10,35 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import { IoMdClose } from "react-icons/io";
 import { SearchForm } from "./SidebarSearch";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import CartIcon from "@/assets/icons/cart.svg";
-import { IoHeartOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
-import { CiInstagram } from "react-icons/ci";
 
-import { FaRegCircleUser } from "react-icons/fa6";
-import { RiFacebookFill } from "react-icons/ri";
-import { PiYoutubeLogoLight } from "react-icons/pi";
+import UserIcon from "@/assets/icons/user.svg";
+import InstagramIcon from "@/assets/icons/instagram.svg";
+import FacebookIcon from "@/assets/icons/facebook.svg";
+import YoutubeIcon from "@/assets/icons/youtube.svg";
+import HeartIcon from "@/assets/icons/heart.svg";
 
-// Menu items.
+import { IoHeartOutline } from "react-icons/io5";
+
 const items = [
   {
     title: "Home",
     url: "/",
-    icon: Home,
   },
   {
     title: "Shop",
     url: "/shop",
-    icon: Inbox,
   },
   {
     title: "Product",
     url: "/product",
-    icon: Calendar,
   },
   {
     title: "Contact Us",
     url: "/contact",
-    icon: Search,
   },
 ];
 
@@ -67,7 +61,9 @@ export function HeaderSidebar() {
         <SidebarGroup className="h-full">
           <SidebarGroupLabel className="flex items-center justify-between text-black">
             Elegant
-            <IoMdClose className="cursor-pointer" onClick={toggleSidebar} />
+            <span className="cursor-pointer" onClick={toggleSidebar}>
+              X
+            </span>
           </SidebarGroupLabel>
           <SearchForm />
           <SidebarGroupContent>
@@ -103,7 +99,12 @@ export function HeaderSidebar() {
               >
                 Wishlist
                 <div className="flex items-center justify-center gap-1">
-                  <IoHeartOutline className="text-xl" />
+                  <img
+                    src={HeartIcon}
+                    alt="heart icon"
+                    width={22}
+                    height={22}
+                  />
                   <p className="w-4 h-4 rounded-full bg-black text-[.6rem] font-bold text-white flex items-center justify-center">
                     2
                   </p>
@@ -114,7 +115,7 @@ export function HeaderSidebar() {
           {user ? (
             <div className="flex items-center justify-between py-3">
               <div className="flex items-center justify-center gap-3">
-                <FaRegCircleUser />
+                <img src={UserIcon} alt="sidebar icon" />
                 <div>
                   <h4 className="text-sm">{user?.username}</h4>
                   <p className="text-xs">
@@ -134,9 +135,9 @@ export function HeaderSidebar() {
             </Button>
           )}
           <div className="sidebar__links flex items-center gap-3 text-xl mt-2">
-            <CiInstagram />
-            <RiFacebookFill />
-            <PiYoutubeLogoLight />
+            <img src={InstagramIcon} alt="sidebar icon" />
+            <img src={FacebookIcon} alt="sidebar icon" />
+            <img src={YoutubeIcon} alt="sidebar icon" />
           </div>
         </SidebarGroup>
       </SidebarContent>

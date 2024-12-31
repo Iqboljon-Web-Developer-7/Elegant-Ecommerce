@@ -18,7 +18,7 @@ const Home = () => {
       <div className="container-2xl">
         <BigDiscount />
       </div>
-      <div className="container-2xl">
+      <div className="container-xl">
         <Features />
         <InstagramFeed />
       </div>

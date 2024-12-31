@@ -29,7 +29,7 @@ const Features = () => {
 
   return (
     <div className="mt-8 py-8 px-1 md:px-1">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
         {features.map((feature, index) => (
           <div
             key={index}

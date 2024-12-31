@@ -3,7 +3,7 @@ import StyledLink from "@/styledComponents/StyledLink";
 
 const BigDiscount = () => {
   return (
-    <div className="flex items-center bg-gray-100 gap-[6%] flex-col md:flex-row">
+    <div className="flex items-center bg-neutral-200 gap-[6%] flex-col md:flex-row">
       <div className="w-full md:w-1/2">
         <img
           src={discountImage}

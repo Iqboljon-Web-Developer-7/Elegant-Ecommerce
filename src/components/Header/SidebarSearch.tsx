@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
+import SearchIcon from "@/assets/icons/search.svg";
 
 const formSchema = z.object({
   search: z.string().min(4, {
@@ -38,11 +38,16 @@ export function SearchForm() {
           name="search"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center gap-3 border border-slate-900 rounded-lg">
-                <SearchIcon className="bg-black h-full self-stretch " />
+              <div className="ps-3 flex items-center gap-3 border border-slate-900 rounded-lg">
+                <img
+                  width={18}
+                  height={18}
+                  src={SearchIcon}
+                  alt="search icon"
+                />
                 <FormControl>
                   <Input
-                    className="text-sm border-transparent !outline-transparent"
+                    className="text-sm focus-visible:ring-0 ring-slate-50"
                     placeholder="Search"
                     {...field}
                   />

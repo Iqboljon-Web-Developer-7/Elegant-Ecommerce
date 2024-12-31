@@ -20,11 +20,11 @@ const Products = () => {
   }, []);
 
   const SkeletonLoader = () => (
-    <div className="flex items-center gap-6 overflow-x-auto">
-      {Array.from({ length: 3 }).map((_, index) => (
+    <div className="mb-16 pt-1 flex items-center gap-6 overflow-x-auto">
+      {Array.from({ length: 5 }).map((_, index) => (
         <div
           key={index}
-          className="flex flex-col flex-grow animate-pulse items-start bg-white p-3 rounded-lg shadow-md flex-shrink-0"
+          className="min-w-72 flex flex-col flex-grow animate-pulse items-start bg-white p-3 rounded-lg shadow-md flex-shrink-0"
         >
           <div className="w-full h-64 bg-gray-200 rounded-md"></div>
           <div className="w-12 h-6 bg-gray-200 mt-3 rounded"></div>
