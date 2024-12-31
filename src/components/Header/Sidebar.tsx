@@ -21,8 +21,6 @@ import FacebookIcon from "@/assets/icons/facebook.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 import HeartIcon from "@/assets/icons/heart.svg";
 
-import { IoHeartOutline } from "react-icons/io5";
-
 const items = [
   {
     title: "Home",
