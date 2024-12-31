@@ -43,7 +43,7 @@ export function SearchForm() {
                   width={18}
                   height={18}
                   src={SearchIcon}
-                  alt="search icon"
+                  alt="search-button"
                 />
                 <FormControl>
                   <Input

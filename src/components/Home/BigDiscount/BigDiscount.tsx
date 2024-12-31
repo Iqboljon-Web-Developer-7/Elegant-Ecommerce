@@ -1,5 +1,5 @@
-import discountImage from "@/assets/discount-add/discount-add.png";
 import StyledLink from "@/styledComponents/StyledLink";
+import discountImage from "@/assets/discount-add/discount-add.webp";
 
 const BigDiscount = () => {
   return (
