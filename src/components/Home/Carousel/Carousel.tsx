@@ -22,33 +22,24 @@ const EmblaCarousel: React.FC = () => {
   const [slides, setSlides] = useState<slideType[]>([]);
   const [filteredSlides, setFilteredSlides] = useState<slideType[]>([]);
   const [slidesError, setSlidesError] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const { toast } = useToast();
-
-  const updateScreenSize = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
 
   useEffect(() => {
     client
       .fetch(SANITY_SLIDES_QUERY)
       .then((data) => setSlides(data))
       .catch((err) => setSlidesError(err.message));
-
-    updateScreenSize();
-    window.addEventListener("resize", updateScreenSize);
-    return () => window.removeEventListener("resize", updateScreenSize);
   }, []);
 
   useEffect(() => {
     const filtered = slides.filter(
       (item) =>
-        (isMobile && item?.media === "mobile") ||
-        (!isMobile && item?.media === "desktop")
+        (window.innerWidth <= 768 && item?.media === "mobile") ||
+        (window.innerWidth > 768 && item?.media === "desktop")
     );
     setFilteredSlides(filtered);
-  }, [slides, isMobile]);
+  }, [slides]);
 
   useEffect(() => {
     if (slidesError) {
@@ -101,7 +92,7 @@ const EmblaCarousel: React.FC = () => {
         key={index}
         className="embla__slide flex justify-center items-center"
         style={{
-          aspectRatio: isMobile ? "16 / 9" : "3 / 1",
+          aspectRatio: window.innerWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       >
         <LazyLoadImage
