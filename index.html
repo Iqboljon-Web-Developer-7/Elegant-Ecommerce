@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="keywords"
@@ -12,6 +11,7 @@
       name="description"
       content="Welcome to Elegant, where style meets simplicity! Discover an elegantly designed e-commerce platform that blends aesthetics with functionality, offering a seamless shopping experience."
     />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <title>Elegant</title>
 
     <!-- Preloading Google font links -->
@@ -47,13 +47,15 @@
     <link
       rel="preload"
       as="image"
+      media="screen and (max-device-width: 768px)"
       href="https://cdn.sanity.io/images/kvpqppgu/production/56b6743b48e8354259335f000b9b9f2ac72bebf9-1152x640.webp"
     />
-    <!-- <link
+    <link
       rel="preload"
       as="image"
+      media="screen and (min-device-width: 768px)"
       href="https://cdn.sanity.io/images/kvpqppgu/production/7f0f6a0bc071303e090260cdaf7084f15bfd28dc-1350x450.webp"
-    /> -->
+    />
   </head>
   <body class="poppins">
     <div id="root"></div>

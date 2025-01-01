@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { client } from "@/utils/Client";
 import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,13 +11,35 @@ import StyledLink from "@/styledComponents/StyledLink";
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productsError, setProductsError] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    client
-      .fetch(SANITY_PRODUCTS_QUERY(0, 20))
-      .then((res) => setProducts(res))
-      .catch((error) => setProductsError(error.message));
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      client
+        .fetch(SANITY_PRODUCTS_QUERY(0, 20))
+        .then((res) => setProducts(res))
+        .catch((error) => setProductsError(error.message));
+    }
+  }, [isVisible]);
 
   const SkeletonLoader = () => (
     <div className="mb-16 pt-1 flex items-center gap-6 overflow-x-auto">
@@ -47,31 +69,35 @@ const Products = () => {
   ));
 
   return (
-    <div className="products mb-6">
-      <div className="products__info my-12 flex items-end justify-between">
-        <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
-          New Arrival
-        </h3>
-        <StyledLink destination={"/products"} name="More Products" />
-      </div>
-      {productsError && <NoInternet />}
-      {!productsError && (
-        <Swiper
-          spaceBetween={8}
-          slidesPerView={1.3}
-          breakpoints={{
-            400: { slidesPerView: 2, spaceBetween: 8 },
-            640: { slidesPerView: 3, spaceBetween: 10 },
-            768: { slidesPerView: 4, spaceBetween: 14 },
-            1024: { slidesPerView: 4.5, spaceBetween: 24 },
-          }}
-          scrollbar={{ hide: true }}
-          modules={[Scrollbar]}
-          className="mySwiper"
-        >
-          {SwiperContents}
-          {products?.length <= 0 && <SkeletonLoader />}
-        </Swiper>
+    <div ref={sectionRef} className="products mb-6">
+      {isVisible && (
+        <>
+          <div className="products__info my-12 flex items-end justify-between">
+            <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
+              New Arrival
+            </h3>
+            <StyledLink destination={"/products"} name="More Products" />
+          </div>
+          {productsError && <NoInternet />}
+          {!productsError && (
+            <Swiper
+              spaceBetween={8}
+              slidesPerView={1.3}
+              breakpoints={{
+                400: { slidesPerView: 2, spaceBetween: 8 },
+                640: { slidesPerView: 3, spaceBetween: 10 },
+                768: { slidesPerView: 4, spaceBetween: 14 },
+                1024: { slidesPerView: 4.5, spaceBetween: 24 },
+              }}
+              scrollbar={{ hide: true }}
+              modules={[Scrollbar]}
+              className="mySwiper"
+            >
+              {SwiperContents}
+              {products?.length <= 0 && <SkeletonLoader />}
+            </Swiper>
+          )}
+        </>
       )}
     </div>
   );
