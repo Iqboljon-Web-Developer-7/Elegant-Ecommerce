@@ -39,7 +39,7 @@ const Header = () => {
         {Links}
       </div>
       <div className="header__icons flex items-center justify-center gap-4 md:gap-4">
-        <Link to={"/search"}>
+        <Link to={"/search"} aria-label="Search products">
           <img
             src={SearchIcon}
             alt="Search button"
