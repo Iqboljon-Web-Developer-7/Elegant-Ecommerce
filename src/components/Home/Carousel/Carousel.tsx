@@ -14,13 +14,11 @@ import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 import { slideType } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
 
-import NoInternet from "@/components/noInternet";
 import { LazyLoadImage } from "./CarouselLazyLoading";
 import "./css/embla.css";
 
 const EmblaCarousel: React.FC = () => {
   const [filteredSlides, setFilteredSlides] = useState<slideType[]>([]);
-  const [slidesError, setSlidesError] = useState("");
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const { toast } = useToast();
 
@@ -37,18 +35,17 @@ const EmblaCarousel: React.FC = () => {
         );
         setFilteredSlides(filtered);
       })
-      .catch((err) => setSlidesError(err.message));
-  }, []);
-
-  useEffect(() => {
-    if (slidesError) {
-      toast({
-        title: "Check internet connection!",
-        description: "Try to check your internet and then refresh the page!",
-        variant: "destructive",
+      .catch((err) => {
+        if (err) {
+          toast({
+            title: "Check internet connection!",
+            description:
+              "Try to check your internet and then refresh the page!",
+            variant: "destructive",
+          });
+        }
       });
-    }
-  }, [slidesError]);
+  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
@@ -113,10 +110,6 @@ const EmblaCarousel: React.FC = () => {
       )}
     />
   ));
-
-  if (slidesError) {
-    return <NoInternet />;
-  }
 
   return (
     <div className="embla relative">
