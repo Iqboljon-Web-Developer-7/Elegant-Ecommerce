@@ -24,7 +24,7 @@ const EmblaCarousel: React.FC = () => {
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const { toast } = useToast();
 
-  const winwodWidth = window.innerWidth;
+  const windowWidth = window.innerWidth;
 
   useEffect(() => {
     client
@@ -32,8 +32,8 @@ const EmblaCarousel: React.FC = () => {
       .then((data) => {
         const filtered = data?.filter(
           (item: slideType) =>
-            (winwodWidth <= 768 && item?.media === "mobile") ||
-            (winwodWidth > 768 && item?.media === "desktop")
+            (windowWidth <= 768 && item?.media === "mobile") ||
+            (windowWidth > 768 && item?.media === "desktop")
         );
         setFilteredSlides(filtered);
       })
@@ -78,7 +78,7 @@ const EmblaCarousel: React.FC = () => {
       <div
         className="w-full h-full bg-sky-50 animate-pulse"
         style={{
-          aspectRatio: winwodWidth <= 768 ? "16 / 9" : "3 / 1",
+          aspectRatio: windowWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       ></div>
     </div>
@@ -91,7 +91,7 @@ const EmblaCarousel: React.FC = () => {
         key={index}
         className="embla__slide flex justify-center items-center"
         style={{
-          aspectRatio: winwodWidth <= 768 ? "16 / 9" : "3 / 1",
+          aspectRatio: windowWidth <= 768 ? "16 / 9" : "3 / 1",
         }}
       >
         <LazyLoadImage
