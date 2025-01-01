@@ -99,7 +99,7 @@
 
 ::-webkit-scrollbar {
   width: 0.4rem;
-  height: 0.5rem;
+  height: 0.35rem;
   background-color: rgb(238, 238, 238);
 }
 ::-webkit-scrollbar-thumb {

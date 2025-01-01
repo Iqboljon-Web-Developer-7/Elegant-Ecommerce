@@ -50,12 +50,14 @@ const InstagramFeed = () => {
             )}
             <img
               src={image}
+              loading="lazy"
+              width={262}
+              height={262}
               alt={`Instagram Post ${index + 1}`}
               className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${
                 loading[index] ? "opacity-0" : "opacity-100"
               }`}
               onLoad={() => handleImageLoad(index)}
-              loading="lazy"
             />
           </div>
         ))}

@@ -1,6 +1,7 @@
 import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 const App = lazy(() => import("./App.tsx"));
 
@@ -11,7 +12,6 @@ import { store } from "./redux/index.ts";
 import { Toaster } from "@/components/ui/toaster";
 import Loading from "./loading.tsx";
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
@@ -21,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
         </Suspense>
       </Provider>
       <Toaster />
+      <Analytics />
     </BrowserRouter>
   </StrictMode>
 );
