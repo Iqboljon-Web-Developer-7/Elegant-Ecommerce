@@ -1,4 +1,4 @@
-import EmblaCarousel from "@/components/Home/Carousel/Carousel";
+// import EmblaCarousel from "@/components/Home/Carousel/Carousel";
 import SimpleHeading from "@/components/Home/SimpleHeading/SimpleHeading";
 import ShopCollection from "@/components/Home/ShopCollection/ShopCollection";
 import Products from "@/components/Products/Products";
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <div className="container-xl">
-        <EmblaCarousel />
+        {/* <EmblaCarousel /> */}
         <SimpleHeading />
         <ShopCollection />
         <Products />
