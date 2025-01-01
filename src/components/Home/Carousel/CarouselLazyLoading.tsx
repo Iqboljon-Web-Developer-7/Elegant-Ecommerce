@@ -28,6 +28,7 @@ export const LazyLoadImage: React.FC<PropType> = (props) => {
           // @ts-ignore
           src={inView && imgSrc}
           alt="Your alt text"
+          loading="lazy"
         />
       </div>
     </div>

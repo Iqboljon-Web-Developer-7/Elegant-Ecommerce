@@ -40,7 +40,11 @@ const Header = () => {
       </div>
       <div className="header__icons flex items-center justify-center gap-4 md:gap-4">
         <Link to={"/search"}>
-          <img src={SearchIcon} alt="search-icon" className="hidden md:block" />
+          <img
+            src={SearchIcon}
+            alt="Search button"
+            className="hidden md:block"
+          />
         </Link>
         <img src={UserIcont} alt="user-icon" className="hidden md:block" />
         <div className="flex items-center justify-center gap-1">

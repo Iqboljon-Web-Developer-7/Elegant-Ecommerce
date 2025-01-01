@@ -10,6 +10,7 @@ const BigDiscount = () => {
           src={discountImage}
           alt="Person wearing a red winter jacket"
           className="w-full h-auto object-cover"
+          loading="lazy"
         />
       </div>
 

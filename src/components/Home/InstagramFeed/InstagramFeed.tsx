@@ -55,6 +55,7 @@ const InstagramFeed = () => {
                 loading[index] ? "opacity-0" : "opacity-100"
               }`}
               onLoad={() => handleImageLoad(index)}
+              loading="lazy"
             />
           </div>
         ))}
