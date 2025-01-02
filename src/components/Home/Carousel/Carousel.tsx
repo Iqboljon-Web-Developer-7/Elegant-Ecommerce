@@ -8,44 +8,16 @@ import {
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 
-import { client, urlFor } from "@/utils/Client";
-import { SANITY_SLIDES_QUERY } from "@/utils/Data";
-
 import { slideType } from "@/lib/types";
-import { useToast } from "@/hooks/use-toast";
 
 import { LazyLoadImage } from "./CarouselLazyLoading";
 import "./css/embla.css";
+import { urlFor } from "@/utils/Client";
 
-const EmblaCarousel: React.FC = () => {
-  const [filteredSlides, setFilteredSlides] = useState<slideType[]>([]);
+const EmblaCarousel: React.FC<{ slides: slideType[] }> = ({ slides }) => {
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
-  const { toast } = useToast();
 
   const windowWidth = window.innerWidth;
-
-  useEffect(() => {
-    client
-      .fetch(SANITY_SLIDES_QUERY)
-      .then((data) => {
-        const filtered = data?.filter(
-          (item: slideType) =>
-            (windowWidth <= 768 && item?.media === "mobile") ||
-            (windowWidth > 768 && item?.media === "desktop")
-        );
-        setFilteredSlides(filtered);
-      })
-      .catch((err) => {
-        if (err) {
-          toast({
-            title: "Check internet connection!",
-            description:
-              "Try to check your internet and then refresh the page!",
-            variant: "destructive",
-          });
-        }
-      });
-  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
@@ -62,7 +34,6 @@ const EmblaCarousel: React.FC = () => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
-
   const {
     prevBtnDisabled,
     nextBtnDisabled,
@@ -88,6 +59,13 @@ const EmblaCarousel: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+
+  // Filter slides based on window size (mobile or desktop)
+  const filteredSlides = slides.filter(
+    (item) =>
+      (windowWidth <= 768 && item?.media === "mobile") ||
+      (windowWidth > 768 && item?.media === "desktop")
   );
 
   const Slides = filteredSlides.map((item, index) => {

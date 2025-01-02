@@ -5,6 +5,7 @@ import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
 import Features from "@/components/Home/Features/Features";
+import { ContactForm } from "@/components/ContactUs/ContactForm";
 
 const ContactUs = () => {
   const features = [
@@ -93,6 +94,53 @@ const ContactUs = () => {
       <div className="container-2xl bg-neutral-200">
         <div className="container-xl">
           <Features />
+        </div>
+      </div>
+      <div className="container-xl py-10 grid grid-cols-2 gap-[5%] items-center">
+        <ContactForm />
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          <a
+            href="https://yandex.uz/maps/org/94800077397/?utm_medium=mapframe&utm_source=maps"
+            style={{
+              color: "#eee",
+              fontSize: "12px",
+              position: "absolute",
+              top: "0px",
+            }}
+          >
+            Najot Ta'lim Chilonzor filiali
+          </a>
+          <a
+            href="https://yandex.uz/maps/10335/tashkent/category/educational_center/184106168/?utm_medium=mapframe&utm_source=maps"
+            style={{
+              color: "#eee",
+              fontSize: "12px",
+              position: "absolute",
+              top: "14px",
+            }}
+          >
+            O‘quv markazi Toshkentda
+          </a>
+          <a
+            href="https://yandex.uz/maps/10335/tashkent/category/computer_courses/184106158/?utm_medium=mapframe&utm_source=maps"
+            style={{
+              color: "#eee",
+              fontSize: "12px",
+              position: "absolute",
+              top: "28px",
+            }}
+          >
+            Kompyuter kurslari Toshkentda
+          </a>
+          <iframe
+            src="https://yandex.uz/map-widget/v1/?ll=69.203532%2C41.285835&mode=search&oid=94800077397&ol=biz&z=16.81"
+            width="580"
+            height="400"
+            frameBorder="1"
+            allowFullScreen
+            style={{ position: "relative" }}
+            title="Yandex Map"
+          ></iframe>
         </div>
       </div>
     </>

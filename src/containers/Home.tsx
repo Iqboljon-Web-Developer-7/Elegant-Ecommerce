@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import EmblaCarousel from "@/components/Home/Carousel/Carousel";
 import SimpleHeading from "@/components/Home/SimpleHeading/SimpleHeading";
 import ShopCollection from "@/components/Home/ShopCollection/ShopCollection";
@@ -8,14 +9,53 @@ import discountImage from "@/assets/discount-add/discount-add.webp";
 import Banner from "@/styledComponents/Banner";
 import StyledLink from "@/styledComponents/StyledLink";
 
+import { client } from "@/utils/Client";
+import {
+  SANITY_SLIDES_QUERY,
+  SANITY_COLLECTIONS_QUERY,
+  SANITY_PRODUCTS_QUERY,
+} from "@/utils/Data";
+
 const Home = () => {
+  const [data, setData] = useState({
+    slides: [],
+    collections: [],
+    products: [],
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [slidesData, collectionsData, productsData] = await Promise.all([
+          client.fetch(SANITY_SLIDES_QUERY),
+          client.fetch(SANITY_COLLECTIONS_QUERY),
+          client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
+        ]);
+
+        setData({
+          slides: slidesData,
+          collections: collectionsData,
+          products: productsData,
+        });
+      } catch (error) {
+        setError("Error fetching data. Please try again later.");
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(11111);
+
   return (
     <>
       <div className="container-xl">
-        <EmblaCarousel />
+        <EmblaCarousel slides={data?.slides} />
         <SimpleHeading />
-        <ShopCollection />
-        <Products />
+        <ShopCollection collections={data.collections} />
+        <Products products={data.products} />
       </div>
       <div className="container-2xl">
         <Banner img={discountImage}>
@@ -39,6 +79,7 @@ const Home = () => {
         <Features />
         <InstagramFeed />
       </div>
+      {error && <div className="error">{error}</div>}
     </>
   );
 };
