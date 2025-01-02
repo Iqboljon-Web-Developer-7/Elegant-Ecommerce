@@ -31,7 +31,7 @@ const ShopCollection: FC<{ collections: collectionType[] }> = ({
         Shop Collection
       </h2>
       <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
-        {collections.length >= 1 ? Collections : <SkeletonLoader count={3} />}
+        {collections.length ? Collections : <SkeletonLoader count={3} />}
       </div>
     </div>
   );

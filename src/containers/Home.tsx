@@ -25,29 +25,32 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       try {
-        const [slidesData, collectionsData, productsData] = await Promise.all([
-          client.fetch(SANITY_SLIDES_QUERY),
+        const slidesData = await client.fetch(SANITY_SLIDES_QUERY);
+        setData((prevData) => ({
+          ...prevData,
+          slides: slidesData,
+        }));
+
+        const [collectionsData, productsData] = await Promise.all([
           client.fetch(SANITY_COLLECTIONS_QUERY),
           client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
         ]);
 
-        setData({
-          slides: slidesData,
+        setData((prevData) => ({
+          ...prevData,
           collections: collectionsData,
           products: productsData,
-        });
+        }));
       } catch (error) {
         setError("Error fetching data. Please try again later.");
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
+    fetchInitialData();
   }, []);
-
-  console.log(11111);
 
   return (
     <>

@@ -154,26 +154,38 @@
 }
 
 .loader2 {
-  width: 35px;
-  aspect-ratio: 1;
-  --_g: no-repeat radial-gradient(farthest-side, #000 94%, #0000);
-  background:
-    var(--_g) 0 0,
-    var(--_g) 100% 0,
-    var(--_g) 100% 100%,
-    var(--_g) 0 100%;
-  background-size: 40% 40%;
-  animation: l38 0.5s infinite;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow:
+    32px 0 #fff,
+    -32px 0 #fff;
+  position: relative;
+  animation: flash 0.5s ease-out infinite alternate;
 }
-@keyframes l38 {
+
+@keyframes flash {
+  0% {
+    background-color: #fff2;
+    box-shadow:
+      32px 0 #fff2,
+      -32px 0 #fff;
+  }
+  50% {
+    background-color: #fff;
+    box-shadow:
+      32px 0 #fff2,
+      -32px 0 #fff2;
+  }
   100% {
-    background-position:
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 0;
+    background-color: #fff2;
+    box-shadow:
+      32px 0 #fff,
+      -32px 0 #fff2;
   }
 }
+
 /* Loaders end */
 
 /* Configuration start */

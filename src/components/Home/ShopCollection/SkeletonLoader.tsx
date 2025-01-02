@@ -5,7 +5,7 @@ const SkeletonLoader = ({ count = 1 }: { count: number }) => {
         <div
           key={index}
           className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${
-            index === 0 && "row-span-2 min-h-96 bg-top"
+            index === 0 && "row-span-2 md:min-h-96 bg-top"
           } animate-pulse`}
         >
           <div className="absolute bottom-10 left-10 grid space-y-4">
