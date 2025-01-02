@@ -61,31 +61,30 @@ const EmblaCarousel: React.FC<{ slides: slideType[] }> = ({ slides }) => {
     </div>
   );
 
-  // Filter slides based on window size (mobile or desktop)
-  const filteredSlides = slides.filter(
-    (item) =>
-      (windowWidth <= 768 && item?.media === "mobile") ||
-      (windowWidth > 768 && item?.media === "desktop")
-  );
-
-  const Slides = filteredSlides.map((item, index) => {
-    const image = `${urlFor(item?.images?.asset?._ref)}`;
-    return (
-      <div
-        key={index}
-        className="embla__slide flex justify-center items-center"
-        style={{
-          aspectRatio: windowWidth <= 768 ? "16 / 9" : "3 / 1",
-        }}
-      >
-        <LazyLoadImage
-          index={index}
-          imgSrc={image}
-          inView={slidesInView.includes(index)}
-        />
-      </div>
-    );
-  });
+  const Slides = slides
+    .filter(
+      (item) =>
+        (windowWidth <= 768 && item?.media === "mobile") ||
+        (windowWidth > 768 && item?.media === "desktop")
+    )
+    .map((item, index) => {
+      const image = `${urlFor(item?.images?.asset?._ref)}`;
+      return (
+        <div
+          key={index}
+          className="embla__slide flex justify-center items-center"
+          style={{
+            aspectRatio: windowWidth <= 768 ? "16 / 9" : "3 / 1",
+          }}
+        >
+          <LazyLoadImage
+            index={index}
+            imgSrc={image}
+            inView={slidesInView.includes(index)}
+          />
+        </div>
+      );
+    });
 
   const Dots = scrollSnaps.map((_, index) => (
     <DotButton
