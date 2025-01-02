@@ -10,14 +10,14 @@ import { DotButton, useDotButton } from "./CarouselDotButtons";
 
 import { slideType } from "@/lib/types";
 
-// import { LazyLoadImage } from "./CarouselLazyLoading";
+import { LazyLoadImage } from "./CarouselLazyLoading";
 import "./css/embla.css";
 import { urlFor } from "@/utils/Client";
 import PlaceholderSlide from "./Loading";
 
 const EmblaCarousel: React.FC<{ slides: slideType[] }> = React.memo(
   ({ slides }) => {
-    const [_, setSlidesInView] = useState<number[]>([]);
+    const [slidesInView, setSlidesInView] = useState<number[]>([]);
     const windowWidth = window.innerWidth;
 
     const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -55,12 +55,11 @@ const EmblaCarousel: React.FC<{ slides: slideType[] }> = React.memo(
             key={index}
             className="embla__slide flex justify-center items-center"
           >
-            <img src={image} alt="" loading="lazy" />
-            {/* <LazyLoadImage
+            <LazyLoadImage
               index={index}
               imgSrc={image}
               inView={slidesInView.includes(index)}
-            /> */}
+            />
           </div>
         );
       });
