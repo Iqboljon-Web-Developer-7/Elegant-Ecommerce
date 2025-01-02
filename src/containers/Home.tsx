@@ -23,8 +23,6 @@ const Home = () => {
     products: [],
   });
   const [error, setError] = useState<string | null>(null);
-  console.log("");
-
   useEffect(() => {
     const fetchInitialData = async () => {
       try {

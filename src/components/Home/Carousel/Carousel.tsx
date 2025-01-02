@@ -49,14 +49,11 @@ const EmblaCarousel: React.FC<{ slides: slideType[] }> = React.memo(
           (windowWidth > 768 && item?.media === "desktop")
       )
       .map((item, index) => {
-        const image = `${urlFor(item?.images?.asset?._ref)}`;
+        const image = `${urlFor(item?.images?.asset?._ref).auto("format")}`;
         return (
           <div
             key={index}
             className="embla__slide flex justify-center items-center"
-            style={{
-              aspectRatio: windowWidth <= 768 ? "16 / 9" : "3 / 1",
-            }}
           >
             <LazyLoadImage
               index={index}
