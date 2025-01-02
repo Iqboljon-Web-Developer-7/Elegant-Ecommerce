@@ -50,18 +50,19 @@ const CarouselItem = ({ product }: { product: Product }) => {
   return (
     <div className="flex items-start justify-start flex-col gap-3">
       <div
-        className="product__main w-full h-full relative group flex-grow"
+        className="product__main w-full h-full relative group flex-grow bg-red-500"
         onMouseMove={(e) =>
           handleMouseMove(e, product._id, product.images.slice(0, 5).length)
         }
       >
         <div
-          className="min-h-80 bg-neutral-200 flex items-center justify-center overflow-hidden bg-cover bg-center"
+          className="min-h-80 bg-neutral-50 flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url(${getImageUrl(
               product,
               hoveredImageIndex[product._id] || 0
             )})`,
+            backgroundSize: "80%",
           }}
         ></div>
 
@@ -118,11 +119,11 @@ const CarouselItem = ({ product }: { product: Product }) => {
         </p>
         <p className="flex gap-2 text-sm">
           <span className="font-semibold text-neutral-700">
-            ${product.price.toFixed(2)}
+            ${product.salePrice.toFixed(2)}
           </span>
-          {product.originalPrice && (
+          {product.price && (
             <span className="opacity-75 line-through text-neutral-400">
-              ${product.originalPrice.toFixed(2)}
+              ${product.price.toFixed(2)}
             </span>
           )}
         </p>

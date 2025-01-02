@@ -1,12 +1,19 @@
 import { useEffect, useState, useRef } from "react";
-import { client } from "@/utils/Client";
-import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
-import { Product } from "@/lib/types";
 import { Scrollbar } from "swiper/modules";
+
+import { client } from "@/utils/Client";
+import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
+
+import { Product } from "@/lib/types";
 import NoInternet from "../noInternet";
 import StyledLink from "@/styledComponents/StyledLink";
+
+// @ts-ignore
+import "swiper/css";
+// @ts-ignore
+import "swiper/css/scrollbar";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -84,9 +91,9 @@ const Products = () => {
               spaceBetween={8}
               slidesPerView={1.3}
               breakpoints={{
-                400: { slidesPerView: 2, spaceBetween: 8 },
+                440: { slidesPerView: 2, spaceBetween: 8 },
                 640: { slidesPerView: 3, spaceBetween: 10 },
-                768: { slidesPerView: 4, spaceBetween: 14 },
+                800: { slidesPerView: 4, spaceBetween: 14 },
                 1024: { slidesPerView: 4.5, spaceBetween: 24 },
               }}
               scrollbar={{ hide: true }}

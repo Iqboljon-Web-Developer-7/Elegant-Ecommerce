@@ -1,16 +1,39 @@
-import { useState } from "react";
+import { client, urlFor } from "@/utils/Client";
+import { SANITY_INSTAFEED_QUERY } from "@/utils/Data";
+import { useState, useEffect } from "react";
+
+interface imageType {
+  image: imageArray[];
+}
+interface imageArray {
+  asset: { _ref: string };
+}
 
 const InstagramFeed = () => {
-  const images = [
-    "https://picsum.photos/262/261",
-    "https://picsum.photos/262/262",
-    "https://picsum.photos/262/263",
-    "https://picsum.photos/262/264",
-  ];
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState<boolean[]>([]);
 
-  const [loading, setLoading] = useState<boolean[]>(
-    new Array(images.length).fill(true)
-  );
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await client.fetch(SANITY_INSTAFEED_QUERY);
+        const imageUrls = data.map(
+          (item: imageType) => item.image[0].asset?._ref
+        );
+
+        setImages(imageUrls);
+        setLoading((prev) =>
+          prev.length === imageUrls.length
+            ? prev
+            : new Array(imageUrls.length).fill(true)
+        );
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
 
   const handleImageLoad = (index: number) => {
     setLoading((prevState) => {
@@ -40,7 +63,7 @@ const InstagramFeed = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-6">
         {images.map((image, index) => (
           <div
-            key={index}
+            key={image} // Use stable keys
             className="overflow-hidden hover:shadow-md duration-200 relative"
           >
             {loading[index] && (
@@ -49,7 +72,7 @@ const InstagramFeed = () => {
               </div>
             )}
             <img
-              src={image}
+              src={`${urlFor(image).toString()}`}
               loading="lazy"
               width={262}
               height={262}

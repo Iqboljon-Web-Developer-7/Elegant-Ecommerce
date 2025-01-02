@@ -45,7 +45,7 @@ const Features = () => {
             <h5 className="text-base sm:text-[1.25rem] font-medium leading-5 sm:leading-[auto]">
               {feature.title}
             </h5>
-            <p className="text-xs sm:text-sm text-neutral-400 mt-2 sm:mt-1">
+            <p className="text-xs sm:text-sm text-neutral-400 mt-2 sm:mt-3">
               {feature.description}
             </p>
           </div>

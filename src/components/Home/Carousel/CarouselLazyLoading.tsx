@@ -25,8 +25,7 @@ export const LazyLoadImage: React.FC<PropType> = (props) => {
         <img
           className="embla__slide__img embla__lazy-load__img"
           onLoad={setLoaded}
-          // @ts-ignore
-          src={inView && imgSrc}
+          src={inView ? imgSrc : undefined}
           alt="Your alt text"
         />
       </div>

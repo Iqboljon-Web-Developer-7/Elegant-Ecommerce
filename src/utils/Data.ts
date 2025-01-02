@@ -14,10 +14,6 @@ export const SANITY_PRODUCTS_QUERY = (start = 0, end = 20) => {
     throw new Error('"start" cannot be greater than "end".');
   }
 
-  const MAX_PRODUCTS = 1000;
-  if (end > MAX_PRODUCTS) {
-    end = MAX_PRODUCTS;
-  }
-
   return `*[_type == "product"] | order(_id) [${start}...${end}]`;
 };
+export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;
