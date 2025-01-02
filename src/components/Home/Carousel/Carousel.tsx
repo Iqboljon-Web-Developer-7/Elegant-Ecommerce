@@ -49,7 +49,7 @@ const EmblaCarousel: React.FC<{ slides: slideType[] }> = React.memo(
           (windowWidth > 768 && item?.media === "desktop")
       )
       .map((item, index) => {
-        const image = `${urlFor(item?.images?.asset?._ref).auto("format")}`;
+        const image = `${urlFor(item?.images?.asset?._ref)}`;
         return (
           <div
             key={index}
