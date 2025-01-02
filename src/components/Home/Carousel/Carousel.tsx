@@ -55,11 +55,12 @@ const EmblaCarousel: React.FC<{ slides: slideType[] }> = React.memo(
             key={index}
             className="embla__slide flex justify-center items-center"
           >
-            <LazyLoadImage
+            <img src={image} alt="" />
+            {/* <LazyLoadImage
               index={index}
               imgSrc={image}
               inView={slidesInView.includes(index)}
-            />
+            /> */}
           </div>
         );
       });
