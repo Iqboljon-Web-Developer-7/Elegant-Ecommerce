@@ -16,8 +16,9 @@ import {
   SANITY_PRODUCTS_QUERY,
 } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { add } from "@/redux/slices/homePageData";
+import { ProductType } from "@/lib/types";
 
 const Home = () => {
   const { toast } = useToast();
@@ -26,15 +27,15 @@ const Home = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        // First Main carousel slides are fetched
         const slidesData = await client.fetch(SANITY_SLIDES_QUERY);
         dispatch(add({ key: "slides", value: slidesData }));
 
-        // then other two datas
         const [collectionsData, productsData] = await Promise.all([
           client.fetch(SANITY_COLLECTIONS_QUERY),
           client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
         ]);
+
+        console.log(productsData);
 
         dispatch(add({ key: "collections", value: collectionsData }));
         dispatch(add({ key: "products", value: productsData }));
@@ -47,15 +48,22 @@ const Home = () => {
     fetchInitialData();
   }, []);
 
+  const products = useSelector(
+    (state: { HomePageData: { products: ProductType[] } }) =>
+      state.HomePageData.products
+  );
+
   return (
     <>
       <div className="container-xl">
         <EmblaCarousel />
         <SimpleHeading />
         <ShopCollection />
-        <Products />
+        {/* Gets products as a prop because Products component used in another place too */}
+        <Products products={products} />
       </div>
       <div className="container-2xl">
+        {/* Banner component also used differently */}
         <Banner img={discountImage}>
           <p className="text-base text-secondary-blue font-bold uppercase inter">
             Sale up to 35% off

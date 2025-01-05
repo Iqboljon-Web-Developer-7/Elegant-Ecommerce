@@ -1,22 +1,15 @@
+import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
 import { Scrollbar } from "swiper/modules";
 
-import { Product } from "@/lib/types";
 import StyledLink from "@/styledComponents/StyledLink";
+import { ProductType } from "@/lib/types";
 
-// @ts-ignore
 import "swiper/css";
-// @ts-ignore
 import "swiper/css/scrollbar";
-import { useSelector } from "react-redux";
 
-const Products = () => {
-  const products = useSelector(
-    (state: { HomePageData: { products: Product[] } }) =>
-      state.HomePageData.products
-  );
-
+const Products: FC<{ products: ProductType[] }> = ({ products }) => {
   const SkeletonLoader = () => (
     <div className="mb-16 pt-1 flex items-center gap-6 overflow-x-auto">
       {Array.from({ length: 5 }).map((_, index) => (

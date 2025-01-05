@@ -1,0 +1,41 @@
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Main Swiper Styles */
+.mySwiperMain {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiperMain .swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+.mySwiperMain .swiper-button-prev,
+.mySwiperMain .swiper-button-next {
+  color: black;
+}
+
+/* Thumbnail Swiper Styles */
+.mySwiperThumbs {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiperThumbs .swiper-slide {
+  width: 25%;
+  height: 100%;
+  border: 1px solid transparent;
+  opacity: 0.8;
+  transition: all ease-in-out 200ms;
+}
+
+.mySwiperThumbs .swiper-slide-thumb-active {
+  border-color: black;
+  opacity: 1;
+}

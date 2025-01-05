@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import { SANITY_INSTAFEED_QUERY } from "@/utils/Data";
 import { client, urlFor } from "@/utils/Client";
-
-interface imageType {
-  image: imageArray[];
-}
-interface imageArray {
-  asset: { _ref: string };
-}
+import { imageType } from "@/lib/types";
 
 const InstagramFeed = () => {
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState<boolean[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -22,11 +15,6 @@ const InstagramFeed = () => {
         );
 
         setImages(imageUrls);
-        setLoading((prev) =>
-          prev.length === imageUrls.length
-            ? prev
-            : new Array(imageUrls.length).fill(true)
-        );
       } catch (error) {
         console.error("Error fetching images:", error);
       }
@@ -34,14 +22,6 @@ const InstagramFeed = () => {
 
     fetchImages();
   }, []);
-
-  const handleImageLoad = (index: number) => {
-    setLoading((prevState) => {
-      const newLoadingState = [...prevState];
-      newLoadingState[index] = false;
-      return newLoadingState;
-    });
-  };
 
   return (
     <div className="bg-white py-6 md:py-12 px-2 md:px-6">
@@ -66,21 +46,13 @@ const InstagramFeed = () => {
             key={image} // Use stable keys
             className="overflow-hidden hover:shadow-md duration-200 relative"
           >
-            {loading[index] && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                <div className="w-10 h-10 border-4 border-gray-300 border-t-gray-500 rounded-full animate-spin"></div>
-              </div>
-            )}
             <img
               src={`${urlFor(image).toString()}`}
               loading="lazy"
               width={262}
               height={262}
               alt={`Instagram Post ${index + 1}`}
-              className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${
-                loading[index] ? "opacity-0" : "opacity-100"
-              }`}
-              onLoad={() => handleImageLoad(index)}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
           </div>
         ))}

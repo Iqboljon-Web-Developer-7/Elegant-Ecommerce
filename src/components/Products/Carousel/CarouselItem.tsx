@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Product } from "@/lib/types";
+import { ProductType } from "@/lib/types";
 import { urlFor } from "@/utils/Client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { GoHeart } from "react-icons/go";
 import { IoStar } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-const CarouselItem = ({ product }: { product: Product }) => {
+const CarouselItem = ({ product }: { product: ProductType }) => {
+  const navigate = useNavigate();
+
+  // For showing different images of one product when mouse moves above it
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
@@ -15,6 +19,7 @@ const CarouselItem = ({ product }: { product: Product }) => {
     productId: number,
     imagesLength: number
   ) => {
+    if (imagesLength <= 0) return;
     const { left, width } = e.currentTarget.getBoundingClientRect();
     const hoverPosition = e.clientX - left;
     const hoverPercentage = (hoverPosition / width) * 100;
@@ -27,13 +32,15 @@ const CarouselItem = ({ product }: { product: Product }) => {
     setHoveredImageIndex((prev) => ({ ...prev, [productId]: imageIndex }));
   };
 
-  const getImageUrl = (product: Product, index: number): string => {
-    const imageRef = product.images[index]?.image?.asset?._ref;
+  const getImageUrl = (product: ProductType, index: number): string => {
+    const images = product?.images[0]?.images || [];
+    const imageRef = images[index]?.image?.asset?._ref;
+
     return imageRef
       ? urlFor(imageRef).url()
       : "https://via.placeholder.com/260x350";
   };
-  const isNew = (product: Product) => {
+  const isNew = (product: ProductType) => {
     const createdAt = new Date(product._createdAt);
     const now = new Date();
     const diffInMonths =
@@ -42,17 +49,39 @@ const CarouselItem = ({ product }: { product: Product }) => {
       createdAt.getMonth();
     return diffInMonths < 2;
   };
-  const discount = (product: Product) =>
+  const discount = (product: ProductType) =>
     product.price && product.salePrice
       ? Math.round(((product.price - product.salePrice) / product.price) * 100)
       : null;
 
+  const handleOpenProduct = (
+    event: React.MouseEvent<HTMLElement>,
+    id: number
+  ) => {
+    const target = event.target as HTMLDivElement;
+    if (
+      target.classList.contains("addWishlist") ||
+      target.classList.contains("addCart")
+    ) {
+      return "";
+    } else {
+      navigate(`/products/${id}`);
+    }
+  };
+
   return (
-    <div className="flex items-start justify-start flex-col gap-3">
+    <div
+      onClick={(e) => handleOpenProduct(e, product._id)}
+      className="product-container flex items-start justify-start flex-col gap-3"
+    >
       <div
         className="product__main w-full h-full relative group flex-grow bg-red-500"
         onMouseMove={(e) =>
-          handleMouseMove(e, product._id, product.images.slice(0, 5).length)
+          handleMouseMove(
+            e,
+            product._id,
+            product.images[0].images.slice(0, 5).length
+          )
         }
       >
         <div
@@ -66,15 +95,15 @@ const CarouselItem = ({ product }: { product: Product }) => {
           }}
         ></div>
 
-        <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 font-bold text-base text-center">
+        <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
           {(() => {
             return (
               <>
                 {isNew(product) && (
-                  <p className="px-3 rounded-md bg-white">NEW</p>
+                  <p className="px-3 rounded-md bg-white font-semibold">NEW</p>
                 )}
                 {discount !== null && discount(product)! > 0 && (
-                  <p className="px-3 rounded-md bg-secondary-green text-white">
+                  <p className="px-3 rounded-sm bg-secondary-green text-white font-medium">
                     {`-${discount(product)}%`}
                   </p>
                 )}
@@ -85,18 +114,21 @@ const CarouselItem = ({ product }: { product: Product }) => {
         <div className="product__main--wishlistBtn absolute right-4 top-4">
           <button
             aria-label="addWishlist"
-            className="bg-white p-[.35rem] rounded-full opacity-0 group-hover:opacity-100 duration-300"
+            className="bg-white rounded-full opacity-0 group-hover:opacity-100 duration-300 shadow-md"
           >
-            <GoHeart size={22} />
+            <GoHeart
+              size={34}
+              className="addWishlist p-[.35rem] fill-neutral-400 hover:fill-black duration-200"
+            />
           </button>
         </div>
-        <Button className="absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all">
+        <Button className="addCart absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all">
           Add to cart
         </Button>
         <div
           className={`px-2 absolute bottom-1 left-0 right-0 transform flex gap-2`}
         >
-          {product.images.slice(0, 5).map((_, index) => (
+          {product.images[0].images.slice(0, 5).map((_, index) => (
             <div
               key={index}
               className={`w-full h-[.1rem] rounded-full ${

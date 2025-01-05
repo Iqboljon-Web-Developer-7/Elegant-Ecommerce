@@ -1,42 +1,55 @@
-export interface userType {
+// User Interface
+export interface UserType {
   name?: string;
   username?: string;
   email?: string;
   password?: string;
 }
-export interface slideType {
+
+// Slide Type Interface
+export interface SlideType {
   images: {
     asset: { _ref: string };
   };
   media: string;
 }
-export interface collectionType {
+
+// Collection Type Interface
+export interface CollectionType {
   image: { asset: { _ref: string } };
   title: string;
   urlName: string;
   url: string;
 }
 
-export interface ProductImage {
+// Image Type Interface for Nested Images
+export interface ImageType {
   image: {
-    asset: {
-      _ref: string;
-    } | null;
+    asset: { _ref: string };
   };
 }
 
-export interface Product {
+// Product Image Interface
+export interface ProductImage {
+  color: string;
+  images: ImageType[]; // Array of ImageType
+}
+
+// Product Type Interface
+export interface ProductType {
   _id: number;
   title: string;
+  description: string;
   price: number;
   originalPrice?: number;
   isNew?: boolean;
   discount?: number;
-  images: ProductImage[];
+  images: ProductImage[]; // Array of ProductImage
   _createdAt: string;
   salePrice: number;
 }
 
+// Products Carousel Props Interface
 export interface ProductsCarouselProps {
-  products: Product[];
+  products: ProductType[];
 }
