@@ -8,7 +8,7 @@ import {
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 
-import { slideType } from "@/lib/types";
+import { SlideType } from "@/lib/types";
 
 import { LazyLoadImage } from "./CarouselLazyLoading";
 import "./css/embla.css";
@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 
 const EmblaCarousel = () => {
   const slides = useSelector(
-    (state: { HomePageData: { slides: slideType[] } }) =>
+    (state: { HomePageData: { slides: SlideType[] } }) =>
       state.HomePageData.slides
   );
   const [slidesInView, setSlidesInView] = useState<number[]>([]);

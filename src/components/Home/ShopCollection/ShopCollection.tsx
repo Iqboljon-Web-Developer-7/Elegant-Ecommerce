@@ -1,5 +1,5 @@
 import { urlFor } from "@/utils/Client";
-import { collectionType } from "@/lib/types";
+import { CollectionType } from "@/lib/types";
 
 import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/styledComponents/StyledLink";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const ShopCollection = () => {
   const collections = useSelector(
-    (state: { HomePageData: { collections: collectionType[] } }) =>
+    (state: { HomePageData: { collections: CollectionType[] } }) =>
       state.HomePageData.collections
   );
 

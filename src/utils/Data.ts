@@ -1,10 +1,10 @@
-import { userType } from "@/lib/types";
+import { UserType } from "@/lib/types";
 
-export const SANITY_LOGIN_USER = (user: userType) => {
+export const SANITY_LOGIN_USER = (user: UserType) => {
   return `*[_type == "user" && username == '${user?.name}' || email == '${user?.name}' && password == '${user?.password}']`;
 };
 
-export const SANITY_REGISTER_USER = (user: userType) => {
+export const SANITY_REGISTER_USER = (user: UserType) => {
   return `*[_type == "user" && username == '${user.username}']`;
 };
 

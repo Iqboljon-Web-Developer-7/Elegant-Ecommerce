@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SANITY_INSTAFEED_QUERY } from "@/utils/Data";
 import { client, urlFor } from "@/utils/Client";
-import { imageType } from "@/lib/types";
+import { ImageTypeArray } from "@/lib/types";
 
 const InstagramFeed = () => {
   const [images, setImages] = useState([]);
@@ -11,7 +11,7 @@ const InstagramFeed = () => {
       try {
         const data = await client.fetch(SANITY_INSTAFEED_QUERY);
         const imageUrls = data.map(
-          (item: imageType) => item.image[0].asset?._ref
+          (item: ImageTypeArray) => item.image[0].asset?._ref
         );
 
         setImages(imageUrls);

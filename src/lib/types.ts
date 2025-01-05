@@ -28,6 +28,11 @@ export interface ImageType {
     asset: { _ref: string };
   };
 }
+export interface ImageTypeArray {
+  image: {
+    asset: { _ref: string };
+  }[]
+}
 
 // Product Image Interface
 export interface ProductImage {

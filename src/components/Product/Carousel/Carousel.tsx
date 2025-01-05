@@ -57,7 +57,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
                 <img
                   width={2000}
                   height={2000}
-                  src={`${urlFor(item?.image?.asset?._ref!)}`}
+                  src={`${urlFor(item?.images[0].image.asset?._ref!)}`}
                   loading="lazy"
                 />
               </Zoom>
@@ -99,7 +99,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
                 loading="lazy"
                 width={140}
                 height={140}
-                src={`${urlFor(item?.image?.asset?._ref!)}`}
+                src={`${urlFor(item?.images[0].image.asset?._ref!)}`}
               />
             </SwiperSlide>
           ))
