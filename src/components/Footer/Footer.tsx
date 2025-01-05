@@ -56,6 +56,7 @@ const Footer = () => {
         <div className="flex space-x-4 justify-center">
           <a href="#" className="hover:text-gray-400">
             <img
+              loading="lazy"
               src={instagramIcon}
               alt="Instagram"
               className="w-6 h-6 invert brightness-0"
@@ -63,6 +64,7 @@ const Footer = () => {
           </a>
           <a href="#" className="hover:text-gray-400">
             <img
+              loading="lazy"
               src={facebookIcon}
               alt="Facebook"
               className="w-6 h-6 invert brightness-0"
@@ -70,6 +72,7 @@ const Footer = () => {
           </a>
           <a href="#" className="hover:text-gray-400">
             <img
+              loading="lazy"
               src={youtubeIcon}
               alt="YouTube"
               className="w-6 h-6 invert brightness-0"

@@ -10,7 +10,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { userType } from "./Register";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { client } from "@/utils/Client";
+import { SANITY_LOGIN_USER } from "@/utils/Data";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -21,22 +25,30 @@ const formSchema = z.object({
   }),
 });
 
-export function LoginForm({
-  loading,
-  setUser,
-}: {
-  loading: boolean;
-  setUser: React.Dispatch<React.SetStateAction<userType | undefined>>;
-}) {
+export function LoginForm() {
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-    },
   });
 
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setUser(values);
+    setLoading(true);
+    client
+      .fetch(SANITY_LOGIN_USER(values))
+      .then((user) => {
+        setLoading(false);
+        if (user?.length) {
+          localStorage.setItem("userInfo", JSON.stringify(user[0]));
+          setTimeout(() => navigate("/"), 0); // for running the code after saving user to localstorage
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast({ title: err?.message, variant: "destructive" });
+      });
   }
 
   return (

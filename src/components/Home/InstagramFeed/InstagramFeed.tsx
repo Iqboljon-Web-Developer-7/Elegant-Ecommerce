@@ -1,6 +1,6 @@
-import { client, urlFor } from "@/utils/Client";
-import { SANITY_INSTAFEED_QUERY } from "@/utils/Data";
 import { useState, useEffect } from "react";
+import { SANITY_INSTAFEED_QUERY } from "@/utils/Data";
+import { client, urlFor } from "@/utils/Client";
 
 interface imageType {
   image: imageArray[];

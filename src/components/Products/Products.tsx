@@ -9,9 +9,14 @@ import StyledLink from "@/styledComponents/StyledLink";
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/scrollbar";
-import { FC } from "react";
+import { useSelector } from "react-redux";
 
-const Products: FC<{ products: Product[] }> = ({ products }) => {
+const Products = () => {
+  const products = useSelector(
+    (state: { HomePageData: { products: Product[] } }) =>
+      state.HomePageData.products
+  );
+
   const SkeletonLoader = () => (
     <div className="mb-16 pt-1 flex items-center gap-6 overflow-x-auto">
       {Array.from({ length: 5 }).map((_, index) => (

@@ -37,6 +37,7 @@ const Features = () => {
           >
             <div className="text-4xl mb-4">
               <img
+                loading="lazy"
                 src={feature.icon}
                 alt="features icon"
                 className="w-8 h-8 sm:w-12 sm:h-12"
@@ -54,5 +55,4 @@ const Features = () => {
     </div>
   );
 };
-
 export default Features;

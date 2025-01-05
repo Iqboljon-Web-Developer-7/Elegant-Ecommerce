@@ -1,3 +1,11 @@
+import { userType } from "@/lib/types";
+
+export const SANITY_LOGIN_USER = (user: userType) => {
+  return `*[_type == "user" && username == '${user?.name}' || email == '${user?.name}' && password == '${user?.password}']`;
+};
+export const SANITY_REGISTER_USER = (user: userType) => {
+  return `*[_type == "user" && username == '${user.username}']`;
+};
 export const SANITY_SLIDES_QUERY = `*[_type == "carousel"]`;
 export const SANITY_COLLECTIONS_QUERY = `*[_type == "collection"] | order(_createdAt)`;
 export const SANITY_PRODUCTS_QUERY = (start = 0, end = 20) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import EmblaCarousel from "@/components/Home/Carousel/Carousel";
 import SimpleHeading from "@/components/Home/SimpleHeading/SimpleHeading";
 import ShopCollection from "@/components/Home/ShopCollection/ShopCollection";
@@ -15,36 +15,32 @@ import {
   SANITY_COLLECTIONS_QUERY,
   SANITY_PRODUCTS_QUERY,
 } from "@/utils/Data";
+import { useToast } from "@/hooks/use-toast";
+import { useDispatch } from "react-redux";
+import { add } from "@/redux/slices/homePageData";
 
 const Home = () => {
-  const [data, setData] = useState({
-    slides: [],
-    collections: [],
-    products: [],
-  });
-  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
+        // First Main carousel slides are fetched
         const slidesData = await client.fetch(SANITY_SLIDES_QUERY);
-        setData((prevData) => ({
-          ...prevData,
-          slides: slidesData,
-        }));
+        dispatch(add({ key: "slides", value: slidesData }));
 
+        // then other two datas
         const [collectionsData, productsData] = await Promise.all([
           client.fetch(SANITY_COLLECTIONS_QUERY),
           client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
         ]);
 
-        setData((prevData) => ({
-          ...prevData,
-          collections: collectionsData,
-          products: productsData,
-        }));
-      } catch (error) {
-        setError("Error fetching data. Please try again later.");
+        dispatch(add({ key: "collections", value: collectionsData }));
+        dispatch(add({ key: "products", value: productsData }));
+      } catch (error: any) {
         console.error("Error fetching data:", error);
+        toast({ description: error?.message, variant: "destructive" });
       }
     };
 
@@ -54,10 +50,10 @@ const Home = () => {
   return (
     <>
       <div className="container-xl">
-        <EmblaCarousel slides={data?.slides} />
+        <EmblaCarousel />
         <SimpleHeading />
-        <ShopCollection collections={data.collections} />
-        <Products products={data.products} />
+        <ShopCollection />
+        <Products />
       </div>
       <div className="container-2xl">
         <Banner img={discountImage}>
@@ -81,7 +77,6 @@ const Home = () => {
         <Features />
         <InstagramFeed />
       </div>
-      {error && <div className="error">{error}</div>}
     </>
   );
 };

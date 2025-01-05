@@ -11,7 +11,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { userType } from "./Register";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { client } from "@/utils/Client";
+import { SANITY_REGISTER_USER } from "@/utils/Data";
 
 const formSchema = z.object({
   username: z.string().min(6, {
@@ -28,13 +33,7 @@ const formSchema = z.object({
   }),
 });
 
-export function RegisterForm({
-  loading,
-  setUser,
-}: {
-  loading: boolean;
-  setUser: React.Dispatch<React.SetStateAction<userType | undefined>>;
-}) {
+export function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,9 +41,53 @@ export function RegisterForm({
     },
   });
 
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [userExists, setuserExists] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    setUser(values);
+    setLoading(true);
+    const doc = {
+      _id: uuidv4(),
+      _type: "user",
+      name: values.name,
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+
+    client
+      .fetch(SANITY_REGISTER_USER(values))
+      .then((users) => {
+        if (users?.length) {
+          setuserExists(true);
+          setTimeout(() => setuserExists(false), 2200);
+          toast({
+            title: "User already exists!",
+            description: "please try to register again.",
+            variant: "destructive",
+          });
+        } else {
+          client.createIfNotExists(doc).then((user) => {
+            localStorage.setItem("userInfo", JSON.stringify(user));
+            toast({
+              title: "User successfully created",
+              description: "Welcome to ELEGANT!",
+            });
+            setuserExists(false);
+            navigate("/");
+          });
+        }
+      })
+      .catch((error) => {
+        toast({
+          title: error.message,
+          variant: "destructive",
+        });
+        console.error(error);
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -119,6 +162,9 @@ export function RegisterForm({
         <Button disabled={loading} type="submit" className="w-full">
           {loading ? <div className="loader"></div> : "Submit"}
         </Button>
+        {userExists && (
+          <p className="font-bold text-red-500 my-4">User already exists</p>
+        )}
       </form>
     </Form>
   );

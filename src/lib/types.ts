@@ -1,3 +1,9 @@
+export interface userType {
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+}
 export interface slideType {
   images: {
     asset: { _ref: string };

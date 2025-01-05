@@ -53,7 +53,6 @@ const Header = () => {
             2
           </p>
         </div>
-
         <SidebarTrigger className="text-2xl md:hidden" />
       </div>
     </header>
