@@ -37,6 +37,9 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
     };
   }, []);
 
+  // Flatten all images from productData
+  const allImages = images?.flatMap((item) => item.images.flatMap((imageSet) => imageSet.image));
+
   return (
     <div className="w-full h-full">
       <Swiper
@@ -49,16 +52,18 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiperMain"
+        ref={mainSwiperRef}
       >
-        {images?.length > 0 ? (
-          images.map((item, idx) => (
+        {allImages?.length > 0 ? (
+          allImages.map((image, idx) => (
             <SwiperSlide key={idx}>
               <Zoom zoomMargin={20}>
                 <img
                   width={2000}
                   height={2000}
-                  src={`${urlFor(item?.images[0].image.asset?._ref!)}`}
+                  src={urlFor(image.asset?._ref).toString()}
                   loading="lazy"
+                  alt={`Image ${idx + 1}`}
                 />
               </Zoom>
             </SwiperSlide>
@@ -92,14 +97,15 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiperThumbs"
       >
-        {images?.length > 0 ? (
-          images.map((item, idx) => (
+        {allImages?.length > 0 ? (
+          allImages.map((image, idx) => (
             <SwiperSlide key={idx}>
               <img
                 loading="lazy"
                 width={140}
                 height={140}
-                src={`${urlFor(item?.images[0].image.asset?._ref!)}`}
+                src={urlFor(image.asset?._ref).toString()}
+                alt={`Thumbnail ${idx + 1}`}
               />
             </SwiperSlide>
           ))

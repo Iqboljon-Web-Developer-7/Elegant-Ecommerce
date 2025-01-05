@@ -26,6 +26,8 @@ const Product = () => {
     fetchProduct(id!);
   }, []);
 
+  console.log(productData?.images);
+
   return (
     <div className="container-xl">
       <div className="breadcrumb mt-4 text-sm inter">
