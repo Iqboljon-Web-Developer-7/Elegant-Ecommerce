@@ -31,7 +31,7 @@ export interface ImageType {
 export interface ImageTypeArray {
   image: {
     asset: { _ref: string };
-  }[]
+  }[];
 }
 
 // Product Image Interface
@@ -52,6 +52,10 @@ export interface ProductType {
   images: ProductImage[]; // Array of ProductImage
   _createdAt: string;
   salePrice: number;
+  colors: {
+    Color: string;
+    name: string;
+  }[];
 }
 
 // Products Carousel Props Interface

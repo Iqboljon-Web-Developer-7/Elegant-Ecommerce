@@ -1,15 +1,23 @@
 import Carousel from "@/components/Product/Carousel/Carousel";
 import { useToast } from "@/hooks/use-toast";
 import { ProductType } from "@/lib/types";
-import { client } from "@/utils/Client";
+import { client, urlFor } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 const Product = () => {
   const { id } = useParams();
   const { toast } = useToast();
   const [productData, setProductData] = useState<ProductType>();
+  const navigate = useNavigate();
+  const [searchParams, _] = useSearchParams();
+  const productColor = searchParams.get("color");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,7 +34,29 @@ const Product = () => {
     fetchProduct(id!);
   }, []);
 
-  console.log(productData?.images);
+  const Colors = productData?.colors?.map((item, index) => {
+    let img: string = "";
+    productData?.images?.map((image) => {
+      if (image.color == item.name) {
+        img = image.images[0].image.asset._ref;
+      }
+    });
+
+    return (
+      <div key={index} className="flex flex-wrap gap-4 p-2">
+        <img
+          src={urlFor(img!).toString()}
+          alt="product img"
+          width={62}
+          height={62}
+          className={`border ${item.name == productColor ? "border-black" : "border-transparent"} hover:p-[.1rem] duration-200 cursor-pointer`}
+          onClick={() =>
+            navigate(`/products/${productData._id}?color=${item.name}`)
+          }
+        />
+      </div>
+    );
+  });
 
   return (
     <div className="container-xl">
@@ -67,15 +97,10 @@ const Product = () => {
           </div>
           <hr />
           {/* <div className="additionalInfo">{additionalInfo}</div> */}
-          <div className="colors mt-4">
-            <h4 className="flex-center justify-start gap-2 text-neutral-400 font-[500]">
-              {productData?.images
-                ?.filter(
-                  (item, index, self) =>
-                    index === self.findIndex((t) => t.color === item.color)
-                )
-                .map((item, idx) => <span key={idx}>{item.color}</span>)}
-            </h4>
+          <div className="colors flex flex-col">
+            <p className="text-sm text-neutral-400">Choose Color {">"}</p>
+            <p className="mt-2 capitalize">{productColor}</p>
+            <div className="flex mt-4">{Colors}</div>
             <div className="flex flex-wrap gap-2 mt-2">
               {/* {product?.colors.map(
                 (clr: { name: string; color: string }, inx: number) => {

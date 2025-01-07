@@ -9,6 +9,7 @@ import "swiper/css/thumbs";
 import "./styles.css";
 
 import Zoom from "react-medium-image-zoom";
+import loadingImg from "@/assets/loading.svg";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { ProductImage } from "@/lib/types";
@@ -38,7 +39,9 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
   }, []);
 
   // Flatten all images from productData
-  const allImages = images?.flatMap((item) => item.images.flatMap((imageSet) => imageSet.image));
+  const allImages = images?.flatMap((item) =>
+    item.images.flatMap((imageSet) => imageSet.image)
+  );
 
   return (
     <div className="w-full h-full">
@@ -73,8 +76,9 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
             <img
               width={2000}
               height={2000}
-              src={"https://placehold.co/600x600?text=Loading"}
+              src={loadingImg}
               alt="placeholder image"
+              className="animate-pulse"
             />
           </SwiperSlide>
         )}
@@ -91,7 +95,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={3}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
@@ -114,8 +118,9 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
             <img
               width={140}
               height={140}
-              src={"https://placehold.co/600x600?text=Loading"}
+              src={loadingImg}
               alt="placeholder image"
+              className="animate-pulse"
             />
           </SwiperSlide>
         )}
