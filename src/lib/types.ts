@@ -56,6 +56,14 @@ export interface ProductType {
     Color: string;
     name: string;
   }[];
+  variants: {
+    color: string;
+    price: number;
+    sku: string;
+    stock: number;
+    title: string;
+    _key: string;
+  }[];
 }
 
 // Products Carousel Props Interface

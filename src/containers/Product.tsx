@@ -1,4 +1,5 @@
 import Carousel from "@/components/Product/Carousel/Carousel";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ProductType } from "@/lib/types";
 import { client, urlFor } from "@/utils/Client";
@@ -10,13 +11,15 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import heartIcon from "@/assets/icons/heart.svg";
 
 const Product = () => {
+  const [productData, setProductData] = useState<ProductType>();
   const { id } = useParams();
   const { toast } = useToast();
-  const [productData, setProductData] = useState<ProductType>();
   const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
+
   const productColor = searchParams.get("color");
 
   useEffect(() => {
@@ -33,6 +36,10 @@ const Product = () => {
 
     fetchProduct(id!);
   }, []);
+
+  let Variants = productData?.variants?.map((item) => (
+    <p className="py-1 px-2 border rounded-lg">{item.title}</p>
+  ));
 
   const Colors = productData?.colors?.map((item, index) => {
     let img: string = "";
@@ -71,20 +78,6 @@ const Product = () => {
       <div className="main-info grid grid-cols-2 gap-[6%] pt-4">
         <Carousel images={productData?.images!} />
         <div className="singleProduct__top--texts flex-grow self-stretch flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex-center justify-start gap-1 text-sm text-slate-800">
-              {/* {countStars(
-                product?.reviews.comments.reduce(
-                  (prev: number, current: { rating: number }) =>
-                    (prev += current.rating),
-                  0
-                ) / product?.reviews.comments.length
-              )} */}
-            </div>
-            <span className="reviews text-sm">
-              {/* {product?.reviews.comments.length} reviews */}
-            </span>
-          </div>
           <h4 className="text-neutral-700">{productData?.title}</h4>
           <p className="text-neutral-400 text-sm lg:text-base inter">
             {productData?.description}
@@ -96,7 +89,7 @@ const Product = () => {
             </span>
           </div>
           <hr />
-          {/* <div className="additionalInfo">{additionalInfo}</div> */}
+          <div className="additionalInfo flex text-sm">{Variants}</div>
           <div className="colors flex flex-col">
             <p className="text-sm text-neutral-400">Choose Color {">"}</p>
             <p className="mt-2 capitalize">{productColor}</p>
@@ -115,6 +108,29 @@ const Product = () => {
                 }
               )} */}
             </div>
+          </div>
+          <div className="user-collections flex flex-col gap-4">
+            <div className="flex items-center justify-center gap-6">
+              <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg inter">
+                <Button className="bg-transparent shadow-none text-black group">
+                  <span className="group-hover:text-white">-</span>
+                </Button>
+                <span className="px-3">0</span>
+                <Button className="bg-transparent shadow-none text-black group">
+                  <span className="group-hover:text-white">+</span>
+                </Button>
+              </div>
+              <Button
+                className="w-full hover:invert duration-200 transition-all"
+                variant={"outline"}
+              >
+                <img src={heartIcon} alt="heart icon" width={18} height={18} />{" "}
+                <span className="font-normal">Add to Cart</span>
+              </Button>
+            </div>
+            <Button className="w-full hover:bg-secondary-green duration-200">
+              Add to Cart
+            </Button>
           </div>
         </div>
       </div>
