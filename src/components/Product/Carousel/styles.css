@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-   user-select: none; /* Prevents text selection */
+  user-select: none; /* Prevents text selection */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* Older IE */
 }
@@ -21,6 +21,7 @@
 
 /* Thumbnail Swiper Styles */
 .mySwiperThumbs {
+  display: none;
   height: 20%;
   box-sizing: border-box;
   padding: 10px 0;
@@ -37,4 +38,10 @@
 .mySwiperThumbs .swiper-slide-thumb-active {
   border-color: black;
   opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .mySwiperThumbs {
+    display: block;
+  }
 }

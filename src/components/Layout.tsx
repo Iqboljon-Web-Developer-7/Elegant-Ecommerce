@@ -8,10 +8,8 @@ const Layout = () => {
   return (
     <SidebarProvider>
       <main className="w-full">
-        <div className="container-xl">
-          <Header />
-          <HeaderSidebar />
-        </div>
+        <Header />
+        <HeaderSidebar />
         <div>
           <Outlet />
         </div>

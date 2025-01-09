@@ -24,7 +24,7 @@ const InstagramFeed = () => {
   }, []);
 
   return (
-    <div className="bg-white py-6 md:py-12 px-2 md:px-6">
+    <div className="py-6 md:py-12 px-2 md:px-6">
       <div className="text-center mb-10 flex flex-col sm:gap-2 md:gap-4">
         <p className="inter font-semibold text-neutral-400 tracking-wide uppercase text-sm sm:text-base">
           Newsfeed
@@ -43,7 +43,7 @@ const InstagramFeed = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-6">
         {images.map((image, index) => (
           <div
-            key={image} // Use stable keys
+            key={image}
             className="overflow-hidden hover:shadow-md duration-200 relative"
           >
             <img

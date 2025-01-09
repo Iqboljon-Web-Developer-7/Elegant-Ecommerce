@@ -40,7 +40,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
 
   // Flatten all images from productData
   const allImages = images?.flatMap((item) =>
-    item.images.flatMap((imageSet) => imageSet.image)
+    item?.images?.flatMap((imageSet) => imageSet.image)
   );
 
   return (
@@ -58,13 +58,13 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         ref={mainSwiperRef}
       >
         {allImages?.length > 0 ? (
-          allImages.map((image, idx) => (
+          allImages?.map((image, idx) => (
             <SwiperSlide key={idx}>
               <Zoom zoomMargin={20}>
                 <img
                   width={2000}
                   height={2000}
-                  src={urlFor(image.asset?._ref).toString()}
+                  src={urlFor(image?.asset?._ref).toString()}
                   loading="lazy"
                   alt={`Image ${idx + 1}`}
                 />

@@ -46,6 +46,7 @@ export interface ProductType {
   title: string;
   description: string;
   price: number;
+  sku: string;
   originalPrice?: number;
   isNew?: boolean;
   discount?: number;
@@ -55,6 +56,10 @@ export interface ProductType {
   colors: {
     Color: string;
     name: string;
+  }[];
+  categories: {
+    _key: string;
+    title: string;
   }[];
   variants: {
     color: string;
