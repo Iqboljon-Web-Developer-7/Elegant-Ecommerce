@@ -42,7 +42,7 @@ export interface ProductImage {
 
 // Product Type Interface
 export interface ProductType {
-  _id: number;
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -69,6 +69,13 @@ export interface ProductType {
     title: string;
     _key: string;
   }[];
+  wishlist:{
+    userId:string;
+    postedBy: {
+      _id:string
+    }
+  }[];
+  stock:string;
 }
 
 // Products Carousel Props Interface

@@ -38,7 +38,6 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
     };
   }, []);
 
-  // Flatten all images from productData
   const allImages = images?.flatMap((item) =>
     item?.images?.flatMap((imageSet) => imageSet.image)
   );
