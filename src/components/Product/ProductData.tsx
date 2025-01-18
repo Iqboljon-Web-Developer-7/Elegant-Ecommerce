@@ -179,7 +179,7 @@ const ProductData: FC<ProductDataProps> = ({
           <Button
             className="w-full hover:invert duration-200"
             variant={"outline"}
-            onClick={() => saveWishlist(productData?._id!)}
+            onClick={() => saveWishlist(`${productData?._id!}`)}
           >
             <img src={heartIcon} alt="heart icon" width={18} height={18} />{" "}
             <span className="font-normal">Wishlist</span>

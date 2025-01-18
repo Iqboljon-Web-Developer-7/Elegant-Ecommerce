@@ -42,7 +42,7 @@ export interface ProductImage {
 
 // Product Type Interface
 export interface ProductType {
-  _id: string;
+  _id: number;
   title: string;
   description: string;
   price: number;
