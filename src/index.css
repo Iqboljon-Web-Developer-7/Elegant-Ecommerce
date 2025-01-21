@@ -116,8 +116,29 @@
 }
 @font-face {
   font-family: "Poppins";
-  src: url("./assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/Poppins/Poppins-Regular.woff2") format("truetype");
   font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins/Poppins-Medium.woff2") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins/Poppins-SemiBold.woff2") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins/Poppins-Bold.woff2") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -128,11 +149,7 @@
 }
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter/static/Inter_18pt-Regular.ttf")
-    format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  src: url("./assets/fonts/Inter/Inter-VariableFont.woff2");
 }
 
 /* Container */
