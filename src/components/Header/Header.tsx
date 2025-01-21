@@ -55,7 +55,7 @@ const Header = () => {
           <img src={UserIcont} alt="user-icon" className="hidden md:block" />
           <div className="flex items-center justify-center gap-1">
             <img src={CartIcon} alt="cart-icon" />
-            <p className="w-5 h-5 rounded-full bg-black text-[.7rem] font-bold text-white flex items-center justify-center">
+            <p className="w-5 h-5 rounded-full bg-black text-[.7rem] font-semibold text-white flex items-center justify-center">
               2
             </p>
           </div>

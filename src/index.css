@@ -135,13 +135,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/Poppins/Poppins-Bold.woff2") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 .inter {
   font-family: "Inter", serif;
