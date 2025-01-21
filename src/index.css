@@ -145,11 +145,33 @@
 
 .inter {
   font-family: "Inter", serif;
-  font-optical-sizing: auto;
 }
 @font-face {
   font-family: "Inter";
   src: url("./assets/fonts/Inter/Inter-VariableFont.woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_24pt-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/static/Inter_24pt-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
 
