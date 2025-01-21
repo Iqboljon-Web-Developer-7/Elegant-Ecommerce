@@ -49,10 +49,12 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
       createdAt.getMonth();
     return diffInMonths < 2;
   };
-  const discount = (product: ProductType) =>
-    product.price && product.salePrice
-      ? Math.round(((product.price - product.salePrice) / product.price) * 100)
-      : null;
+  const discount = (product: ProductType) => {
+    let price = product.variants[0].price;
+    let salePrice = product.variants[0].salePrice;
+
+    return Math.round(((price - salePrice) / price) * 100);
+  };
 
   const handleOpenProduct = (
     event: React.MouseEvent<HTMLElement>,
@@ -60,11 +62,9 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   ) => {
     const target = event.target as HTMLDivElement;
     if (
-      target.classList.contains("addWishlist") ||
-      target.classList.contains("addCart")
+      !target.classList.contains("addWishlist") &&
+      !target.classList.contains("addCart")
     ) {
-      return "";
-    } else {
       navigate(`/products/${id}`);
     }
   };
@@ -96,20 +96,14 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         ></div>
 
         <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
-          {(() => {
-            return (
-              <>
-                {isNew(product) && (
-                  <p className="px-3 rounded-md bg-white font-semibold">NEW</p>
-                )}
-                {discount !== null && discount(product)! > 0 && (
-                  <p className="px-3 rounded-sm bg-secondary-green text-white font-medium">
-                    {`-${discount(product)}%`}
-                  </p>
-                )}
-              </>
-            );
-          })()}
+          {isNew(product) && (
+            <p className="px-3 rounded-md bg-white font-semibold">NEW</p>
+          )}
+          {discount !== null && discount(product)! > 0 && (
+            <p className="px-3 rounded-sm bg-secondary-green text-white font-medium">
+              {`-${discount(product)}%`}
+            </p>
+          )}
         </div>
         <div className="product__main--wishlistBtn absolute right-4 top-4">
           <button
@@ -151,11 +145,11 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         </p>
         <p className="flex gap-2 text-sm">
           <span className="font-semibold text-neutral-700">
-            ${product.salePrice.toFixed(2)}
+            ${product.variants[0].salePrice.toFixed(2)}
           </span>
-          {product.price && (
+          {product.variants[0].price && (
             <span className="opacity-75 line-through text-neutral-400">
-              ${product.price.toFixed(2)}
+              ${product.variants[0].price.toFixed(2)}
             </span>
           )}
         </p>

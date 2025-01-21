@@ -30,13 +30,14 @@
 .mySwiperThumbs .swiper-slide {
   width: 25%;
   height: 100%;
-  border: 1px solid transparent;
-  opacity: 0.8;
+  border-bottom: 1px solid transparent;
+  opacity: 0.7;
   transition: all ease-in-out 200ms;
+  border-radius: .5rem;
 }
 
 .mySwiperThumbs .swiper-slide-thumb-active {
-  border-color: black;
+  border-color: #38a3a5;
   opacity: 1;
 }
 

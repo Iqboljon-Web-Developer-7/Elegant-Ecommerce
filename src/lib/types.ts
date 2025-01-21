@@ -45,14 +45,12 @@ export interface ProductType {
   _id: number;
   title: string;
   description: string;
-  price: number;
   sku: string;
   originalPrice?: number;
   isNew?: boolean;
   discount?: number;
   images: ProductImage[]; // Array of ProductImage
   _createdAt: string;
-  salePrice: number;
   colors: {
     Color: string;
     name: string;
@@ -61,21 +59,23 @@ export interface ProductType {
     _key: string;
     title: string;
   }[];
-  variants: {
-    color: string;
-    price: number;
-    sku: string;
-    stock: number;
-    title: string;
-    _key: string;
-  }[];
+  variants:ProductVariantType[],
   wishlist:{
     userId:string;
     postedBy: {
       _id:string
     }
   }[];
-  stock:string;
+}
+
+export interface ProductVariantType {
+  color: string;
+  price: number;
+  salePrice:number;
+  sku: string;
+  stock: number;
+  title: string;
+  _key: string;
 }
 
 // Products Carousel Props Interface

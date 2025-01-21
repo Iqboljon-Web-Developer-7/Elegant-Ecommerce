@@ -29,20 +29,27 @@ const Product: FC = () => {
     window.scrollTo(0, 0);
     async function fetchProduct(id: string) {
       try {
-        const data = await client.fetch(SANITY_PRODUCT_QUERY(id));
-        if (data.length === 0) {
-          navigate("/products");
-          return;
+        const data: ProductType = await client
+          .fetch(SANITY_PRODUCT_QUERY(id))
+          .catch(() => navigate("/products"));
+
+        if (!productColor || !productVariant) {
+          // Find the first available color and variant combination
+          const firstAvailableVariant = data.variants.find((variant) =>
+            data.colors.some(
+              (color) => color.name === variant.color && variant.stock > 0
+            )
+          );
+
+          if (firstAvailableVariant) {
+            setSearchParams({
+              color: firstAvailableVariant.color,
+              variant: firstAvailableVariant.title,
+              quantity: "1",
+            });
+          }
         }
-        const product = data[0];
-        if (!productColor || !productVariant || productQuantity < 1) {
-          setSearchParams({
-            color: product.colors[0]?.name,
-            variant: product.variants[0]?.title,
-            quantity: "1",
-          });
-        }
-        setProductData(product);
+        setProductData(data);
       } catch (error) {
         console.error(error);
         toast({
@@ -52,7 +59,15 @@ const Product: FC = () => {
       }
     }
     fetchProduct(id!);
-  }, []);
+  }, [
+    id,
+    navigate,
+    productColor,
+    productVariant,
+    productQuantity,
+    setSearchParams,
+    toast,
+  ]);
 
   const changeParam = useCallback(
     (param: string, value: string | number) => {
@@ -85,14 +100,18 @@ const Product: FC = () => {
         {">"} &nbsp; {productData?.title?.slice(0, 20)}
       </div>
       <div className="main-info grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 pt-4 mb-10">
-        <Carousel images={productData?.images!} />
+        <Carousel
+          selectedVariant={selectedVariant!}
+          createdAt={productData?._createdAt}
+          images={productData?.images!}
+        />
         <ProductData
           changeParam={changeParam}
           productColor={productColor}
           productData={productData}
           productQuantity={productQuantity}
           productVariant={productVariant}
-          selectedVariant={selectedVariant}
+          selectedVariant={selectedVariant!}
         />
       </div>
     </div>

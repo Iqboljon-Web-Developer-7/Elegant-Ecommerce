@@ -35,8 +35,6 @@ const Home = () => {
           client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
         ]);
 
-        console.log(productsData);
-
         dispatch(add({ key: "collections", value: collectionsData }));
         dispatch(add({ key: "products", value: productsData }));
       } catch (error: any) {

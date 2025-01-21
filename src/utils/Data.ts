@@ -30,7 +30,7 @@ export const SANITY_PRODUCTS_QUERY = (start = 0, end = 20) => {
 };
 
 export const SANITY_PRODUCT_QUERY = (id: string) => {
-  return `*[_type == "product" && _id == '${id}']`;
+  return `*[_type == "product" && _id == '${id}'][0]`;
 };
 
 export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;

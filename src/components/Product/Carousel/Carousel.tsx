@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -12,13 +12,41 @@ import Zoom from "react-medium-image-zoom";
 import loadingImg from "@/assets/loading.svg";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { ProductImage } from "@/lib/types";
+import { ProductImage, ProductVariantType } from "@/lib/types";
 import { urlFor } from "@/utils/Client";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 
-export default function Carousel({ images }: { images: ProductImage[] }) {
+interface ProductCarouselType {
+  images: ProductImage[];
+  createdAt?: string;
+  selectedVariant: ProductVariantType;
+}
+
+const Carousel: FC<ProductCarouselType> = ({
+  images,
+  createdAt,
+  selectedVariant,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
+
+  const isNew = () => {
+    const CreatedAt = new Date(createdAt!);
+    const now = new Date();
+    const diffInMonths =
+      (now.getFullYear() - CreatedAt.getFullYear()) * 12 +
+      now.getMonth() -
+      CreatedAt.getMonth();
+    return diffInMonths < 2;
+  };
+  const discount = () =>
+    selectedVariant
+      ? Math.round(
+          ((selectedVariant.price - selectedVariant.salePrice) /
+            selectedVariant.price) *
+            100
+        )
+      : null;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +71,19 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
   );
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 text-base text-center z-10">
+        {isNew() && (
+          <p className="px-3 rounded-md bg-white font-semibold shadow-md">
+            NEW
+          </p>
+        )}
+        {discount !== null && discount()! > 0 && (
+          <p className="px-3 rounded-sm bg-secondary-green text-white font-medium shadow-md">
+            {`-${discount()}%`}
+          </p>
+        )}
+      </div>
       <Swiper
         loop={true}
         spaceBetween={10}
@@ -56,7 +96,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         className="mySwiperMain"
         ref={mainSwiperRef}
       >
-        {allImages?.length > 0 ? (
+        {allImages?.length ? (
           allImages?.map((image, idx) => (
             <SwiperSlide key={idx}>
               <Zoom zoomMargin={20}>
@@ -100,7 +140,7 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiperThumbs"
       >
-        {allImages?.length > 0 ? (
+        {allImages?.length ? (
           allImages.map((image, idx) => (
             <SwiperSlide key={idx}>
               <img
@@ -126,4 +166,6 @@ export default function Carousel({ images }: { images: ProductImage[] }) {
       </Swiper>
     </div>
   );
-}
+};
+
+export default Carousel;
