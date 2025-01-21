@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom"; // Add useNavigate for navigation
+import { ToastAction } from "@radix-ui/react-toast";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
@@ -19,13 +21,18 @@ const ProductData: FC<ProductDataProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     if (productData && !productColor && !productVariant) {
       changeParam("color", productData.colors[0]?.name);
       changeParam("variant", productData.variants[0]?.title);
     }
-  }, [productData, productColor, productVariant, changeParam]);
+  }, [productData]);
+
+  const userInfo = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo")!)
+    : null;
 
   useEffect(() => {
     const checkIfSaved = async () => {
@@ -46,10 +53,6 @@ const ProductData: FC<ProductDataProps> = ({
     };
     checkIfSaved();
   }, [productData, productColor, productVariant]);
-
-  const userInfo = localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo")!)
-    : null;
 
   const Variants = useMemo(
     () =>
@@ -192,6 +195,10 @@ const ProductData: FC<ProductDataProps> = ({
     }
   };
 
+  const handleLoginRedirect = () => {
+    sessionStorage.setItem("returnUrl", window.location.pathname);
+    navigate("/auth/login");
+  };
   if (!productData) return <InfoLoadingSkeleton />;
 
   return (
@@ -201,7 +208,7 @@ const ProductData: FC<ProductDataProps> = ({
         {productData?.description}
       </p>
       <div className="flex items-center gap-3">
-        <h6>${selectedVariant?.salePrice} </h6>
+        <h6>${selectedVariant?.salePrice}</h6>
         <span className="fs-20 line-through text-neutral-400">
           ${selectedVariant?.price}
         </span>
@@ -245,13 +252,32 @@ const ProductData: FC<ProductDataProps> = ({
             className={`w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading && "!bg-black"}`}
             variant={"outline"}
             onClick={async () => {
-              await saveWishlist(
-                userInfo?._id,
-                productData?._id,
-                productColor,
-                productVariant
-              );
-              setIsSaved(true);
+              if (!userInfo?._id) {
+                toast({
+                  title: "Please log in",
+                  description:
+                    "You need to be logged in to add items to the wishlist.",
+                  variant: "destructive",
+                  action: (
+                    <ToastAction altText="Try again">
+                      <Button
+                        onClick={() => handleLoginRedirect()}
+                        className="shadow-md hover:shadow-none hover:bg-neutral-700"
+                      >
+                        Login
+                      </Button>
+                    </ToastAction>
+                  ),
+                });
+              } else {
+                await saveWishlist(
+                  userInfo?._id,
+                  productData?._id,
+                  productColor,
+                  productVariant
+                );
+                setIsSaved(true);
+              }
             }}
             disabled={isSaved}
           >

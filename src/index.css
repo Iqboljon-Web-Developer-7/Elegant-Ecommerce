@@ -114,9 +114,23 @@
 .poppins {
   font-family: "Poppins", sans-serif;
 }
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype'),
+       url('./assets/fonts/Poppins/Poppins-Medium.ttf') format('truetype'),
+       url('./assets/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype'),
+}
+
 .inter {
   font-family: "Inter", serif;
   font-optical-sizing: auto;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter/Inter-VariableFont_opsz.ttf") format("truetype"),
+       url("./assets/fonts/Inter/Inter-Italic-VariableFont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* Container */

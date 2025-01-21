@@ -42,7 +42,9 @@ export function LoginForm() {
         setLoading(false);
         if (user?.length) {
           localStorage.setItem("userInfo", JSON.stringify(user[0]));
-          setTimeout(() => navigate("/"), 0); // for running the code after saving user to localstorage
+          const returnUrl = sessionStorage.getItem("returnUrl") || "/";
+          sessionStorage.removeItem("returnUrl");
+          navigate(returnUrl);
         }
       })
       .catch((err) => {

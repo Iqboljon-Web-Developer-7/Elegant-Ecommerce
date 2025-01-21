@@ -5,6 +5,7 @@ import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import UserIcont from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
+import { useEffect } from "react";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -14,6 +15,10 @@ const navLinks = [
 ];
 
 const Header = () => {
+  useEffect(() => {
+    // async function fetchUserWishlist(id: string) {}
+    // fetchUserWishlist();
+  }, []);
   const Links = navLinks.map(({ to, label }) => (
     <NavLink
       key={to}
