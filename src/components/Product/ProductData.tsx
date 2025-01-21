@@ -1,19 +1,12 @@
-import { FC, useMemo, useEffect } from "react";
+import { FC, useMemo, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heartIcon from "@/assets/icons/heart.svg";
-import { ProductType, ProductVariantType } from "@/lib/types";
+import { ProductDataProps } from "@/lib/types";
 import { client, urlFor } from "@/utils/Client";
 import { v4 as uuidv4 } from "uuid";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
-
-interface ProductDataProps {
-  productData?: ProductType;
-  changeParam: (param: string, value: string | number) => void;
-  selectedVariant: ProductVariantType;
-  productColor: string | null;
-  productVariant: string | null;
-  productQuantity: number;
-}
+import { SANITY_USER_WISHLIST } from "@/utils/Data";
+import { useToast } from "@/hooks/use-toast";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
@@ -23,9 +16,9 @@ const ProductData: FC<ProductDataProps> = ({
   productVariant,
   productQuantity,
 }) => {
-  const userInfo = localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo")!)
-    : null;
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (productData && !productColor && !productVariant) {
@@ -33,6 +26,30 @@ const ProductData: FC<ProductDataProps> = ({
       changeParam("variant", productData.variants[0]?.title);
     }
   }, [productData, productColor, productVariant, changeParam]);
+
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (userInfo && productData) {
+        const userWishlist = await client.fetch(
+          SANITY_USER_WISHLIST(userInfo._id)
+        );
+        if (userWishlist) {
+          const isDuplicate = userWishlist.items.some(
+            (item: any) =>
+              item.product._ref === productData._id &&
+              item.color === productColor &&
+              item.variant === productVariant
+          );
+          setIsSaved(isDuplicate);
+        }
+      }
+    };
+    checkIfSaved();
+  }, [productData, productColor, productVariant]);
+
+  const userInfo = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo")!)
+    : null;
 
   const Variants = useMemo(
     () =>
@@ -56,7 +73,7 @@ const ProductData: FC<ProductDataProps> = ({
           {variant.title} {variant.stock === 0 ? "(Out of Stock)" : ""}
         </p>
       )),
-    [productData?.variants, productVariant, changeParam]
+    [productVariant, productData, changeParam]
   );
 
   const Colors = useMemo(() => {
@@ -88,15 +105,15 @@ const ProductData: FC<ProductDataProps> = ({
             } hover:p-[.1rem] duration-200 cursor-pointer ${
               !isAvailable ? "opacity-50 cursor-not-allowed" : ""
             }`}
+            title={!isAvailable ? "Not available for the selected variant" : ""}
             onClick={() => {
               if (isAvailable) changeParam("color", color.name);
             }}
-            title={!isAvailable ? "Not available for the selected variant" : ""}
           />
         </div>
       );
     });
-  }, [productColor, changeParam, productData, productVariant]);
+  }, [productColor, productVariant, productData, changeParam]);
 
   const Categories = productData?.categories?.map((item, index) => (
     <span key={item._key}>
@@ -105,31 +122,21 @@ const ProductData: FC<ProductDataProps> = ({
     </span>
   ));
 
-  // const alreadyWishlist = productData?.wishlist?.filter(
-  //   (item) => item?.postedBy?._id === userInfo?._id
-  // )?.length;
-
   const saveWishlist = async (
     userId: string,
     productId: number,
     color: string | null,
     variant: string | null
   ) => {
+    setIsLoading(true);
     try {
-      // Fetch the user's wishlist
-      const userWishlists = await client.fetch(
-        `*[_type == "wishlist" && userId == $userId]`,
-        { userId }
-      );
-
-      let userWishlist = userWishlists.length > 0 ? userWishlists[0] : null;
+      let userWishlist = await client.fetch(SANITY_USER_WISHLIST(userId));
 
       if (!userWishlist) {
-        // Create a new wishlist if none exists
         userWishlist = await client.create({
           _type: "wishlist",
           userId: userId,
-          name: "My Wishlist",
+          name: `${userInfo?.username} Wishlist`,
           items: [
             {
               _key: uuidv4(),
@@ -139,9 +146,10 @@ const ProductData: FC<ProductDataProps> = ({
             },
           ],
         });
-        console.log("Wishlist created and product added successfully!");
+        toast({
+          description: "Wishlist created and product added successfully!",
+        });
       } else {
-        // Check if the item already exists in the wishlist
         const isDuplicate = userWishlist.items.some(
           (item: any) =>
             item.product._ref === productId &&
@@ -150,7 +158,6 @@ const ProductData: FC<ProductDataProps> = ({
         );
 
         if (!isDuplicate) {
-          // Add the item to the existing wishlist
           await client
             .patch(userWishlist._id)
             .setIfMissing({ items: [] })
@@ -163,13 +170,25 @@ const ProductData: FC<ProductDataProps> = ({
               },
             ])
             .commit();
-          console.log("Added to wishlist successfully!");
+          toast({
+            description: "Wishlist created and product added successfully!",
+          });
+          setIsSaved(true);
         } else {
-          console.log("Item already exists in the wishlist.");
+          toast({
+            description: "Item already exists in the wishlist.",
+            variant: "destructive",
+          });
         }
       }
+      setIsLoading(false);
     } catch (error) {
-      console.error("Error adding to wishlist:", error);
+      toast({
+        title: "Error adding to wishlist!",
+        description: `${error}`,
+        variant: "destructive",
+      });
+      setIsLoading(false);
     }
   };
 
@@ -178,7 +197,7 @@ const ProductData: FC<ProductDataProps> = ({
   return (
     <div className="singleProduct__top--texts flex-grow self-stretch flex flex-col gap-6">
       <h4 className="text-neutral-700">{productData?.title}</h4>
-      <p className="text-neutral-400 text-sm lg:text-base inter">
+      <p className="text-neutral-400 inter text-sm lg:text-base">
         {productData?.description}
       </p>
       <div className="flex items-center gap-3">
@@ -204,39 +223,48 @@ const ProductData: FC<ProductDataProps> = ({
         <div className="flex items-center justify-between gap-6">
           <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg">
             <Button
-              onClick={() =>
-                productQuantity > 1 &&
-                changeParam("quantity", productQuantity - 1)
-              }
+              onClick={() => {
+                productQuantity && changeParam("quantity", productQuantity - 1);
+              }}
               className="bg-transparent shadow-none text-black group"
             >
               <span className="group-hover:text-white">-</span>
             </Button>
             <span className="px-3">{productQuantity}</span>
             <Button
-              onClick={() =>
+              onClick={() => {
                 productQuantity < +selectedVariant?.stock! &&
-                changeParam("quantity", productQuantity + 1)
-              }
+                  changeParam("quantity", productQuantity + 1);
+              }}
               className="bg-transparent shadow-none text-black group"
             >
               <span className="group-hover:text-white">+</span>
             </Button>
           </div>
           <Button
-            className="w-full hover:invert duration-200"
+            className={`w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading && "!bg-black"}`}
             variant={"outline"}
-            onClick={() =>
-              saveWishlist(
+            onClick={async () => {
+              await saveWishlist(
                 userInfo?._id,
                 productData?._id,
                 productColor,
                 productVariant
-              )
-            }
+              );
+              setIsSaved(true);
+            }}
+            disabled={isSaved}
           >
-            <img src={heartIcon} alt="heart icon" width={18} height={18} />{" "}
-            <span className="font-normal">Wishlist</span>
+            {isLoading ? (
+              <div className="loader w-10 h-10"></div>
+            ) : isSaved ? (
+              <span className="font-normal">Saved</span>
+            ) : (
+              <>
+                <img src={heartIcon} alt="heart icon" width={18} height={18} />{" "}
+                <span className="font-normal">Wishlist</span>
+              </>
+            )}
           </Button>
         </div>
         <Button className="w-full hover:bg-secondary-green duration-200">

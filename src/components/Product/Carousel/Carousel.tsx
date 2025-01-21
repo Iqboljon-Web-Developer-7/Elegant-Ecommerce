@@ -12,15 +12,9 @@ import Zoom from "react-medium-image-zoom";
 import loadingImg from "@/assets/loading.svg";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { ProductImage, ProductVariantType } from "@/lib/types";
+import { ProductCarouselType } from "@/lib/types";
 import { urlFor } from "@/utils/Client";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-
-interface ProductCarouselType {
-  images: ProductImage[];
-  createdAt?: string;
-  selectedVariant: ProductVariantType;
-}
 
 const Carousel: FC<ProductCarouselType> = ({
   images,
@@ -29,24 +23,6 @@ const Carousel: FC<ProductCarouselType> = ({
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
-
-  const isNew = () => {
-    const CreatedAt = new Date(createdAt!);
-    const now = new Date();
-    const diffInMonths =
-      (now.getFullYear() - CreatedAt.getFullYear()) * 12 +
-      now.getMonth() -
-      CreatedAt.getMonth();
-    return diffInMonths < 2;
-  };
-  const discount = () =>
-    selectedVariant
-      ? Math.round(
-          ((selectedVariant.price - selectedVariant.salePrice) /
-            selectedVariant.price) *
-            100
-        )
-      : null;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -66,19 +42,37 @@ const Carousel: FC<ProductCarouselType> = ({
     };
   }, []);
 
+  const isNew = () => {
+    const CreatedAt = new Date(createdAt!);
+    const now = new Date();
+    const diffInMonths =
+      (now.getFullYear() - CreatedAt.getFullYear()) * 12 +
+      now.getMonth() -
+      CreatedAt.getMonth();
+    return diffInMonths < 2;
+  };
+  const discount = () =>
+    selectedVariant
+      ? Math.round(
+          ((selectedVariant.price - selectedVariant.salePrice) /
+            selectedVariant.price) *
+            100
+        )
+      : null;
+
   const allImages = images?.flatMap((item) =>
     item?.images?.flatMap((imageSet) => imageSet.image)
   );
 
   return (
     <div className="w-full h-full relative">
-      <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 text-base text-center z-10">
+      <div className="product__main--status absolute top-4 left-4 flex flex-col gap-2 text-base text-center z-10">
         {isNew() && (
           <p className="px-3 rounded-md bg-white font-semibold shadow-md">
             NEW
           </p>
         )}
-        {discount !== null && discount()! > 0 && (
+        {discount !== null && (
           <p className="px-3 rounded-sm bg-secondary-green text-white font-medium shadow-md">
             {`-${discount()}%`}
           </p>
@@ -93,8 +87,8 @@ const Carousel: FC<ProductCarouselType> = ({
         }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiperMain"
         ref={mainSwiperRef}
+        className="mySwiperMain"
       >
         {allImages?.length ? (
           allImages?.map((image, idx) => (

@@ -59,19 +59,19 @@ export interface ProductType {
     _key: string;
     title: string;
   }[];
-  variants:ProductVariantType[],
-  wishlist:{
-    userId:string;
+  variants: ProductVariantType[];
+  wishlist: {
+    userId: string;
     postedBy: {
-      _id:string
-    }
+      _id: string;
+    };
   }[];
 }
 
 export interface ProductVariantType {
   color: string;
   price: number;
-  salePrice:number;
+  salePrice: number;
   sku: string;
   stock: number;
   title: string;
@@ -81,4 +81,19 @@ export interface ProductVariantType {
 // Products Carousel Props Interface
 export interface ProductsCarouselProps {
   products: ProductType[];
+}
+
+export interface ProductCarouselType {
+  images: ProductImage[];
+  createdAt?: string;
+  selectedVariant: ProductVariantType;
+}
+
+export interface ProductDataProps {
+  productData?: ProductType;
+  changeParam: (param: string, value: string | number) => void;
+  selectedVariant: ProductVariantType;
+  productColor: string | null;
+  productVariant: string | null;
+  productQuantity: number;
 }

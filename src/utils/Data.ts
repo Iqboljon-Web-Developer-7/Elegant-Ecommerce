@@ -34,3 +34,6 @@ export const SANITY_PRODUCT_QUERY = (id: string) => {
 };
 
 export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;
+
+export const SANITY_USER_WISHLIST = (userId: string) =>
+  `*[_type == "wishlist" && userId == '${userId}'][0]`;

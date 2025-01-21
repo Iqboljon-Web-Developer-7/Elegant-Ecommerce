@@ -33,6 +33,7 @@ const Product: FC = () => {
           .fetch(SANITY_PRODUCT_QUERY(id))
           .catch(() => navigate("/products"));
 
+        setProductData(data);
         if (!productColor || !productVariant) {
           // Find the first available color and variant combination
           const firstAvailableVariant = data.variants.find((variant) =>
@@ -49,7 +50,6 @@ const Product: FC = () => {
             });
           }
         }
-        setProductData(data);
       } catch (error) {
         console.error(error);
         toast({
@@ -59,15 +59,7 @@ const Product: FC = () => {
       }
     }
     fetchProduct(id!);
-  }, [
-    id,
-    navigate,
-    productColor,
-    productVariant,
-    productQuantity,
-    setSearchParams,
-    toast,
-  ]);
+  }, []);
 
   const changeParam = useCallback(
     (param: string, value: string | number) => {
@@ -85,7 +77,7 @@ const Product: FC = () => {
     if (selectedVariant && productQuantity > selectedVariant.stock) {
       changeParam("quantity", selectedVariant.stock);
     }
-  }, [productQuantity, productVariant, changeParam, productData]);
+  }, [productVariant, changeParam]);
 
   const selectedVariant = productData?.variants.find(
     (variant) => variant.title === productVariant
@@ -93,17 +85,17 @@ const Product: FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="breadcrumb mt-4 text-sm inter">
+      <div className="breadcrumb mt-4 inter text-sm">
         <span className="text-slate-600">
           Home {">"} &nbsp; <Link to={"/products"}>Products</Link>{" "}
         </span>{" "}
         {">"} &nbsp; {productData?.title?.slice(0, 20)}
       </div>
-      <div className="main-info grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 pt-4 mb-10">
+      <div className="main-info pt-4 mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <Carousel
-          selectedVariant={selectedVariant!}
-          createdAt={productData?._createdAt}
           images={productData?.images!}
+          createdAt={productData?._createdAt}
+          selectedVariant={selectedVariant!}
         />
         <ProductData
           changeParam={changeParam}
