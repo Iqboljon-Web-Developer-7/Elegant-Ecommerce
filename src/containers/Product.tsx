@@ -30,6 +30,7 @@ const Product: FC = () => {
     async function fetchProduct(id: string) {
       try {
         const data: ProductType = await client
+          .config({ useCdn: false })
           .fetch(SANITY_PRODUCT_QUERY(id))
           .catch(() => navigate("/products"));
 

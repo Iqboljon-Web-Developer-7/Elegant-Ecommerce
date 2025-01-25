@@ -48,7 +48,7 @@ export function SearchForm() {
                 <FormControl>
                   <Input
                     className="text-sm focus-visible:ring-0 ring-slate-50"
-                    placeholder="Search"
+                    placeholder="Search anything..."
                     {...field}
                   />
                 </FormControl>

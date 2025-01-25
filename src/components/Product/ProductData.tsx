@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom"; // Add useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
 
 const ProductData: FC<ProductDataProps> = ({
@@ -21,7 +21,7 @@ const ProductData: FC<ProductDataProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (productData && !productColor && !productVariant) {

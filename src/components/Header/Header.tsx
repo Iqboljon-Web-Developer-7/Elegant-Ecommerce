@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarTrigger } from "../ui/sidebar";
-
 import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import UserIcont from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
-import { useEffect } from "react";
+import { Button } from "../ui/button";
+import { SANITY_USER_WISHLIST } from "@/utils/Data";
+import { client } from "@/utils/Client";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -15,10 +17,40 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const [userWishlist, setUserWishlist] = useState([]);
+
+  const userInfo = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo")!)
+    : null;
+
   useEffect(() => {
-    // async function fetchUserWishlist(id: string) {}
-    // fetchUserWishlist();
-  }, []);
+    const fetchData = async () => {
+      if (userInfo) {
+        try {
+          // Fetch initial data
+          const result = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
+          setUserWishlist(result?.items || []);
+
+          // real-time updates
+          const realTimeWishlistUpdate = client
+            .listen(SANITY_USER_WISHLIST(userInfo._id))
+            .subscribe((update) => {
+              if (update.result) {
+                setUserWishlist(update.result.items);
+              }
+            });
+
+          // Cleanup real-time updates on component unmount
+          return () => realTimeWishlistUpdate.unsubscribe();
+        } catch (error) {
+          console.error("Error fetching or subscribing to wishlist:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [userInfo]);
+
   const Links = navLinks.map(({ to, label }) => (
     <NavLink
       key={to}
@@ -52,13 +84,27 @@ const Header = () => {
               className="hidden md:block"
             />
           </Link>
-          <img src={UserIcont} alt="user-icon" className="hidden md:block" />
-          <div className="flex items-center justify-center gap-1">
-            <img src={CartIcon} alt="cart-icon" />
-            <p className="w-5 h-5 rounded-full bg-black text-[.7rem] font-semibold text-white flex items-center justify-center">
-              2
-            </p>
-          </div>
+          {userInfo ? (
+            <>
+              <img
+                src={UserIcont}
+                alt="user-icon"
+                className="hidden md:block"
+              />
+              <div className="flex items-center justify-center gap-1">
+                <img src={CartIcon} alt="cart-icon" />
+                {userWishlist?.length > 0 && (
+                  <p className="w-5 h-5 rounded-full bg-black text-[.7rem] font-semibold text-white flex items-center justify-center">
+                    {userWishlist.length}
+                  </p>
+                )}
+              </div>
+            </>
+          ) : (
+            <Link to={"/auth/login"}>
+              <Button>Sign in</Button>
+            </Link>
+          )}
           <SidebarTrigger className="text-2xl md:hidden" />
         </div>
       </div>
