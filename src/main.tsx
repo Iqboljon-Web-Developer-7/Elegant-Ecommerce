@@ -7,6 +7,7 @@ const App = lazy(() => import("./App.tsx"));
 
 import "./index.css";
 import "react-medium-image-zoom/dist/styles.css";
+
 import { Provider } from "react-redux";
 import { store } from "./redux/index.ts";
 

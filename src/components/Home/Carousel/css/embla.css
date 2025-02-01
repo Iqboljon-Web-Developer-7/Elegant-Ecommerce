@@ -30,9 +30,7 @@
 .embla__slide__img {
   display: block;
   height: -moz-available;
-  height: fit-content;
   max-height: 28rem;
-  width: fit-content;
   object-fit: cover;
   object-position: left;
 }

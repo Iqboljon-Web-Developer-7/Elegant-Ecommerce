@@ -21,13 +21,13 @@ export const LazyLoadImage: React.FC<PropType> = (props) => {
           hasLoaded ? " embla__lazy-load--has-loaded" : ""
         )}
       >
-        {!hasLoaded && <span className="embla__lazy-load__spinner" />}
         <img
-          className="embla__slide__img embla__lazy-load__img"
+          className="embla__slide__img embla__lazy-load__img w-full"
           onLoad={setLoaded}
           src={inView ? imgSrc : undefined}
           alt="Your alt text"
         />
+        {!hasLoaded && <span className="embla__lazy-load__spinner" />}
       </div>
     </div>
   );

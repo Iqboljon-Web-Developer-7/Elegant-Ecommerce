@@ -97,3 +97,10 @@ export interface ProductDataProps {
   productVariant: string | null;
   productQuantity: number;
 }
+
+// Styled link
+export interface StyledLinkTypes {
+  destination: string;
+  name: string;
+  className?: string;
+}

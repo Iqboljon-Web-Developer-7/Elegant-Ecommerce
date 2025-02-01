@@ -1,6 +1,7 @@
 import { FC, useMemo, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heartIcon from "@/assets/icons/heart.svg";
+import redHeartIcon from "@/assets/icons/red-heart.svg";
 import { ProductDataProps } from "@/lib/types";
 import { client, urlFor } from "@/utils/Client";
 import { v4 as uuidv4 } from "uuid";
@@ -195,9 +196,102 @@ const ProductData: FC<ProductDataProps> = ({
     }
   };
 
+  const removeWishlist = async (
+    userId: string,
+    productId: number,
+    color: string | null,
+    variant: string | null
+  ) => {
+    setIsLoading(true);
+    try {
+      let userWishlist = await client.fetch(SANITY_USER_WISHLIST(userId));
+      if (userWishlist) {
+        const filteredItems = userWishlist.items.filter(
+          (item: any) =>
+            !(
+              item.product._ref === productId &&
+              item.color === color &&
+              item.variant === variant
+            )
+        );
+
+        await client
+          .patch(userWishlist._id)
+          .set({ items: filteredItems })
+          .commit();
+        toast({
+          description: "Product removed from wishlist successfully!",
+        });
+        setIsSaved(false);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error removing from wishlist!",
+        description: `${error}`,
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
+  };
+
   const handleLoginRedirect = () => {
     sessionStorage.setItem("returnUrl", window.location.pathname);
     navigate("/auth/login");
+  };
+  const handleAddWishlist = async () => {
+    if (!userInfo?._id) {
+      toast({
+        title: "Please log in",
+        description: "You need to be logged in to add items to the wishlist.",
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Try again">
+            <Button
+              onClick={() => handleLoginRedirect()}
+              className="shadow-md hover:shadow-none hover:bg-neutral-700"
+            >
+              Login
+            </Button>
+          </ToastAction>
+        ),
+      });
+    } else {
+      await saveWishlist(
+        userInfo?._id,
+        productData?._id!,
+        productColor,
+        productVariant
+      );
+      setIsSaved(true);
+    }
+  };
+  const handleRemoveWishlist = async () => {
+    if (!userInfo?._id) {
+      toast({
+        title: "Please log in",
+        description: "You need to be logged in to add items to the wishlist.",
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Try again">
+            <Button
+              onClick={() => handleLoginRedirect()}
+              className="shadow-md hover:shadow-none hover:bg-neutral-700"
+            >
+              Login
+            </Button>
+          </ToastAction>
+        ),
+      });
+    } else {
+      await removeWishlist(
+        userInfo?._id,
+        productData?._id!,
+        productColor,
+        productVariant
+      );
+      setIsSaved(false);
+    }
   };
   if (!productData) return <InfoLoadingSkeleton />;
 
@@ -249,47 +343,28 @@ const ProductData: FC<ProductDataProps> = ({
             </Button>
           </div>
           <Button
-            className={`w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading && "!bg-black"}`}
+            className={`group w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading && "!bg-black"}`}
             variant={"outline"}
-            onClick={async () => {
-              if (!userInfo?._id) {
-                toast({
-                  title: "Please log in",
-                  description:
-                    "You need to be logged in to add items to the wishlist.",
-                  variant: "destructive",
-                  action: (
-                    <ToastAction altText="Try again">
-                      <Button
-                        onClick={() => handleLoginRedirect()}
-                        className="shadow-md hover:shadow-none hover:bg-neutral-700"
-                      >
-                        Login
-                      </Button>
-                    </ToastAction>
-                  ),
-                });
-              } else {
-                await saveWishlist(
-                  userInfo?._id,
-                  productData?._id,
-                  productColor,
-                  productVariant
-                );
-                setIsSaved(true);
-              }
-            }}
-            disabled={isSaved}
+            // disabled={isSaved}
           >
             {isLoading ? (
               <div className="loader w-10 h-10"></div>
             ) : isSaved ? (
-              <span className="font-normal">Saved</span>
+              <div
+                onClick={() => handleRemoveWishlist()}
+                className="font-normal flex-center gap-2 w-full h-full"
+              >
+                <img src={redHeartIcon} />
+                Saved
+              </div>
             ) : (
-              <>
+              <div
+                onClick={() => handleAddWishlist()}
+                className="flex-center gap-2 w-full h-full"
+              >
                 <img src={heartIcon} alt="heart icon" width={18} height={18} />{" "}
                 <span className="font-normal">Wishlist</span>
-              </>
+              </div>
             )}
           </Button>
         </div>

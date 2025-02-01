@@ -52,29 +52,22 @@ const EmblaCarousel = () => {
         (windowWidth <= 768 && item?.media === "mobile") ||
         (windowWidth > 768 && item?.media === "desktop")
     )
-    .map((item, index) => {
-      const image = urlFor(item?.images?.asset?._ref).toString();
-
-      return (
-        <div
-          key={index}
-          className="embla__slide flex justify-center items-center"
-        >
-          <LazyLoadImage
-            index={index}
-            imgSrc={image}
-            inView={slidesInView.includes(index)}
-          />
-        </div>
-      );
-    });
+    .map((item, index) => (
+      <div key={index} className="embla__slide flex-center">
+        <LazyLoadImage
+          index={index}
+          imgSrc={urlFor(item?.images?.asset?._ref).toString()}
+          inView={slidesInView.includes(index)}
+        />
+      </div>
+    ));
 
   const Dots = scrollSnaps.map((_, index) => (
     <DotButton
       aria-label={`indicator button ${index + 1}`}
       key={index}
       onClick={() => onDotButtonClick(index)}
-      className={"w-3 h-3 rounded-full bg-white transition-all".concat(
+      className={"w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
         index === selectedIndex ? " !w-10" : ""
       )}
     />
@@ -83,26 +76,26 @@ const EmblaCarousel = () => {
   return (
     <div className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
-        {!Slides.length && <PlaceholderSlide />}
         <div className="embla__container">{Slides}</div>
+        {!Slides.length && <PlaceholderSlide />}
       </div>
       <div className="embla__controls">
         <div className="embla__buttons">
           <PrevButton
             aria-label="prev-button"
-            className="absolute w-11 h-11 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+            className="carouselBtn left-8 group"
             onClick={onPrevButtonClick}
             disabled={prevBtnDisabled}
           />
           <NextButton
             aria-label="next-button"
-            className="absolute w-11 h-11 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex"
+            className="carouselBtn right-8 group"
             onClick={onNextButtonClick}
             disabled={nextBtnDisabled}
           />
         </div>
 
-        <div className="w-full absolute top-[90%] left-0 right-0 flex items-center justify-center gap-3">
+        <div className="w-full absolute top-[90%] left-0 right-0 flex-center gap-3">
           {Dots}
         </div>
       </div>

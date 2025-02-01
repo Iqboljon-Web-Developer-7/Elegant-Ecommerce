@@ -28,8 +28,12 @@ const Header = () => {
       if (userInfo) {
         try {
           // Fetch initial data
-          const result = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
-          setUserWishlist(result?.items || []);
+          if (!userWishlist.length) {
+            const result = await client.fetch(
+              SANITY_USER_WISHLIST(userInfo._id)
+            );
+            setUserWishlist(result?.items || []);
+          }
 
           // real-time updates
           const realTimeWishlistUpdate = client
@@ -49,7 +53,7 @@ const Header = () => {
     };
 
     fetchData();
-  }, [userInfo]);
+  }, []);
 
   const Links = navLinks.map(({ to, label }) => (
     <NavLink

@@ -100,6 +100,7 @@
   }
 }
 
+/* All scrollbars styles */
 ::-webkit-scrollbar {
   width: 0.4rem;
   height: 0.35rem;
@@ -222,7 +223,6 @@
       -32px 0 #fff2;
   }
 }
-
 /* Loaders end */
 
 /* Configuration start */
@@ -277,5 +277,26 @@ h6 {
     "liga" off,
     "clig" off;
 }
-
 /* Configuration end */
+
+/* Style variables */
+
+/* SV:Home Carousel */
+.carouselBtn {
+  @apply absolute w-11 h-11 rounded-full items-center justify-center top-[50%] translate-y-[-50%] bg-white hidden md:flex;
+}
+/* SV:Home Carousel end*/
+
+/* SV: SimpleHeading */
+.simpleHeadingContainer {
+  @apply w-full px-[1%] pt-4 md:pt-8 flex items-start sm:items-center justify-between flex-col sm:flex-row text-left lg:text-left gap-3;
+}
+.simpleHeadingH2 {
+  @apply w-full sm:w-[14ch] flex-shrink-0 text-[2.2rem] md:text-6xl lg:text-7xl leading-9 md:leading-[auto] tracking-[-0.025rem] font-medium;
+}
+.simpleHeadingP {
+  @apply w-full max-w-[27rem] text-sm lg:text-base text-gray-500 flex-grow;
+}
+/* SV: SimpleHeading end*/
+
+/* Style variables end*/

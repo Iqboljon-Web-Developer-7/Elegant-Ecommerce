@@ -8,21 +8,20 @@ import InstagramFeed from "@/components/Home/InstagramFeed/InstagramFeed";
 import discountImage from "@/assets/discount-add/discount-add.webp";
 import Banner from "@/styledComponents/Banner";
 import StyledLink from "@/styledComponents/StyledLink";
-
-import { client } from "@/utils/Client";
 import {
   SANITY_SLIDES_QUERY,
   SANITY_COLLECTIONS_QUERY,
   SANITY_PRODUCTS_QUERY,
 } from "@/utils/Data";
+import { client } from "@/utils/Client";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "@/redux/slices/homePageData";
 import { ProductType } from "@/lib/types";
 
 const Home = () => {
-  const { toast } = useToast();
   const dispatch = useDispatch();
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -61,7 +60,6 @@ const Home = () => {
         <Products products={products} />
       </div>
       <div className="container-2xl">
-        {/* Banner component also used differently */}
         <Banner img={discountImage}>
           <p className="text-base text-secondary-blue font-bold uppercase inter">
             Sale up to 35% off
