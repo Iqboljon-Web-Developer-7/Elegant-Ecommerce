@@ -1,46 +1,83 @@
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { urlFor, client } from "@/utils/Client";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductType } from "@/lib/types";
-import { urlFor } from "@/utils/Client";
-import React, { useState } from "react";
 import { GoHeart } from "react-icons/go";
-import { IoStar } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { FaHeart } from "react-icons/fa6";
+import { SANITY_USER_WISHLIST } from "@/utils/Data";
+import { v4 as uuidv4 } from "uuid";
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
-
-  // For showing different images of one product when mouse moves above it
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
+  const [isSaved, setIsSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement>,
-    productId: number,
-    imagesLength: number
-  ) => {
-    if (imagesLength <= 0) return;
-    const { left, width } = e.currentTarget.getBoundingClientRect();
-    const hoverPosition = e.clientX - left;
-    const hoverPercentage = (hoverPosition / width) * 100;
+  // Retrieve user info from localStorage only once.
+  const userInfo = useMemo(() => {
+    const info = localStorage.getItem("userInfo");
+    return info ? JSON.parse(info) : null;
+  }, []);
 
-    const imageIndex = Math.min(
-      imagesLength - 1,
-      Math.floor((hoverPercentage / 100) * imagesLength)
-    );
+  // Check if the product exists in the user's wishlist.
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (userInfo && product) {
+        try {
+          const wishlist = await client.fetch(
+            SANITY_USER_WISHLIST(userInfo._id)
+          );
+          if (wishlist) {
+            const exists = wishlist.items.some(
+              (item: any) => item.product._ref === product._id
+            );
+            setIsSaved(exists);
+          }
+        } catch (error) {
+          console.error("Error checking wishlist:", error);
+        }
+      }
+    };
+    checkWishlist();
+  }, [userInfo, product]);
 
-    setHoveredImageIndex((prev) => ({ ...prev, [productId]: imageIndex }));
-  };
+  // Handler to update the hovered image based on mouse position.
+  const handleMouseMove = useCallback(
+    (
+      e: React.MouseEvent<HTMLDivElement>,
+      productId: number,
+      imagesLength: number
+    ) => {
+      if (imagesLength <= 0) return;
+      const { left, width } = e.currentTarget.getBoundingClientRect();
+      const hoverPosition = e.clientX - left;
+      const hoverPercentage = (hoverPosition / width) * 100;
+      const imageIndex = Math.min(
+        imagesLength - 1,
+        Math.floor((hoverPercentage / 100) * imagesLength)
+      );
+      setHoveredImageIndex((prev) => ({ ...prev, [productId]: imageIndex }));
+    },
+    []
+  );
 
-  const getImageUrl = (product: ProductType, index: number): string => {
-    const images = product?.images[0]?.images || [];
-    const imageRef = images[index]?.image?.asset?._ref;
+  // Utility to get the current image URL.
+  const getImageUrl = useCallback(
+    (product: ProductType, index: number): string => {
+      const images = product?.images[0]?.images || [];
+      const imageRef = images[index]?.image?.asset?._ref;
+      return imageRef
+        ? urlFor(imageRef).url()
+        : "https://via.placeholder.com/260x350";
+    },
+    []
+  );
 
-    return imageRef
-      ? urlFor(imageRef).url()
-      : "https://via.placeholder.com/260x350";
-  };
-  const isNew = (product: ProductType) => {
+  // Memoized flag indicating if the product is "new".
+  const isNewProduct = useMemo(() => {
     const createdAt = new Date(product._createdAt);
     const now = new Date();
     const diffInMonths =
@@ -48,31 +85,99 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
       now.getMonth() -
       createdAt.getMonth();
     return diffInMonths < 2;
-  };
-  const discount = (product: ProductType) => {
-    let price = product.variants[0].price;
-    let salePrice = product.variants[0].salePrice;
+  }, [product._createdAt]);
 
+  // Memoized discount percentage.
+  const discountPercentage = useMemo(() => {
+    const price = product.variants[0].price;
+    const salePrice = product.variants[0].salePrice;
     return Math.round(((price - salePrice) / price) * 100);
-  };
+  }, [product.variants]);
 
-  const handleOpenProduct = (
-    event: React.MouseEvent<HTMLElement>,
-    id: number
-  ) => {
-    const target = event.target as HTMLDivElement;
-    if (
-      !target.classList.contains("addWishlist") &&
-      !target.classList.contains("addCart")
-    ) {
-      navigate(`/products/${id}`);
-    }
-  };
+  // Navigate to product details if the click is not on wishlist or add-to-cart buttons.
+  const handleOpenProduct = useCallback(
+    (event: React.MouseEvent<HTMLElement>, id: number) => {
+      const target = event.target as HTMLElement;
+      if (
+        !target.classList.contains("addWishlist") &&
+        !target.classList.contains("addCart")
+      ) {
+        navigate(`/products/${id}`);
+      }
+    },
+    [navigate]
+  );
+
+  // Toggle wishlist status (add or remove product).
+  const handleToggleWishlist = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      // Prevent triggering the open product event.
+      e.stopPropagation();
+      if (!userInfo) {
+        navigate("/auth/login");
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const wishlist = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
+        if (isSaved) {
+          // Remove product from wishlist.
+          if (wishlist) {
+            const filteredItems = wishlist.items.filter(
+              (item: any) => item.product._ref !== product._id
+            );
+            await client
+              .patch(wishlist._id)
+              .set({ items: filteredItems })
+              .commit();
+            setIsSaved(false);
+          }
+        } else {
+          // Add product to wishlist.
+          if (!wishlist) {
+            await client.create({
+              _type: "wishlist",
+              userId: userInfo._id,
+              name: `${userInfo.username}'s Wishlist`,
+              items: [
+                {
+                  _key: uuidv4(),
+                  product: { _type: "reference", _ref: product._id },
+                },
+              ],
+            });
+          } else {
+            const duplicate = wishlist.items.some(
+              (item: any) => item.product._ref === product._id
+            );
+            if (!duplicate) {
+              await client
+                .patch(wishlist._id)
+                .setIfMissing({ items: [] })
+                .append("items", [
+                  {
+                    _key: uuidv4(),
+                    product: { _type: "reference", _ref: product._id },
+                  },
+                ])
+                .commit();
+            }
+          }
+          setIsSaved(true);
+        }
+      } catch (error) {
+        console.error("Error toggling wishlist:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [userInfo, isSaved, product, navigate]
+  );
 
   return (
     <div
       onClick={(e) => handleOpenProduct(e, product._id)}
-      className="product-container flex items-start justify-start flex-col gap-3"
+      className="product-container flex flex-col gap-3 cursor-pointer"
     >
       <div
         className="product__main w-full h-full relative group flex-grow bg-red-500"
@@ -95,33 +200,39 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           }}
         ></div>
 
-        <div className="product__main--status absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
-          {isNew(product) && (
+        <div className="absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
+          {isNewProduct && (
             <p className="px-3 rounded-md bg-white font-semibold">NEW</p>
           )}
-          {discount !== null && discount(product)! > 0 && (
+          {discountPercentage > 0 && (
             <p className="px-3 rounded-sm bg-secondary-green text-white font-medium">
-              {`-${discount(product)}%`}
+              {`-${discountPercentage}%`}
             </p>
           )}
         </div>
-        <div className="product__main--wishlistBtn absolute right-4 top-4">
+
+        <div className="absolute right-4 top-4">
           <button
             aria-label="addWishlist"
-            className="bg-white rounded-full opacity-0 group-hover:opacity-100 duration-300 shadow-md"
+            onClick={handleToggleWishlist}
+            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-300 shadow-md ${isLoading && "animate-pulse"}`}
           >
-            <GoHeart
-              size={34}
-              className="addWishlist p-[.35rem] fill-neutral-400 hover:fill-black duration-200"
-            />
+            {isSaved ? (
+              <FaHeart size={24} className="text-red-500" />
+            ) : (
+              <GoHeart
+                size={24}
+                className="fill-neutral-400 hover:fill-black duration-200"
+              />
+            )}
           </button>
         </div>
+
         <Button className="addCart absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all">
           Add to cart
         </Button>
-        <div
-          className={`px-2 absolute bottom-1 left-0 right-0 transform flex gap-2`}
-        >
+
+        <div className="px-2 absolute bottom-1 left-0 right-0 flex gap-2">
           {product.images[0].images.slice(0, 5).map((_, index) => (
             <div
               key={index}
@@ -134,15 +245,18 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           ))}
         </div>
       </div>
-      <div className="product__info w-full h-full flex-grow-[2]">
-        <div className="stars w-full flex justify-start gap-1 text-neutral-900">
+
+      <div className="product__info flex-grow-[2]">
+        <div className="stars flex justify-start gap-1 text-neutral-900">
           {new Array(5).fill(0).map((_, index) => (
-            <IoStar key={index} size={16} />
+            <span key={index}>
+              <svg width="16" height="16" fill="currentColor">
+                <path d="M8 0l2.49 5.03L16 5.83l-4 3.89L12.98 16 8 13.27 3.02 16 4 9.72 0 5.83l5.51-.8L8 0z" />
+              </svg>
+            </span>
           ))}
         </div>
-        <p className="text-black-800 font-semibold leading-8">
-          {product.title}
-        </p>
+        <p className="text-black font-semibold leading-8">{product.title}</p>
         <p className="flex gap-2 text-sm">
           <span className="font-semibold text-neutral-700">
             ${product.variants[0].salePrice.toFixed(2)}
