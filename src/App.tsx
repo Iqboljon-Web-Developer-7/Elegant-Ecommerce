@@ -11,6 +11,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Product from "./containers/Product";
 import Products from "./containers/Products";
+import AppErrorBoundary from "./components/errorBoundary/ErrorBoundary";
 
 const App = () => {
   return (
@@ -18,7 +19,14 @@ const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="products" element={<Products />} />
-        <Route path="products/:id" element={<Product />} />
+        <Route
+          path="products/:id"
+          element={
+            <AppErrorBoundary>
+              <Product />
+            </AppErrorBoundary>
+          }
+        />
         <Route path="contact" element={<ContactUs />} />
         <Route path="search" element={<Search />} />
       </Route>

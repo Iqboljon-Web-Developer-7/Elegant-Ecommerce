@@ -66,7 +66,8 @@ const Product: FC = () => {
     (param: string, value: string | number) => {
       const updatedParams = new URLSearchParams(searchParams);
       updatedParams.set(param, value.toString());
-      setSearchParams(updatedParams);
+      // Use the replace option so we don't push a new history entry.
+      setSearchParams(updatedParams, { replace: true });
     },
     [searchParams, setSearchParams]
   );
