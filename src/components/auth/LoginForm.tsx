@@ -1,3 +1,4 @@
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -10,7 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { client } from "@/utils/Client";
 import { SANITY_LOGIN_USER } from "@/utils/Data";
@@ -34,24 +35,29 @@ export function LoginForm() {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true);
-    client
-      .fetch(SANITY_LOGIN_USER(values))
-      .then((user) => {
-        setLoading(false);
-        if (user?.length) {
-          localStorage.setItem("userInfo", JSON.stringify(user[0]));
-          const returnUrl = sessionStorage.getItem("returnUrl") || "/";
-          sessionStorage.removeItem("returnUrl");
-          navigate(returnUrl);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast({ title: err?.message, variant: "destructive" });
-      });
-  }
+  const onSubmit =
+    useCallback((values: z.infer<typeof formSchema>) => {
+      setLoading(true);
+      client
+        .fetch(SANITY_LOGIN_USER(values))
+        .then((user) => {
+          setLoading(false);
+
+          if (user) {
+            localStorage.setItem("userInfo", JSON.stringify(user));
+            const returnUrl = sessionStorage.getItem("returnUrl") || "/";
+            sessionStorage.removeItem("returnUrl");
+            navigate(returnUrl);
+          } else {
+            toast({ title: "User not found!", variant: "destructive" });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast({ title: err?.message, variant: "destructive" });
+        });
+    }
+      , [])
 
   return (
     <Form {...form}>
