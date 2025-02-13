@@ -25,6 +25,9 @@ const Product: FC = () => {
   const productVariant = searchParams.get("variant");
   const productQuantity = Number(searchParams.get("quantity")) || 1;
 
+  const allParams = Object.fromEntries(searchParams.entries());
+  console.log(allParams);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     async function fetchProduct(id: string) {
@@ -65,7 +68,7 @@ const Product: FC = () => {
   const changeParam = useCallback(
     (param: string, value: string | number) => {
       const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set(param, value.toString());
+      updatedParams.set(param, value?.toString());
       // Use the replace option so we don't push a new history entry.
       setSearchParams(updatedParams, { replace: true });
     },

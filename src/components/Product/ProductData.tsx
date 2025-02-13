@@ -19,6 +19,9 @@ const ProductData: FC<ProductDataProps> = ({
   productVariant,
   productQuantity,
 }) => {
+  /* --------------------------------------------------------------------------
+     Local State & Hooks
+  -------------------------------------------------------------------------- */
   const [isLoading, setIsLoading] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const { toast } = useToast();
@@ -30,15 +33,46 @@ const ProductData: FC<ProductDataProps> = ({
     return info ? JSON.parse(info) : null;
   }, []);
 
-  // Set default parameters if not provided.
+  /* --------------------------------------------------------------------------
+     Set Default Parameters
+     
+     - If both productColor and productVariant are missing, we pick the first
+       available values from productData.
+     - Additionally, if a productVariant is set but productColor is still not,
+       then we calculate the available colors for that variant and choose the first.
+  -------------------------------------------------------------------------- */
   useEffect(() => {
-    if (productData && !productColor && !productVariant) {
-      changeParam("color", productData.colors[0]?.name);
-      changeParam("variant", productData.variants[0]?.title);
+    if (productData) {
+      // If neither color nor variant are set, initialize both.
+      if (!productColor && !productVariant) {
+        if (productData.colors && productData.colors.length > 0) {
+          changeParam("color", productData.colors[0].name);
+        }
+        if (productData.variants && productData.variants.length > 0) {
+          changeParam("variant", productData.variants[0].title);
+        }
+      }
     }
   }, [productData, productColor, productVariant, changeParam]);
 
-  // Check if the product is in the user's wishlist.
+  useEffect(() => {
+    if (productData && productVariant && !productColor) {
+      // Determine available colors based on the selected variant.
+      const availableColors = productData.variants
+        .filter((variant) => variant.title === productVariant)
+        .map((variant) => variant.color);
+      if (availableColors.length > 0) {
+        changeParam("color", availableColors[0]);
+      }
+    }
+  }, [productData, productColor, productVariant, changeParam]);
+
+  /* --------------------------------------------------------------------------
+     Check Wishlist Status
+     
+     Fetch the current user's wishlist and update the state if the current
+     product (with its color and variant) is already saved.
+  -------------------------------------------------------------------------- */
   useEffect(() => {
     const checkIfSaved = async () => {
       if (userInfo && productData) {
@@ -63,9 +97,15 @@ const ProductData: FC<ProductDataProps> = ({
     checkIfSaved();
   }, [userInfo, productData, productColor, productVariant]);
 
-  // Render variants.
+  /* --------------------------------------------------------------------------
+     Render Variants
+     
+     For each product variant, we display a clickable element.
+     Out-of-stock variants show different styling and are not clickable.
+  -------------------------------------------------------------------------- */
   const Variants = useMemo(() => {
-    return productData?.variants?.map((variant) => {
+    if (!productData?.variants) return null;
+    return productData.variants.map((variant) => {
       const isActive = variant.title === productVariant;
       const isOutOfStock = variant.stock === 0;
       return (
@@ -85,18 +125,21 @@ const ProductData: FC<ProductDataProps> = ({
     });
   }, [productData, productVariant, changeParam]);
 
-  // Render available colors.
+  /* --------------------------------------------------------------------------
+     Render Available Colors
+     
+     For each color, we show an image preview. The color is clickable if it
+     is available for the current variant. Note that we removed any state updates
+     from here to avoid updating state during render.
+  -------------------------------------------------------------------------- */
   const Colors = useMemo(() => {
-    const availableColors = productData?.variants
+    if (!productData?.colors) return null;
+    // Calculate available colors for the current variant.
+    const availableColors = productData.variants
       ?.filter((variant) => variant.title === productVariant)
       .map((variant) => variant.color);
 
-    // Set a default color if none is selected.
-    if (availableColors && !productColor) {
-      changeParam("color", availableColors[0]);
-    }
-
-    return productData?.colors?.map((color, index) => {
+    return productData.colors.map((color, index) => {
       const imageRef = productData.images.find(
         (img) => img.color === color.name
       )?.images[0]?.image.asset._ref;
@@ -125,17 +168,26 @@ const ProductData: FC<ProductDataProps> = ({
     });
   }, [productData, productVariant, productColor, changeParam]);
 
-  // Render categories.
+  /* --------------------------------------------------------------------------
+     Render Categories
+  -------------------------------------------------------------------------- */
   const Categories = useMemo(() => {
-    return productData?.categories?.map((item, index) => (
+    if (!productData?.categories) return null;
+    return productData.categories.map((item, index) => (
       <span key={item._key}>
         {item.title}
-        {productData?.categories?.length > index + 1 && ", "}
+        {productData.categories.length > index + 1 && ", "}
       </span>
     ));
   }, [productData]);
 
-  // Helper to check login status and redirect if necessary.
+  /* --------------------------------------------------------------------------
+     Wishlist Helpers & Handlers
+     
+     - requireLogin: Ensures the user is logged in before wishlist actions.
+     - saveWishlist: Adds the product to the wishlist.
+     - removeWishlist: Removes the product from the wishlist.
+  -------------------------------------------------------------------------- */
   const requireLogin = useCallback(() => {
     if (!userInfo?._id) {
       toast({
@@ -161,7 +213,6 @@ const ProductData: FC<ProductDataProps> = ({
     return true;
   }, [userInfo, toast, navigate]);
 
-  // Function to add the product to the wishlist.
   const saveWishlist = useCallback(
     async (
       userId: string,
@@ -233,7 +284,6 @@ const ProductData: FC<ProductDataProps> = ({
     [userInfo, toast]
   );
 
-  // Function to remove the product from the wishlist.
   const removeWishlist = useCallback(
     async (
       userId: string,
@@ -275,7 +325,6 @@ const ProductData: FC<ProductDataProps> = ({
     [toast]
   );
 
-  // Handlers for adding and removing wishlist items.
   const handleAddWishlist = useCallback(async () => {
     if (!requireLogin()) return;
     await saveWishlist(
@@ -310,6 +359,9 @@ const ProductData: FC<ProductDataProps> = ({
     productVariant,
   ]);
 
+  /* --------------------------------------------------------------------------
+     Render Component
+  -------------------------------------------------------------------------- */
   if (!productData) return <InfoLoadingSkeleton />;
 
   return (
@@ -361,7 +413,9 @@ const ProductData: FC<ProductDataProps> = ({
             </Button>
           </div>
           <Button
-            className={`group w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading && "!bg-black"}`}
+            className={`group w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${
+              isLoading ? "!bg-black" : ""
+            }`}
             variant={"outline"}
           >
             {isLoading ? (

@@ -9,7 +9,7 @@ import "swiper/css/thumbs";
 import "./styles.css";
 
 import Zoom from "react-medium-image-zoom";
-import loadingImg from "@/assets/loading.svg";
+import loadingImg from "@/assets/product/loading.svg";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { ProductCarouselType } from "@/lib/types";

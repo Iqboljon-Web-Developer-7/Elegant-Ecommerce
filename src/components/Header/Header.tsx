@@ -70,13 +70,15 @@ const Header = () => {
   return (
     <header className="py-3 md:py-4 px-2 md:px-1 border-b border-neutral-200">
       <div className="container-xl flex items-center justify-between">
-        <img
-          src={WebsiteLogo}
-          width={105}
-          height={24}
-          alt="website-logo"
-          className="w-[4.5rem] sm:w-[6.5rem]"
-        />
+        <Link to={"/"}>
+          <img
+            src={WebsiteLogo}
+            width={105}
+            height={24}
+            alt="website-logo"
+            className="w-[4.5rem] sm:w-[6.5rem]"
+          />
+        </Link>
         <div className="header__links hidden md:flex items-center justify-center gap-6 lg:gap-10 text-sm">
           {Links}
         </div>
