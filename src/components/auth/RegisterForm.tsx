@@ -1,3 +1,5 @@
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -43,52 +45,47 @@ export function RegisterForm() {
 
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [userExists, setuserExists] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true);
-    const doc = {
-      _id: uuidv4(),
-      _type: "user",
-      name: values.name,
-      username: values.username,
-      email: values.email,
-      password: values.password,
-    };
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
+    try {
+      setLoading(true);
+      const doc = {
+        _id: uuidv4(),
+        _type: "user",
+        name: values.name,
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      };
 
-    client
-      .fetch(SANITY_REGISTER_USER(values))
-      .then((users) => {
-        if (users?.length) {
-          setuserExists(true);
-          setTimeout(() => setuserExists(false), 2200);
-          toast({
-            title: "User already exists!",
-            description: "please try to register again.",
-            variant: "destructive",
-          });
-        } else {
-          client.createIfNotExists(doc).then((user) => {
-            localStorage.setItem("userInfo", JSON.stringify(user));
-            toast({
-              title: "User successfully created",
-              description: "Welcome to ELEGANT!",
-            });
-            setuserExists(false);
-            navigate("/");
-          });
-        }
-      })
-      .catch((error) => {
+      const users = await client.fetch(SANITY_REGISTER_USER(values));
+      if (users) {
         toast({
-          title: error.message,
+          title: "User already exists!",
+          description: "Please try to register again.",
           variant: "destructive",
         });
-        console.error(error);
-      })
-      .finally(() => setLoading(false));
-  }
+      } else {
+        const user = await client.createIfNotExists(doc);
+        localStorage.setItem("userInfo", JSON.stringify(user));
+        toast({
+          title: "User successfully created",
+          description: "Welcome to ELEGANT!",
+        });
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast({
+        title: error.message,
+        variant: "destructive",
+      });
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
 
   return (
     <Form {...form}>
@@ -162,9 +159,6 @@ export function RegisterForm() {
         <Button disabled={loading} type="submit" className="w-full">
           {loading ? <div className="loader"></div> : "Submit"}
         </Button>
-        {userExists && (
-          <p className="font-bold text-red-500 my-4">User already exists</p>
-        )}
       </form>
     </Form>
   );
