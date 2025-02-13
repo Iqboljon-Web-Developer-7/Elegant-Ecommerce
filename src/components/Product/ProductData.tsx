@@ -10,6 +10,7 @@ import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
+import { useSelector } from "react-redux";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
@@ -28,10 +29,7 @@ const ProductData: FC<ProductDataProps> = ({
   const navigate = useNavigate();
 
   // Parse user info once per component lifecycle.
-  const userInfo = useMemo(() => {
-    const info = localStorage.getItem("userInfo");
-    return info ? JSON.parse(info) : null;
-  }, []);
+  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
   /* --------------------------------------------------------------------------
      Set Default Parameters

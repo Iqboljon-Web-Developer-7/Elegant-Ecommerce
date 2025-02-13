@@ -7,6 +7,7 @@ import { GoHeart } from "react-icons/go";
 import { FaHeart } from "react-icons/fa6";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
@@ -15,12 +16,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   >({});
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Retrieve user info from localStorage only once.
-  const userInfo = useMemo(() => {
-    const info = localStorage.getItem("userInfo");
-    return info ? JSON.parse(info) : null;
-  }, []);
+  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
   // Check if the product exists in the user's wishlist.
   useEffect(() => {

@@ -8,6 +8,7 @@ import CartIcon from "@/assets/icons/cart.svg";
 import { Button } from "../ui/button";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { client } from "@/utils/Client";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -18,10 +19,7 @@ const navLinks = [
 
 const Header = () => {
   const [userWishlist, setUserWishlist] = useState([]);
-
-  const userInfo = localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo")!)
-    : null;
+  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
   useEffect(() => {
     const fetchData = async () => {

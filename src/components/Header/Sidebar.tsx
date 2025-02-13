@@ -20,6 +20,7 @@ import InstagramIcon from "@/assets/icons/instagram.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 import HeartIcon from "@/assets/icons/heart.svg";
+import { useSelector } from "react-redux";
 
 const items = [
   {
@@ -43,10 +44,7 @@ const items = [
 export function HeaderSidebar() {
   const { toggleSidebar } = useSidebar();
   const navigate = useNavigate();
-
-  const user = localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo")!)
-    : null;
+  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
   const handleSignOut = () => {
     localStorage.clear();
@@ -110,16 +108,16 @@ export function HeaderSidebar() {
               </NavLink>
             </div>
           </div>
-          {user ? (
+          {userInfo ? (
             <div className="flex items-center justify-between py-3">
               <div className="flex items-center justify-center gap-3">
                 <img src={UserIcon} alt="sidebar icon" />
                 <div>
-                  <h4 className="text-sm">{user?.username}</h4>
+                  <h4 className="text-sm">{userInfo?.username}</h4>
                   <p className="text-xs">
-                    {user?.email?.length > 20
-                      ? user?.email.slice(0, 20)
-                      : user?.email}
+                    {userInfo?.email?.length > 20
+                      ? userInfo?.email.slice(0, 20)
+                      : userInfo?.email}
                   </p>
                 </div>
               </div>
