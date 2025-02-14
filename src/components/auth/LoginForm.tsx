@@ -16,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { client } from "@/utils/Client";
 import { SANITY_LOGIN_USER } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "@/redux/slices/permamentData";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -34,6 +36,7 @@ export function LoginForm() {
 
   const { toast } = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const onSubmit =
     useCallback((values: z.infer<typeof formSchema>) => {
@@ -44,7 +47,8 @@ export function LoginForm() {
           setLoading(false);
 
           if (user) {
-            localStorage.setItem("userInfo", JSON.stringify(user));
+            dispatch(setUserInfo(user));
+            
             const returnUrl = sessionStorage.getItem("returnUrl") || "/";
             sessionStorage.removeItem("returnUrl");
             navigate(returnUrl);

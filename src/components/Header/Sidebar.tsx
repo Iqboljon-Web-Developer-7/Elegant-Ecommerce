@@ -20,7 +20,8 @@ import InstagramIcon from "@/assets/icons/instagram.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 import HeartIcon from "@/assets/icons/heart.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserInfo } from "@/redux/slices/permamentData";
 
 const items = [
   {
@@ -45,6 +46,9 @@ export function HeaderSidebar() {
   const { toggleSidebar } = useSidebar();
   const navigate = useNavigate();
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
+
+  const dispatch = useDispatch()
+
 
   return (
     <Sidebar>
@@ -116,7 +120,7 @@ export function HeaderSidebar() {
                   </p>
                 </div>
               </div>
-              <Button variant={"destructive"} onClick={() => localStorage.clear()}>
+              <Button variant={"destructive"} onClick={() => dispatch(clearUserInfo())}>
                 Sign Out
               </Button>
             </div>

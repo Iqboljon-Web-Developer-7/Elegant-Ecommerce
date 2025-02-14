@@ -8,7 +8,7 @@ import CartIcon from "@/assets/icons/cart.svg";
 import { Button } from "../ui/button";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { client } from "@/utils/Client";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,6 +26,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { clearUserInfo } from "@/redux/slices/permamentData";
 
 
 
@@ -39,6 +40,8 @@ const navLinks = [
 const Header = () => {
   const [userWishlist, setUserWishlist] = useState([]);
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,7 +135,7 @@ const Header = () => {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => localStorage.clear()}>Continue</AlertDialogAction>
+                          <AlertDialogAction onClick={() => dispatch(clearUserInfo())}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
