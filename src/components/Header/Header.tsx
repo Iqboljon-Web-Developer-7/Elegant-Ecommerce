@@ -141,9 +141,11 @@ const Header = () => {
                     </AlertDialog>
 
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                  <Link to={"/user/settings"}>
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Settings
+                    </DropdownMenuItem>
+                  </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
 

@@ -15,27 +15,27 @@ import AppErrorBoundary from "./components/errorBoundary/ErrorBoundary";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="products" element={<Products />} />
-        <Route
-          path="products/:id"
-          element={
-            <AppErrorBoundary>
+    <AppErrorBoundary>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route
+            path="products/:id"
+            element={
               <Product />
-            </AppErrorBoundary>
-          }
-        />
-        <Route path="contact" element={<ContactUs />} />
-        <Route path="search" element={<Search />} />
-      </Route>
-      <Route path="/auth" element={<Auth />}>
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
-      </Route>
-      <Route path="/*" element={<NotFound />} />
-    </Routes>
+            }
+          />
+          <Route path="contact" element={<ContactUs />} />
+          <Route path="search" element={<Search />} />
+        </Route>
+        <Route path="/auth" element={<Auth />}>
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </AppErrorBoundary>
   );
 };
 
