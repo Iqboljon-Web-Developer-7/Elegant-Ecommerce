@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import {
@@ -8,10 +8,10 @@ import {
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 
+import "./css/embla.css";
 import { SlideType } from "@/lib/types";
 
 import { LazyLoadImage } from "./CarouselLazyLoading";
-import "./css/embla.css";
 import { urlFor } from "@/utils/Client";
 import PlaceholderSlide from "./Loading";
 import { useSelector } from "react-redux";
@@ -46,32 +46,42 @@ const EmblaCarousel = () => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  const Slides = slides
-    ?.filter(
-      (item) =>
-        (windowWidth <= 768 && item?.media === "mobile") ||
-        (windowWidth > 768 && item?.media === "desktop")
-    )
-    .map((item, index) => (
-      <div key={index} className="embla__slide flex-center">
-        <LazyLoadImage
-          index={index}
-          imgSrc={urlFor(item?.images?.asset?._ref).toString()}
-          inView={slidesInView.includes(index)}
-        />
-      </div>
-    ));
+  const Slides = useMemo(
+    () =>
+      slides
+        ?.filter((item) =>
+          windowWidth <= 768 ? item?.media === "mobile" : item?.media === "desktop"
+        )
+        .map((item, index) => (
+          <div key={index} className="embla__slide flex-center">
+            <LazyLoadImage
+              index={index}
+              imgSrc={urlFor(item?.images?.asset?._ref).toString()}
+              inView={slidesInView.includes(index)}
+            />
+          </div>
+        )),
+    [slidesInView, slides]
+  );
 
-  const Dots = scrollSnaps.map((_, index) => (
-    <DotButton
-      aria-label={`indicator button ${index + 1}`}
-      key={index}
-      onClick={() => onDotButtonClick(index)}
-      className={"w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
-        index === selectedIndex ? " !w-10" : ""
-      )}
-    />
-  ));
+
+
+  const Dots = useMemo(
+    () =>
+      scrollSnaps.map((_, index) => (
+        <DotButton
+          aria-label={`indicator button ${index + 1}`}
+          key={index}
+          onClick={() => onDotButtonClick(index)}
+          className={
+            "w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
+              index === selectedIndex ? " !w-10" : ""
+            )
+          }
+        />
+      )),
+    [slidesInView]
+  );
 
   return (
     <div className="embla relative">
