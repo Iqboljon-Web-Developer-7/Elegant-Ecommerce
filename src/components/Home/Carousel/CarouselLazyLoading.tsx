@@ -6,6 +6,7 @@ type PropType = {
   index: number;
 };
 
+
 export const LazyLoadImage: React.FC<PropType> = (props) => {
   const { imgSrc, inView } = props;
 
