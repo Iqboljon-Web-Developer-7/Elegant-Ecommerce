@@ -1,14 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarTrigger } from "../ui/sidebar";
 import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
-import UserIcont from "@/assets/icons/user.svg";
+import UserIcon from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
 import { Button } from "../ui/button";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { client } from "@/utils/Client";
 import { useSelector } from "react-redux";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -53,7 +72,7 @@ const Header = () => {
     fetchData();
   }, []);
 
-  const Links = navLinks.map(({ to, label }) => (
+  const Links = useMemo(() => navLinks.map(({ to, label }) => (
     <NavLink
       key={to}
       className={({ isActive }) =>
@@ -63,7 +82,7 @@ const Header = () => {
     >
       {label}
     </NavLink>
-  ));
+  )), [])
 
   return (
     <header className="py-3 md:py-4 px-2 md:px-1 border-b border-neutral-200">
@@ -90,11 +109,41 @@ const Header = () => {
           </Link>
           {userInfo ? (
             <>
-              <img
-                src={UserIcont}
-                alt="user-icon"
-                className="hidden md:block"
-              />
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+
+                  <img
+                    src={UserIcon}
+                    alt="user-icon"
+                    className="hidden md:block"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+                  <DropdownMenuItem className="text-red-500 hover:!bg-red-500 hover:!text-white">
+                    <AlertDialog>
+                      <AlertDialogTrigger className="w-full text-left" onClick={(e) => e.stopPropagation()}>Log out</AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle className="Inter tracking-wide">Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your account
+                            and remove your data from our servers.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => localStorage.clear()}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <div className="flex items-center justify-center gap-1">
                 <img src={CartIcon} alt="cart-icon" />
                 {userWishlist?.length > 0 && (

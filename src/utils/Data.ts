@@ -1,7 +1,7 @@
 import { UserType } from "@/lib/types";
 
 export const SANITY_LOGIN_USER = (user: UserType) => {
-  return `*[_type == "user" && username == '${user?.name}' || email == '${user?.name}' && password == '${user?.password}']`;
+  return `*[_type == "user" && username == '${user?.name}' || email == '${user?.name}' && password == '${user?.password}'][0]`;
 };
 
 export const SANITY_REGISTER_USER = (user: UserType) => {

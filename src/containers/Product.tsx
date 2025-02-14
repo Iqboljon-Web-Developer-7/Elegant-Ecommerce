@@ -25,9 +25,6 @@ const Product: FC = () => {
   const productVariant = searchParams.get("variant");
   const productQuantity = Number(searchParams.get("quantity")) || 1;
 
-  const allParams = Object.fromEntries(searchParams.entries());
-  console.log(allParams);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     async function fetchProduct(id: string) {

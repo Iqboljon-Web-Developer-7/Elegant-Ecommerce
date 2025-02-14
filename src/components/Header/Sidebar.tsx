@@ -46,11 +46,6 @@ export function HeaderSidebar() {
   const navigate = useNavigate();
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
-  const handleSignOut = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
-
   return (
     <Sidebar>
       <SidebarContent>
@@ -121,7 +116,7 @@ export function HeaderSidebar() {
                   </p>
                 </div>
               </div>
-              <Button variant={"destructive"} onClick={handleSignOut}>
+              <Button variant={"destructive"} onClick={() => localStorage.clear()}>
                 Sign Out
               </Button>
             </div>
