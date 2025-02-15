@@ -121,10 +121,10 @@ const Header = () => {
                     className="hidden md:block"
                   />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
+                <DropdownMenuContent >
                   <DropdownMenuItem className="text-red-500 hover:!bg-red-500 hover:!text-white">
                     <AlertDialog>
-                      <AlertDialogTrigger className="w-full text-left" onClick={(e) => e.stopPropagation()}>Log out</AlertDialogTrigger>
+                      <AlertDialogTrigger className="w-full text-left" onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}>Log out</AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle className="Inter tracking-wide">Are you absolutely sure?</AlertDialogTitle>
