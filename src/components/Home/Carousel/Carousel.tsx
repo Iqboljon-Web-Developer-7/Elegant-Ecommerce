@@ -12,15 +12,20 @@ import "./css/embla.css";
 import { SlideType } from "@/lib/types";
 
 import { LazyLoadImage } from "./CarouselLazyLoading";
-import { urlFor } from "@/utils/Client";
+import { client, urlFor } from "@/utils/Client";
 import PlaceholderSlide from "./Loading";
-import { useSelector } from "react-redux";
+import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 
 const EmblaCarousel = () => {
-  const slides = useSelector(
-    (state: { HomePageData: { slides: SlideType[] } }) =>
-      state.HomePageData.slides
-  );
+  const [slides, setSlides] = useState<SlideType[]>([]);
+
+  useEffect(() => {
+    async function fetchSlides() {
+      const data = await client.fetch(SANITY_SLIDES_QUERY);
+      setSlides(data);
+    }
+    fetchSlides();
+  }, []);
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const windowWidth = window.innerWidth;
 
@@ -50,7 +55,7 @@ const EmblaCarousel = () => {
     () =>
       slides
         ?.filter((item) =>
-          windowWidth <= 768 ? item?.media === "mobile" : item?.media === "desktop"
+          windowWidth < 768 ? item?.media === "mobile" : item?.media === "desktop"
         )
         .map((item, index) => (
           <div key={index} className="embla__slide flex-center">

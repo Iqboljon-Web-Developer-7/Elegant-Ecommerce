@@ -1,63 +1,23 @@
-import { useEffect } from "react";
 import EmblaCarousel from "@/components/Home/Carousel/Carousel";
 import SimpleHeading from "@/components/Home/SimpleHeading/SimpleHeading";
 import ShopCollection from "@/components/Home/ShopCollection/ShopCollection";
 import Products from "@/components/Products/Products";
+
+import Banner from "@/styledComponents/Banner";
+import discountImage from "@/assets/discount-add/discount-add.webp";
+import StyledLink from "@/styledComponents/StyledLink";
+
 import Features from "@/components/Home/Features/Features";
 import InstagramFeed from "@/components/Home/InstagramFeed/InstagramFeed";
-import discountImage from "@/assets/discount-add/discount-add.webp";
-import Banner from "@/styledComponents/Banner";
-import StyledLink from "@/styledComponents/StyledLink";
-import {
-  SANITY_SLIDES_QUERY,
-  SANITY_COLLECTIONS_QUERY,
-  SANITY_PRODUCTS_QUERY,
-} from "@/utils/Data";
-import { client } from "@/utils/Client";
-import { useToast } from "@/hooks/use-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { add } from "@/redux/slices/homePageData";
-import { ProductType } from "@/lib/types";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const slidesData = await client.fetch(SANITY_SLIDES_QUERY);
-        dispatch(add({ key: "slides", value: slidesData }));
-
-        const [collectionsData, productsData] = await Promise.all([
-          client.fetch(SANITY_COLLECTIONS_QUERY),
-          client.fetch(SANITY_PRODUCTS_QUERY(0, 20)),
-        ]);
-
-        dispatch(add({ key: "collections", value: collectionsData }));
-        dispatch(add({ key: "products", value: productsData }));
-      } catch (error: any) {
-        console.error("Error fetching data:", error);
-        toast({ description: error?.message, variant: "destructive" });
-      }
-    };
-
-    fetchInitialData();
-  }, []);
-
-  const products = useSelector(
-    (state: { HomePageData: { products: ProductType[] } }) =>
-      state.HomePageData.products
-  );
-
   return (
     <>
       <div className="container-xl">
         <EmblaCarousel />
         <SimpleHeading />
         <ShopCollection />
-        {/* Gets products as a prop because Products component used in another place too */}
-        <Products products={products} />
+        <Products />
       </div>
       <div className="container-2xl">
         <Banner img={discountImage}>

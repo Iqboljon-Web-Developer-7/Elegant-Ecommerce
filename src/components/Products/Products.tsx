@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
 import { Scrollbar } from "swiper/modules";
@@ -9,8 +9,29 @@ import { ProductType } from "@/lib/types";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import ProductLoading from "./ProductLoading";
+import { client } from "@/utils/Client";
+import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
+import { useToast } from "@/hooks/use-toast";
 
-const Products: FC<{ products: ProductType[] }> = ({ products }) => {
+const Products: FC<{ category?: string }> = ({ category }) => {
+  const { toast } = useToast();
+  console.log(category);
+
+  const [products, setProducts] = useState<ProductType[]>([]);
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const fetchedProducts = await client.fetch(SANITY_PRODUCTS_QUERY(0, 20));
+        setProducts(fetchedProducts);
+      } catch (error: any) {
+        console.error("Error fetching data:", error);
+        toast({ description: error?.message, variant: "destructive" });
+      }
+    };
+
+    fetchInitialData();
+  }, []);
+
   const SwiperContents = products?.map((product) => (
     <SwiperSlide key={product._id} className="pb-14">
       <CarouselItem product={product} />
