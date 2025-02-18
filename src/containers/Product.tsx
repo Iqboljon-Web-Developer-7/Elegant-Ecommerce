@@ -6,6 +6,7 @@ import { client } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import {
   Link,
+  replace,
   useNavigate,
   useParams,
   useSearchParams,
@@ -25,6 +26,16 @@ const Product: FC = () => {
   const productVariant = searchParams.get("variant");
   const productQuantity = Number(searchParams.get("quantity")) || 1;
 
+  const changeParam = useCallback(
+    (param: string, value: string | number) => {
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.set(param, value?.toString());
+      // Use the replace option so we don't push a new history entry.
+      setSearchParams(updatedParams, { replace: true });
+    },
+    [searchParams, setSearchParams]
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
     async function fetchProduct(id: string) {
@@ -34,23 +45,20 @@ const Product: FC = () => {
           .fetch(SANITY_PRODUCT_QUERY(id))
           .catch(() => navigate("/products"));
 
-        setProductData(data);
-        if (!productColor || !productVariant) {
-          // Find the first available color and variant combination
-          const firstAvailableVariant = data.variants.find((variant) =>
-            data.colors.some(
-              (color) => color.name === variant.color && variant.stock > 0
-            )
-          );
+        const firstAvailableVariant = data.variants.find((variant) =>
+          data.colors.some(
+            (color) => color.name === variant.color && variant.stock > 0
+          )
+        );
 
-          if (firstAvailableVariant) {
+        if (firstAvailableVariant) {
             setSearchParams({
-              color: firstAvailableVariant.color,
-              variant: firstAvailableVariant.title,
-              quantity: "1",
-            });
-          }
+            color: firstAvailableVariant.color,
+            variant: firstAvailableVariant.title,
+            quantity: "1",
+            }, { replace: true });
         }
+        setProductData(data);
       } catch (error) {
         console.error(error);
         toast({
@@ -62,15 +70,7 @@ const Product: FC = () => {
     fetchProduct(id!);
   }, []);
 
-  const changeParam = useCallback(
-    (param: string, value: string | number) => {
-      const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set(param, value?.toString());
-      // Use the replace option so we don't push a new history entry.
-      setSearchParams(updatedParams, { replace: true });
-    },
-    [searchParams, setSearchParams]
-  );
+
 
   useEffect(() => {
     const selectedVariant = productData?.variants.find(

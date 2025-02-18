@@ -20,57 +20,13 @@ const ProductData: FC<ProductDataProps> = ({
   productVariant,
   productQuantity,
 }) => {
-  /* --------------------------------------------------------------------------
-     Local State & Hooks
-  -------------------------------------------------------------------------- */
   const [isLoading, setIsLoading] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Parse user info once per component lifecycle.
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
-  /* --------------------------------------------------------------------------
-     Set Default Parameters
-     
-     - If both productColor and productVariant are missing, we pick the first
-       available values from productData.
-     - Additionally, if a productVariant is set but productColor is still not,
-       then we calculate the available colors for that variant and choose the first.
-  -------------------------------------------------------------------------- */
-  useEffect(() => {
-    if (productData) {
-      // If neither color nor variant are set, initialize both.
-      if (!productColor && !productVariant) {
-        if (productData.colors && productData.colors.length > 0) {
-          changeParam("color", productData.colors[0].name);
-        }
-        if (productData.variants && productData.variants.length > 0) {
-          changeParam("variant", productData.variants[0].title);
-        }
-      }
-    }
-  }, [productData, productColor, productVariant, changeParam]);
-
-  useEffect(() => {
-    if (productData && productVariant && !productColor) {
-      // Determine available colors based on the selected variant.
-      const availableColors = productData.variants
-        .filter((variant) => variant.title === productVariant)
-        .map((variant) => variant.color);
-      if (availableColors.length > 0) {
-        changeParam("color", availableColors[0]);
-      }
-    }
-  }, [productData, productColor, productVariant, changeParam]);
-
-  /* --------------------------------------------------------------------------
-     Check Wishlist Status
-     
-     Fetch the current user's wishlist and update the state if the current
-     product (with its color and variant) is already saved.
-  -------------------------------------------------------------------------- */
   useEffect(() => {
     const checkIfSaved = async () => {
       if (userInfo && productData) {
@@ -109,9 +65,8 @@ const ProductData: FC<ProductDataProps> = ({
       return (
         <p
           key={variant._key}
-          className={`py-1 px-2 border rounded-lg text-sm lg:text-base cursor-pointer ${
-            isActive ? "border-black" : "border-gray-300"
-          } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : "hover:border-black"} transition`}
+          className={`py-1 px-2 border rounded-lg text-sm lg:text-base cursor-pointer ${isActive ? "border-black" : "border-gray-300"
+            } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : "hover:border-black"} transition`}
           onClick={() => {
             if (!isOutOfStock) changeParam("variant", variant.title);
           }}
@@ -123,13 +78,7 @@ const ProductData: FC<ProductDataProps> = ({
     });
   }, [productData, productVariant, changeParam]);
 
-  /* --------------------------------------------------------------------------
-     Render Available Colors
-     
-     For each color, we show an image preview. The color is clickable if it
-     is available for the current variant. Note that we removed any state updates
-     from here to avoid updating state during render.
-  -------------------------------------------------------------------------- */
+
   const Colors = useMemo(() => {
     if (!productData?.colors) return null;
     // Calculate available colors for the current variant.
@@ -149,13 +98,11 @@ const ProductData: FC<ProductDataProps> = ({
             alt={`${color.name} product`}
             width={64}
             height={64}
-            className={`w-16 h-16 border ${
-              color.name === productColor
-                ? "border-black"
-                : "border-transparent"
-            } hover:p-[.1rem] duration-200 cursor-pointer ${
-              !isAvailable ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-16 h-16 border ${color.name === productColor
+              ? "border-black"
+              : "border-transparent"
+              } hover:p-[.1rem] duration-200 cursor-pointer ${!isAvailable ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             title={!isAvailable ? "Not available for the selected variant" : ""}
             onClick={() => {
               if (isAvailable) changeParam("color", color.name);
@@ -411,9 +358,8 @@ const ProductData: FC<ProductDataProps> = ({
             </Button>
           </div>
           <Button
-            className={`group w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${
-              isLoading ? "!bg-black" : ""
-            }`}
+            className={`group w-full transition-all duration-200 hover:bg-red-50 hover:border-none hover:shadow-md ${isLoading ? "!bg-black" : ""
+              }`}
             variant={"outline"}
           >
             {isLoading ? (

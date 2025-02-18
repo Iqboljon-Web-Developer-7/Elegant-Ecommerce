@@ -10,12 +10,8 @@ const Layout = () => {
       <main className="w-full">
         <Header />
         <HeaderSidebar />
-        <div>
-          <Outlet />
-        </div>
-        <div className="container-2xl">
-          <Footer />
-        </div>
+        <Outlet />
+        <Footer />
       </main>
     </SidebarProvider>
   );
