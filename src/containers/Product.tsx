@@ -6,7 +6,6 @@ import { client } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import {
   Link,
-  replace,
   useNavigate,
   useParams,
   useSearchParams,
@@ -52,11 +51,11 @@ const Product: FC = () => {
         );
 
         if (firstAvailableVariant) {
-            setSearchParams({
+          setSearchParams({
             color: firstAvailableVariant.color,
             variant: firstAvailableVariant.title,
             quantity: "1",
-            }, { replace: true });
+          }, { replace: true });
         }
         setProductData(data);
       } catch (error) {
