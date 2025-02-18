@@ -101,7 +101,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         navigate(`/products/${id}`);
       }
     },
-    [navigate]
+    []
   );
 
   // Toggle wishlist status (add or remove product).
@@ -113,11 +113,19 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         navigate("/auth/login");
         return;
       }
+      
+      // Save the previous state so that we can revert if needed.
+      const previousSavedState = isSaved;
+      
+      // Optimistically update the UI.
+      setIsSaved(!previousSavedState);
       setIsLoading(true);
+  
       try {
         const wishlist = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
-        if (isSaved) {
-          // Remove product from wishlist.
+        
+        if (previousSavedState) {
+          // Optimistically removed product from wishlist.
           if (wishlist) {
             const filteredItems = wishlist.items.filter(
               (item: any) => item.product._ref !== product._id
@@ -126,10 +134,9 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
               .patch(wishlist._id)
               .set({ items: filteredItems })
               .commit();
-            setIsSaved(false);
           }
         } else {
-          // Add product to wishlist.
+          // Optimistically added product to wishlist.
           if (!wishlist) {
             await client.create({
               _type: "wishlist",
@@ -159,16 +166,18 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
                 .commit();
             }
           }
-          setIsSaved(true);
         }
       } catch (error) {
         console.error("Error toggling wishlist:", error);
+        // Rollback the optimistic update if the API call fails.
+        setIsSaved(previousSavedState);
       } finally {
         setIsLoading(false);
       }
     },
     [userInfo, isSaved, product, navigate]
   );
+  
 
   return (
     <div
@@ -211,7 +220,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           <button
             aria-label="addWishlist"
             onClick={handleToggleWishlist}
-            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-300 shadow-md ${isLoading && "animate-pulse"}`}
+            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-500 shadow-md ${isLoading && "animate-pulse"}`}
           >
             {isSaved ? (
               <FaHeart size={24} className="text-red-500" />
