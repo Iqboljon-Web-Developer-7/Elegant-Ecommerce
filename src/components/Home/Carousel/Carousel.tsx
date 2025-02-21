@@ -19,13 +19,6 @@ import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 const EmblaCarousel = () => {
   const [slides, setSlides] = useState<SlideType[]>([]);
 
-  useEffect(() => {
-    async function fetchSlides() {
-      const data = await client.fetch(SANITY_SLIDES_QUERY);
-      setSlides(data);
-    }
-    fetchSlides();
-  }, []);
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const windowWidth = window.innerWidth;
 
@@ -34,13 +27,6 @@ const EmblaCarousel = () => {
   const updateSlidesInView = useCallback((emblaApi: EmblaCarouselType) => {
     setSlidesInView(emblaApi.slidesInView());
   }, []);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    updateSlidesInView(emblaApi);
-    emblaApi.on("slidesInView", updateSlidesInView);
-    emblaApi.on("reInit", updateSlidesInView);
-  }, [emblaApi, updateSlidesInView]);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -70,7 +56,6 @@ const EmblaCarousel = () => {
   );
 
 
-
   const Dots = useMemo(
     () =>
       scrollSnaps.map((_, index) => (
@@ -87,6 +72,22 @@ const EmblaCarousel = () => {
       )),
     [slidesInView]
   );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    updateSlidesInView(emblaApi);
+    emblaApi.on("slidesInView", updateSlidesInView);
+    emblaApi.on("reInit", updateSlidesInView);
+  }, [emblaApi, updateSlidesInView]);
+
+
+  useEffect(() => {
+    async function fetchSlides() {
+      const data = await client.fetch(SANITY_SLIDES_QUERY);
+      setSlides(data);
+    }
+    fetchSlides();
+  }, []);
 
   return (
     <div className="embla relative">

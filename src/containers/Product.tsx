@@ -29,7 +29,7 @@ const Product: FC = () => {
     (param: string, value: string | number) => {
       const updatedParams = new URLSearchParams(searchParams);
       updatedParams.set(param, value?.toString());
-      setSearchParams(updatedParams);
+      setSearchParams(updatedParams, {replace:true})
     },
     [searchParams, setSearchParams]
   );

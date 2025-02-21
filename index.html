@@ -4,12 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="keywords"
-    content="ecommerce, e-commerce, elegant, ecommerce elegant, online store, elegant store, elegant ecommerce" />
+  <meta name="keywords" content="ecommerce, online shopping, elegant store, stylish products" />
   <meta name="description"
-    content="Welcome to Elegant, where style meets simplicity! Discover an elegantly designed e-commerce platform that blends asthetics with functionality, offering a seamless shopping experience." />
+    content="Elegant: Shop stylishly with our seamless e-commerce platform blending aesthetics and functionality for a premium online store experience." />
   <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  <title>Elegant</title>
+  <title>Elegant - Stylish E-Commerce Shopping Platform</title>
+
+  <!-- For Data Security -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://va.vercel-scripts.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' https://cdn.sanity.io data: https://encrypted-tbn0.gstatic.com
+  font-src 'self' data:
+  connect-src 'self' https://kvpqppgu.api.sanity.io;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  report-uri /csp-report;
+" /> -->
 
   <!-- Preloading Main Carousel Images -->
   <link rel="preload" as="image" media="screen and (max-device-width: 768px)"
@@ -22,6 +36,38 @@
     crossorigin="anonymous" />
   <!-- <link rel="preload" href="src/assets/fonts/Inter/Inter-VariableFont.woff2" as="font" type="font/woff2"
     crossorigin="anonymous" /> -->
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Elegant - Stylish E-Commerce Shopping Platform" />
+  <meta property="og:description"
+    content="Discover a seamless shopping experience with Elegant, blending style and functionality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://elegant-ecommerce-nine.vercel.app" />
+  <meta property="og:image"
+    content="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Elegant - Stylish E-Commerce Shopping Platform" />
+  <meta name="twitter:description" content="Shop elegantly with our seamless e-commerce platform." />
+  <meta name="twitter:image"
+    content="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Elegant",
+      "url": "https://yourdomain.com",
+      "description": "Elegant e-commerce platform offering a seamless shopping experience.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourdomain.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 
 <body class="poppins">

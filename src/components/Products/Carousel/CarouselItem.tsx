@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { urlFor, client } from "@/utils/Client";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ProductType } from "@/lib/types";
-import { GoHeart } from "react-icons/go";
-import { FaHeart } from "react-icons/fa6";
-import { SANITY_USER_WISHLIST } from "@/utils/Data";
-import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
+import { SANITY_USER_WISHLIST } from "@/utils/Data";
+import { ProductType } from "@/lib/types";
+import { v4 as uuidv4 } from "uuid";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
@@ -223,9 +223,9 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
             className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-500 shadow-md ${isLoading && "animate-pulse"}`}
           >
             {isSaved ? (
-              <FaHeart size={24} className="text-red-500" />
+              <IoMdHeart size={24} className="text-red-500" />
             ) : (
-              <GoHeart
+              <IoIosHeartEmpty 
                 size={24}
                 className="fill-neutral-400 hover:fill-black duration-200"
               />
