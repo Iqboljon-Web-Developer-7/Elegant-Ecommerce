@@ -6,7 +6,6 @@ import { client } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import {
   Link,
-  useNavigate,
   useParams,
   useSearchParams,
 } from "react-router-dom";
@@ -17,7 +16,6 @@ const Product: FC = () => {
     undefined
   );
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
 
@@ -25,12 +23,13 @@ const Product: FC = () => {
   const productVariant = searchParams.get("variant");
   const productQuantity = Number(searchParams.get("quantity")) || 1;
 
+  const { variants, title, images, _createdAt } = productData || {};
+
   const changeParam = useCallback(
     (param: string, value: string | number) => {
       const updatedParams = new URLSearchParams(searchParams);
       updatedParams.set(param, value?.toString());
-      // Use the replace option so we don't push a new history entry.
-      setSearchParams(updatedParams, { replace: true });
+      setSearchParams(updatedParams);
     },
     [searchParams, setSearchParams]
   );
@@ -42,7 +41,6 @@ const Product: FC = () => {
         const data: ProductType = await client
           .config({ useCdn: false })
           .fetch(SANITY_PRODUCT_QUERY(id))
-          .catch(() => navigate("/products"));
 
         const firstAvailableVariant = data.variants.find((variant) =>
           data.colors.some(
@@ -68,21 +66,13 @@ const Product: FC = () => {
     }
     fetchProduct(id!);
   }, []);
-
-
-
-  useEffect(() => {
-    const selectedVariant = productData?.variants.find(
-      (variant) => variant.title === productVariant
-    );
-    if (selectedVariant && productQuantity > selectedVariant.stock) {
-      changeParam("quantity", selectedVariant.stock);
-    }
-  }, [productVariant, changeParam]);
-
-  const selectedVariant = productData?.variants.find(
+  
+  const selectedVariant = variants?.find(
     (variant) => variant.title === productVariant
   );
+  if (selectedVariant && productQuantity > selectedVariant.stock) {
+    changeParam("quantity", selectedVariant.stock);
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,12 +80,12 @@ const Product: FC = () => {
         <span className="text-slate-600">
           Home {">"} &nbsp; <Link to={"/products"}>Products</Link>{" "}
         </span>{" "}
-        {">"} &nbsp; {productData?.title?.slice(0, 20)}
+        {">"} &nbsp; {title?.slice(0, 20)}
       </div>
       <div className="main-info pt-4 mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <Carousel
-          images={productData?.images!}
-          createdAt={productData?._createdAt}
+          images={images!}
+          createdAt={_createdAt}
           selectedVariant={selectedVariant!}
         />
         <ProductData

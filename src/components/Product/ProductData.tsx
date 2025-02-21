@@ -1,16 +1,17 @@
-import { FC, useMemo, useEffect, useState, useCallback } from "react";
+import { FC, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import heartIcon from "@/assets/icons/heart.svg";
 import redHeartIcon from "@/assets/icons/red-heart.svg";
 import { ProductDataProps } from "@/lib/types";
-import { client, urlFor } from "@/utils/Client";
-import { v4 as uuidv4 } from "uuid";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
-import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useSelector } from "react-redux";
+import CategoriesComponent from "./Categories/Categories";
+import ColorsComponent from "./Colors/Colors";
+import VariantsComponent from "./Variants/Variants";
+import useWishlist from "./Wishlist/Wishlist";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
@@ -20,119 +21,18 @@ const ProductData: FC<ProductDataProps> = ({
   productVariant,
   productQuantity,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isInWishlist, setIsInWishlist] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
-  useEffect(() => {
-    const checkIfSaved = async () => {
-      if (userInfo && productData) {
-        try {
-          const userWishlist = await client.fetch(
-            SANITY_USER_WISHLIST(userInfo._id)
-          );
-          if (userWishlist) {
-            const exists = userWishlist.items.some(
-              (item: any) =>
-                item.product._ref === productData._id &&
-                item.color === productColor &&
-                item.variant === productVariant
-            );
-            setIsInWishlist(exists);
-          }
-        } catch (error) {
-          console.error("Error checking wishlist:", error);
-        }
-      }
-    };
-    checkIfSaved();
-  }, [userInfo, productData, productColor, productVariant]);
+  // Use custom wishlist hook if user and product data exist
+  const { isInWishlist, isLoading, saveWishlist, removeWishlist } = useWishlist(
+    userInfo?._id,
+    productData!?._id,
+    productColor!,
+    productVariant!
+  );
 
-  /* --------------------------------------------------------------------------
-     Render Variants
-     
-     For each product variant, we display a clickable element.
-     Out-of-stock variants show different styling and are not clickable.
-  -------------------------------------------------------------------------- */
-  const Variants = useMemo(() => {
-    if (!productData?.variants) return null;
-    return productData.variants.map((variant) => {
-      const isActive = variant.title === productVariant;
-      const isOutOfStock = variant.stock === 0;
-      return (
-        <p
-          key={variant._key}
-          className={`py-1 px-2 border rounded-lg text-sm lg:text-base cursor-pointer ${isActive ? "border-black" : "border-gray-300"
-            } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : "hover:border-black"} transition`}
-          onClick={() => {
-            if (!isOutOfStock) changeParam("variant", variant.title);
-          }}
-          title={isOutOfStock ? "Out of stock" : ""}
-        >
-          {variant.title} {isOutOfStock && "(Out of Stock)"}
-        </p>
-      );
-    });
-  }, [productData, productVariant, changeParam]);
-
-
-  const Colors = useMemo(() => {
-    if (!productData?.colors) return null;
-    // Calculate available colors for the current variant.
-    const availableColors = productData.variants
-      ?.filter((variant) => variant.title === productVariant)
-      .map((variant) => variant.color);
-
-    return productData.colors.map((color, index) => {
-      const imageRef = productData.images.find(
-        (img) => img.color === color.name
-      )?.images[0]?.image.asset._ref;
-      const isAvailable = availableColors?.includes(color.name);
-      return (
-        <div key={index} className="flex flex-wrap gap-4 p-2">
-          <img
-            src={imageRef ? urlFor(imageRef).toString() : ""}
-            alt={`${color.name} product`}
-            width={64}
-            height={64}
-            className={`w-16 h-16 border ${color.name === productColor
-              ? "border-black"
-              : "border-transparent"
-              } hover:p-[.1rem] duration-200 cursor-pointer ${!isAvailable ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            title={!isAvailable ? "Not available for the selected variant" : ""}
-            onClick={() => {
-              if (isAvailable) changeParam("color", color.name);
-            }}
-          />
-        </div>
-      );
-    });
-  }, [productData, productVariant, productColor, changeParam]);
-
-  /* --------------------------------------------------------------------------
-     Render Categories
-  -------------------------------------------------------------------------- */
-  const Categories = useMemo(() => {
-    if (!productData?.categories) return null;
-    return productData.categories.map((item, index) => (
-      <span key={item._key}>
-        {item.title}
-        {productData.categories.length > index + 1 && ", "}
-      </span>
-    ));
-  }, [productData]);
-
-  /* --------------------------------------------------------------------------
-     Wishlist Helpers & Handlers
-     
-     - requireLogin: Ensures the user is logged in before wishlist actions.
-     - saveWishlist: Adds the product to the wishlist.
-     - removeWishlist: Removes the product from the wishlist.
-  -------------------------------------------------------------------------- */
   const requireLogin = useCallback(() => {
     if (!userInfo?._id) {
       toast({
@@ -156,170 +56,57 @@ const ProductData: FC<ProductDataProps> = ({
       return false;
     }
     return true;
-  }, [userInfo, toast, navigate]);
-
-  const saveWishlist = useCallback(
-    async (
-      userId: string,
-      productId: number,
-      color: string | null,
-      variant: string | null
-    ) => {
-      setIsLoading(true);
-      try {
-        let userWishlist = await client.fetch(SANITY_USER_WISHLIST(userId));
-        if (!userWishlist) {
-          userWishlist = await client.create({
-            _type: "wishlist",
-            userId,
-            name: `${userInfo?.username} Wishlist`,
-            items: [
-              {
-                _key: uuidv4(),
-                product: { _type: "reference", _ref: productId },
-                color,
-                variant,
-              },
-            ],
-          });
-          toast({
-            description: "Wishlist created and product added successfully!",
-          });
-        } else {
-          const duplicate = userWishlist.items.some(
-            (item: any) =>
-              item.product._ref === productId &&
-              item.color === color &&
-              item.variant === variant
-          );
-          if (!duplicate) {
-            await client
-              .patch(userWishlist._id)
-              .setIfMissing({ items: [] })
-              .append("items", [
-                {
-                  _key: uuidv4(),
-                  product: { _type: "reference", _ref: productId },
-                  color,
-                  variant,
-                },
-              ])
-              .commit();
-            toast({
-              description: "Product added to wishlist successfully!",
-            });
-            setIsInWishlist(true);
-          } else {
-            toast({
-              description: "Item already exists in the wishlist.",
-              variant: "destructive",
-            });
-          }
-        }
-      } catch (error) {
-        toast({
-          title: "Error adding to wishlist!",
-          description: `${error}`,
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [userInfo, toast]
-  );
-
-  const removeWishlist = useCallback(
-    async (
-      userId: string,
-      productId: number,
-      color: string | null,
-      variant: string | null
-    ) => {
-      setIsLoading(true);
-      try {
-        const userWishlist = await client.fetch(SANITY_USER_WISHLIST(userId));
-        if (userWishlist) {
-          const filteredItems = userWishlist.items.filter(
-            (item: any) =>
-              !(
-                item.product._ref === productId &&
-                item.color === color &&
-                item.variant === variant
-              )
-          );
-          await client
-            .patch(userWishlist._id)
-            .set({ items: filteredItems })
-            .commit();
-          toast({
-            description: "Product removed from wishlist successfully!",
-          });
-          setIsInWishlist(false);
-        }
-      } catch (error) {
-        toast({
-          title: "Error removing from wishlist!",
-          description: `${error}`,
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [toast]
-  );
+  }, [userInfo]);
 
   const handleAddWishlist = useCallback(async () => {
     if (!requireLogin()) return;
-    await saveWishlist(
-      userInfo._id,
-      productData!._id,
-      productColor,
-      productVariant
-    );
-  }, [
-    requireLogin,
-    saveWishlist,
-    userInfo,
-    productData,
-    productColor,
-    productVariant,
-  ]);
+    await saveWishlist();
+  }, [requireLogin, saveWishlist]);
 
   const handleRemoveWishlist = useCallback(async () => {
     if (!requireLogin()) return;
-    await removeWishlist(
-      userInfo._id,
-      productData!._id,
-      productColor,
-      productVariant
-    );
-  }, [
-    requireLogin,
-    removeWishlist,
-    userInfo,
-    productData,
-    productColor,
-    productVariant,
-  ]);
+    await removeWishlist();
+  }, [requireLogin, removeWishlist]);
 
-  /* --------------------------------------------------------------------------
-     Render Component
-  -------------------------------------------------------------------------- */
+  const Variants = useMemo(() => {
+    if (!productData?.variants) return null;
+    return (
+      <VariantsComponent
+        variants={productData.variants}
+        selectedVariant={productVariant!}
+        changeParam={changeParam}
+      />
+    );
+  }, [productData, productVariant, changeParam]);
+
+  const Colors = useMemo(() => {
+    if (!productData?.colors) return null;
+    return (
+      <ColorsComponent
+        colors={productData.colors}
+        variants={productData.variants}
+        productVariant={productVariant!}
+        productColor={productColor!}
+        changeParam={changeParam}
+        images={productData.images}
+      />
+    );
+  }, [productData, productVariant, productColor, changeParam]);
+
+  const Categories = useMemo(() => {
+    if (!productData?.categories) return null;
+    return <CategoriesComponent categories={productData.categories} />;
+  }, [productData]);
+
   if (!productData) return <InfoLoadingSkeleton />;
 
   return (
     <div className="singleProduct__top--texts flex-grow self-stretch flex flex-col gap-6">
       <h4 className="text-neutral-700">{productData.title}</h4>
-      <p className="text-neutral-400 inter text-sm lg:text-base">
-        {productData.description}
-      </p>
+      <p className="text-neutral-400 inter text-sm lg:text-base">{productData.description}</p>
       <div className="flex items-center gap-3">
         <h6>${selectedVariant?.salePrice}</h6>
-        <span className="fs-20 line-through text-neutral-400">
-          ${selectedVariant?.price}
-        </span>
+        <span className="fs-20 line-through text-neutral-400">${selectedVariant?.price}</span>
       </div>
       <hr />
       <div className="additionalInfo flex flex-wrap gap-2">{Variants}</div>
@@ -339,8 +126,7 @@ const ProductData: FC<ProductDataProps> = ({
           <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg">
             <Button
               onClick={() => {
-                if (productQuantity > 1)
-                  changeParam("quantity", productQuantity - 1);
+                if (productQuantity > 1) changeParam("quantity", productQuantity - 1);
               }}
               className="bg-transparent shadow-none text-black group"
             >
@@ -349,8 +135,7 @@ const ProductData: FC<ProductDataProps> = ({
             <span className="px-3">{productQuantity}</span>
             <Button
               onClick={() => {
-                if (productQuantity < selectedVariant?.stock)
-                  changeParam("quantity", productQuantity + 1);
+                if (productQuantity < selectedVariant?.stock) changeParam("quantity", productQuantity + 1);
               }}
               className="bg-transparent shadow-none text-black group"
             >
@@ -365,27 +150,19 @@ const ProductData: FC<ProductDataProps> = ({
             {isLoading ? (
               <div className="loader w-10 h-10"></div>
             ) : isInWishlist ? (
-              <div
-                onClick={handleRemoveWishlist}
-                className="font-normal flex-center gap-2 w-full h-full"
-              >
+              <div onClick={handleRemoveWishlist} className="font-normal flex-center gap-2 w-full h-full">
                 <img src={redHeartIcon} alt="Saved" />
                 Saved
               </div>
             ) : (
-              <div
-                onClick={handleAddWishlist}
-                className="flex-center gap-2 w-full h-full"
-              >
+              <div onClick={handleAddWishlist} className="flex-center gap-2 w-full h-full">
                 <img src={heartIcon} alt="Wishlist" width={18} height={18} />
                 <span className="font-normal">Wishlist</span>
               </div>
             )}
           </Button>
         </div>
-        <Button className="w-full hover:bg-secondary-green duration-200">
-          Add to Cart
-        </Button>
+        <Button className="w-full hover:bg-secondary-green duration-200">Add to Cart</Button>
       </div>
       <div className="border-t pt-6 mt-2 inter text-xs flex flex-col gap-2">
         <div className="flex">
