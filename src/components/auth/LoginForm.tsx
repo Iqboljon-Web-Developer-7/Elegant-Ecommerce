@@ -44,24 +44,25 @@ export function LoginForm() {
       .then((user) => {
         setLoading(false);
 
-        if (user) {
-          dispatch(setUserInfo(user));
+          if (user) {
+            dispatch(setUserInfo(user));
 
-          const returnUrl = sessionStorage.getItem("returnUrl") || "/";
-          sessionStorage.removeItem("returnUrl");
-          navigate(returnUrl);
-        } else {
-          toast({ title: "User not found!", variant: "destructive" });
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast({ title: err?.message, variant: "destructive" });
-      });
-  }, []);
+            const returnUrl = sessionStorage.getItem("returnUrl") || "/";
+            sessionStorage.removeItem("returnUrl");
+            navigate(returnUrl);
+          } else {
+            toast({ title: "User not found!", variant: "destructive" });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast({ title: err?.message, variant: "destructive" });
+        });
+    }
+      , [])
 
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
@@ -70,6 +71,7 @@ export function LoginForm() {
             <FormItem>
               <FormControl>
                 <Input
+                  className="bg-slate-50"
                   placeholder="Your username or email address"
                   {...field}
                 />
@@ -84,7 +86,9 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <Input
+                  className="bg-slate-50"
+                  type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

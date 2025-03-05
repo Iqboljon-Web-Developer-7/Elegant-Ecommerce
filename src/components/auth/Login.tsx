@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div>
-      <h2 className="text-[2.5rem]">Sign In</h2>
-      <p className="text-neutral-400 mb-4">
-        Already have an account?{" "}
+      <h2 className="text-[2.5rem] text-neutral-50 md:text-black">Sign In</h2>
+      <p className="text-neutral-200 md:text-neutral-400 mb-4">
+        Doesn't have an account?{" "}
         <Link to={"/auth/register"} className="text-secondary-green">
-          Sign in
+          Sign up
         </Link>
       </p>
       <LoginForm />

@@ -89,7 +89,7 @@ export function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-sm">
         <FormField
           control={form.control}
           name="name"
@@ -97,7 +97,7 @@ export function RegisterForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="outline-none border-none"
+                  className="outline-none border-none bg-neutral-50"
                   placeholder="Your Name"
                   {...field}
                 />
@@ -113,7 +113,7 @@ export function RegisterForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="outline-none border-none"
+                  className="outline-none border-none bg-neutral-50"
                   placeholder="Username"
                   {...field}
                 />
@@ -130,7 +130,7 @@ export function RegisterForm() {
               <FormControl>
                 <Input
                   type="email"
-                  className="outline-none border-none"
+                  className="outline-none border-none bg-neutral-50"
                   placeholder="Your Email"
                   {...field}
                 />
@@ -146,7 +146,7 @@ export function RegisterForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="outline-none border-none"
+                  className="outline-none border-none bg-neutral-50"
                   type="password"
                   placeholder="Password"
                   {...field}
