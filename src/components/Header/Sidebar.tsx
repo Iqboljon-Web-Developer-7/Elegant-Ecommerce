@@ -47,8 +47,7 @@ export function HeaderSidebar() {
   const navigate = useNavigate();
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   return (
     <Sidebar>
@@ -120,7 +119,10 @@ export function HeaderSidebar() {
                   </p>
                 </div>
               </div>
-              <Button variant={"destructive"} onClick={() => dispatch(clearUserInfo())}>
+              <Button
+                variant={"destructive"}
+                onClick={() => dispatch(clearUserInfo())}
+              >
                 Sign Out
               </Button>
             </div>

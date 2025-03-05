@@ -14,7 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,10 +25,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import { clearUserInfo } from "@/redux/slices/permamentData";
-
-
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -41,7 +39,7 @@ const Header = () => {
   const [userWishlist, setUserWishlist] = useState([]);
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,17 +73,21 @@ const Header = () => {
     fetchData();
   }, []);
 
-  const Links = useMemo(() => navLinks.map(({ to, label }) => (
-    <NavLink
-      key={to}
-      className={({ isActive }) =>
-        isActive ? "text-black" : "text-neutral-400"
-      }
-      to={to}
-    >
-      {label}
-    </NavLink>
-  )), [])
+  const Links = useMemo(
+    () =>
+      navLinks.map(({ to, label }) => (
+        <NavLink
+          key={to}
+          className={({ isActive }) =>
+            isActive ? "text-black" : "text-neutral-400"
+          }
+          to={to}
+        >
+          {label}
+        </NavLink>
+      )),
+    []
+  );
 
   return (
     <header className="py-3 md:py-4 px-2 md:px-1 border-b border-neutral-200">
@@ -114,32 +116,44 @@ const Header = () => {
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-
                   <img
                     src={UserIcon}
                     alt="user-icon"
                     className="hidden md:block"
                   />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent >
+                <DropdownMenuContent>
                   <DropdownMenuItem className="text-red-500 hover:!bg-red-500 hover:!text-white">
                     <AlertDialog>
-                      <AlertDialogTrigger className="w-full text-left" onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}>Log out</AlertDialogTrigger>
+                      <AlertDialogTrigger
+                        className="w-full text-left"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                          e.stopPropagation()
+                        }
+                      >
+                        Log out
+                      </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle className="Inter tracking-wide">Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogTitle className="Inter tracking-wide">
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
                           <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete your account
-                            and remove your data from our servers.
+                            This action cannot be undone. This will permanently
+                            delete your account and remove your data from our
+                            servers.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => dispatch(clearUserInfo())}>Continue</AlertDialogAction>
+                          <AlertDialogAction
+                            onClick={() => dispatch(clearUserInfo())}
+                          >
+                            Continue
+                          </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-
                   </DropdownMenuItem>
                   <Link to={"/user/settings"}>
                     <DropdownMenuItem className="hover:cursor-pointer">

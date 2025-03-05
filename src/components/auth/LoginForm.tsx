@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,32 +35,30 @@ export function LoginForm() {
 
   const { toast } = useToast();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const onSubmit =
-    useCallback((values: z.infer<typeof formSchema>) => {
-      setLoading(true);
-      client
-        .fetch(SANITY_LOGIN_USER(values))
-        .then((user) => {
-          setLoading(false);
+  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
+    setLoading(true);
+    client
+      .fetch(SANITY_LOGIN_USER(values))
+      .then((user) => {
+        setLoading(false);
 
-          if (user) {
-            dispatch(setUserInfo(user));
-            
-            const returnUrl = sessionStorage.getItem("returnUrl") || "/";
-            sessionStorage.removeItem("returnUrl");
-            navigate(returnUrl);
-          } else {
-            toast({ title: "User not found!", variant: "destructive" });
-          }
-        })
-        .catch((err) => {
-          setLoading(false);
-          toast({ title: err?.message, variant: "destructive" });
-        });
-    }
-      , [])
+        if (user) {
+          dispatch(setUserInfo(user));
+
+          const returnUrl = sessionStorage.getItem("returnUrl") || "/";
+          sessionStorage.removeItem("returnUrl");
+          navigate(returnUrl);
+        } else {
+          toast({ title: "User not found!", variant: "destructive" });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast({ title: err?.message, variant: "destructive" });
+      });
+  }, []);
 
   return (
     <Form {...form}>

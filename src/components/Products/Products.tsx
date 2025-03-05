@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
-import { Scrollbar } from "swiper/modules";
+import { Mousewheel, Scrollbar } from "swiper/modules";
 
 import StyledLink from "@/styledComponents/StyledLink";
 import { ProductType } from "@/lib/types";
@@ -18,10 +18,19 @@ const Products: FC<{ category?: string }> = ({ category }) => {
   console.log(category);
 
   const [products, setProducts] = useState<ProductType[]>([]);
+
+  const SwiperContents = products?.map((product) => (
+    <SwiperSlide key={product._id} className="pb-14">
+      <CarouselItem product={product} />
+    </SwiperSlide>
+  ));
+
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const fetchedProducts = await client.fetch(SANITY_PRODUCTS_QUERY(0, 20));
+        const fetchedProducts = await client.fetch(
+          SANITY_PRODUCTS_QUERY(0, 20)
+        );
         setProducts(fetchedProducts);
       } catch (error: any) {
         console.error("Error fetching data:", error);
@@ -32,12 +41,6 @@ const Products: FC<{ category?: string }> = ({ category }) => {
     fetchInitialData();
   }, []);
 
-  const SwiperContents = products?.map((product) => (
-    <SwiperSlide key={product._id} className="pb-14">
-      <CarouselItem product={product} />
-    </SwiperSlide>
-  ));
-
   return (
     <div className="products mb-6">
       <div className="products__info my-12 flex items-end justify-between">
@@ -47,6 +50,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         <StyledLink destination={"/products"} name="More Products" />
       </div>
       <Swiper
+        mousewheel={{ forceToAxis: true }}
         spaceBetween={8}
         slidesPerView={1.3}
         breakpoints={{
@@ -56,7 +60,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
           1024: { slidesPerView: 4.5, spaceBetween: 24 },
         }}
         scrollbar={{ hide: true }}
-        modules={[Scrollbar]}
+        modules={[Scrollbar, Mousewheel]}
         className="mySwiper"
       >
         {products?.length <= 0 ? <ProductLoading /> : SwiperContents}

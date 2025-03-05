@@ -1,7 +1,7 @@
 import { api } from "./api";
 import { configureStore } from "@reduxjs/toolkit";
 import HomePageData from "./slices/homePageData";
-import PermanentData from "./slices/permamentData"
+import PermanentData from "./slices/permamentData";
 
 export const store = configureStore({
   reducer: {

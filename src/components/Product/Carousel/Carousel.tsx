@@ -95,6 +95,7 @@ const Carousel: FC<ProductCarouselType> = ({
             <SwiperSlide key={idx}>
               <Zoom zoomMargin={20}>
                 <img
+                  className="max-w-[36.5rem] max-h-[36.5rem]"
                   width={2000}
                   height={2000}
                   src={urlFor(image?.asset?._ref).toString()}
