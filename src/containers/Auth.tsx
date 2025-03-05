@@ -1,12 +1,28 @@
 import AuthImg from "@/assets/auth/authorization-bg.webp";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const Auth = () => {
   if (useLocation()?.pathname == "/auth")
     return <Navigate to={"/auth/login"} replace={true} />;
 
+  const [isBgImgVisible, setIsBgImgVisible] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth < 768) {
+        setIsBgImgVisible(true);
+      } else {
+        setIsBgImgVisible(false);
+      }
+    });
+  }, []);
+
   return (
-    <div style={{backgroundImage: `url(${AuthImg})`}} className="h-screen w-full flex items-center justify-between flex-col md:flex-row bg-slate-50 bg-cover bg-center">
+    <div
+      style={{ backgroundImage: isBgImgVisible ? `url(${AuthImg})` : "" }}
+      className="h-screen w-full flex items-center justify-between flex-col md:flex-row bg-slate-50 bg-cover bg-center"
+    >
       <img
         width={661}
         height={991}
