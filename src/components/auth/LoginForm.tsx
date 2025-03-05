@@ -48,7 +48,7 @@ export function LoginForm() {
 
           if (user) {
             dispatch(setUserInfo(user));
-            
+
             const returnUrl = sessionStorage.getItem("returnUrl") || "/";
             sessionStorage.removeItem("returnUrl");
             navigate(returnUrl);
@@ -64,7 +64,7 @@ export function LoginForm() {
       , [])
 
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
@@ -73,6 +73,7 @@ export function LoginForm() {
             <FormItem>
               <FormControl>
                 <Input
+                  className="bg-slate-50"
                   placeholder="Your username or email address"
                   {...field}
                 />
@@ -87,7 +88,9 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <Input
+                  className="bg-slate-50"
+                  type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
