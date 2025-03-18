@@ -8,6 +8,8 @@ import { ProductType } from "@/lib/types";
 import { v4 as uuidv4 } from "uuid";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
@@ -17,28 +19,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
-
-  // Check if the product exists in the user's wishlist.
-  useEffect(() => {
-    const checkWishlist = async () => {
-      if (userInfo && product) {
-        try {
-          const wishlist = await client.fetch(
-            SANITY_USER_WISHLIST(userInfo._id)
-          );
-          if (wishlist) {
-            const exists = wishlist.items.some(
-              (item: any) => item.product._ref === product._id
-            );
-            setIsSaved(exists);
-          }
-        } catch (error) {
-          console.error("Error checking wishlist:", error);
-        }
-      }
-    };
-    checkWishlist();
-  }, [userInfo, product]);
+  const { toast } = useToast();
 
   // Handler to update the hovered image based on mouse position.
   const handleMouseMove = useCallback(
@@ -50,7 +31,9 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
       if (imagesLength <= 0) return;
       const { left, width } = e.currentTarget.getBoundingClientRect();
       const hoverPosition = e.clientX - left;
-      const hoverPercentage = (hoverPosition / width) * 100;
+
+      const clampedHoverPosition = Math.max(0, Math.min(hoverPosition, width));
+      const hoverPercentage = (clampedHoverPosition / width) * 100;
       const imageIndex = Math.min(
         imagesLength - 1,
         Math.floor((hoverPercentage / 100) * imagesLength)
@@ -104,26 +87,39 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     []
   );
 
-  // Toggle wishlist status (add or remove product).
   const handleToggleWishlist = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
-      // Prevent triggering the open product event.
       e.stopPropagation();
       if (!userInfo) {
-        navigate("/auth/login");
+        toast({
+          title: "Please log in",
+          description: "You need to be logged in to add items to the wishlist.",
+          variant: "destructive",
+          action: (
+            <ToastAction altText="Try again">
+              <Button
+                onClick={() => {
+                  sessionStorage.setItem("returnUrl", window.location.pathname);
+                  navigate("/auth/login");
+                }}
+                className="shadow-md hover:shadow-none hover:bg-neutral-700"
+              >
+                Login
+              </Button>
+            </ToastAction>
+          ),
+        });
         return;
       }
-      
-      // Save the previous state so that we can revert if needed.
+
       const previousSavedState = isSaved;
-      
-      // Optimistically update the UI.
+
       setIsSaved(!previousSavedState);
       setIsLoading(true);
-  
+
       try {
         const wishlist = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
-        
+
         if (previousSavedState) {
           // Optimistically removed product from wishlist.
           if (wishlist) {
@@ -177,7 +173,51 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     },
     [userInfo, isSaved, product, navigate]
   );
-  
+
+  const handleToggleCart = () => {
+    if (!userInfo) {
+      toast({
+        title: "Please log in",
+        description: "You need to be logged in to add items to the cart.",
+        variant: "destructive",
+        action: (
+          <ToastAction altText="Try again">
+            <Button
+              onClick={() => {
+                sessionStorage.setItem("returnUrl", window.location.pathname);
+                navigate("/auth/login");
+              }}
+              className="shadow-md hover:shadow-none hover:bg-neutral-700"
+            >
+              Login
+            </Button>
+          </ToastAction>
+        ),
+      });
+    }
+  };
+
+  // Check if the product exists in the user's wishlist.
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (userInfo && product) {
+        try {
+          const wishlist = await client.fetch(
+            SANITY_USER_WISHLIST(userInfo._id)
+          );
+          if (wishlist) {
+            const exists = wishlist.items.some(
+              (item: any) => item.product._ref === product._id
+            );
+            setIsSaved(exists);
+          }
+        } catch (error) {
+          console.error("Error checking wishlist:", error);
+        }
+      }
+    };
+    checkWishlist();
+  }, [userInfo, product]);
 
   return (
     <div
@@ -225,7 +265,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
             {isSaved ? (
               <IoMdHeart size={24} className="text-red-500" />
             ) : (
-              <IoIosHeartEmpty 
+              <IoIosHeartEmpty
                 size={24}
                 className="fill-neutral-400 hover:fill-black duration-200"
               />
@@ -233,7 +273,10 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           </button>
         </div>
 
-        <Button className="addCart absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all">
+        <Button
+          onClick={handleToggleCart}
+          className="addCart absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all"
+        >
           Add to cart
         </Button>
 
