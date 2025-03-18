@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, FC } from "react";
-import Carousel from "@/components/Product/Carousel/Carousel";
 import { useToast } from "@/hooks/use-toast";
 import { ProductType } from "@/lib/types";
 import { client } from "@/utils/Client";
@@ -9,7 +8,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import ProductData from "@/components/Product/ProductData";
+import ProductData from "./_components/ProductData";
+import Carousel from "./_components/Carousel/Carousel";
 
 const Product: FC = () => {
   const [productData, setProductData] = useState<ProductType | undefined>(

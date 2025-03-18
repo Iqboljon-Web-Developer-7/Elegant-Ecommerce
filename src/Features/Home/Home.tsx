@@ -7,8 +7,8 @@ import Banner from "@/styledComponents/Banner";
 import discountImage from "@/assets/discount-add/discount-add.webp";
 import StyledLink from "@/styledComponents/StyledLink";
 
-import Features from "@/components/Home/Features/Features";
-import InstagramFeed from "@/components/Home/InstagramFeed/InstagramFeed";
+import Features from "./Features";
+import InstagramFeed from "./InstagramFeed";
 
 const Home = () => {
   return (

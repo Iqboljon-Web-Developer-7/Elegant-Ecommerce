@@ -2,16 +2,16 @@ import { Route, Routes } from "react-router-dom";
 
 import NotFound from "./components/notFound";
 import Layout from "./components/Layout";
-import Home from "./containers/Home";
-import Search from "./containers/Search";
-import ContactUs from "./containers/ContactUs";
+import Home from "./Features/Home/Home";
+import Search from "./Features/Search";
+import ContactUs from "./Features/ContactUs/ContactUs";
 
-import Auth from "./containers/Auth";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Product from "./containers/Product";
-import Products from "./containers/Products";
+import Auth from "./Features/Auth/Auth";
+import Product from "./Features/Product/Product";
+import Products from "./Features/Products";
 import AppErrorBoundary from "./components/errorBoundary/ErrorBoundary";
+import Register from "./Features/Auth/Register";
+import Login from "./Features/Auth/Login";
 
 const App = () => {
   return (

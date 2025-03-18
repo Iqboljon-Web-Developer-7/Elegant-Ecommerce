@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import heartIcon from "@/assets/icons/heart.svg";
 import redHeartIcon from "@/assets/icons/red-heart.svg";
 import { ProductDataProps } from "@/lib/types";
-import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useSelector } from "react-redux";
+import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
 import CategoriesComponent from "./Categories/Categories";
 import ColorsComponent from "./Colors/Colors";
 import VariantsComponent from "./Variants/Variants";
@@ -28,7 +28,7 @@ const ProductData: FC<ProductDataProps> = ({
   // Use custom wishlist hook if user and product data exist
   const { isInWishlist, isLoading, saveWishlist, removeWishlist } = useWishlist(
     userInfo?._id,
-    productData!?._id,
+    productData?._id!,
     productColor!,
     productVariant!
   );
@@ -106,7 +106,7 @@ const ProductData: FC<ProductDataProps> = ({
       <p className="text-neutral-400 inter text-sm lg:text-base">{productData.description}</p>
       <div className="flex items-center gap-3">
         <h6>${selectedVariant?.salePrice}</h6>
-        <span className="fs-20 line-through text-neutral-400">${selectedVariant?.price}</span>
+        <span className="text-[1.25rem] line-through text-neutral-400">${selectedVariant?.price}</span>
       </div>
       <hr />
       <div className="additionalInfo flex flex-wrap gap-2">{Variants}</div>

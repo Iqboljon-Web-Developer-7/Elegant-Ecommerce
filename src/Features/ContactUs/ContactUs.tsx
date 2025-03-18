@@ -4,8 +4,8 @@ import Banner from "@/styledComponents/Banner";
 import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
-import Features from "@/components/Home/Features/Features";
-import { ContactForm } from "@/components/ContactUs/ContactForm";
+import Features from "@/Features/Home/Features";
+import { ContactForm } from "./ContactForm"
 
 const ContactUs = () => {
   const features = [

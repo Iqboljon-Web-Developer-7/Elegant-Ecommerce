@@ -8,14 +8,25 @@ const Auth = () => {
 
   const [isBgImgVisible, setIsBgImgVisible] = useState(false);
 
+  const checkWindowWidth = (width: number) => {
+    if (width < 768) {
+      setIsBgImgVisible(true);
+    } else {
+      setIsBgImgVisible(false);
+    }
+  }
+
   useEffect(() => {
+    let windowWidth = window.innerWidth
+    checkWindowWidth(windowWidth)
     window.addEventListener("resize", () => {
-      if (window.innerWidth < 768) {
-        setIsBgImgVisible(true);
-      } else {
-        setIsBgImgVisible(false);
-      }
+      checkWindowWidth(window.innerWidth)
     });
+    return () => {
+      window.removeEventListener("resize", () => {
+        checkWindowWidth(window.innerWidth)
+      });
+    };
   }, []);
 
   return (
@@ -28,8 +39,7 @@ const Auth = () => {
         height={991}
         src={AuthImg}
         alt="auth-img"
-        className="h-screen w-96 lg:w-auto hidden md:block flex-shrink object-cover
-        "
+        className="h-screen w-96 lg:w-auto hidden md:block flex-shrink object-cover"
       />
       <div className="flex-grow flex items-center justify-center min-w-80 w-full bg-[#00000077] md:bg-transparent">
         <Outlet />
