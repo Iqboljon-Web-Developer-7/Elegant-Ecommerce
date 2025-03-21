@@ -20,10 +20,10 @@ import { setUserInfo } from "@/redux/slices/permamentData";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
+  name: z.string().min(6, {
     message: "Username or email must be at least 6 characters.",
   }),
-  password: z.string().min(2, {
+  password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
 });
@@ -39,31 +39,25 @@ export function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = useCallback(
-    (values: z.infer<typeof formSchema>) => {
-      setLoading(true);
-      client
-        .fetch(SANITY_LOGIN_USER(values))
-        .then((user) => {
-          if (user) {
-            dispatch(setUserInfo(user));
-            const returnUrl = sessionStorage.getItem("returnUrl") || "/";
-            sessionStorage.removeItem("returnUrl");
-            navigate(returnUrl);
-          } else {
-            toast({ title: "User not found!", variant: "destructive" });
-          }
-        })
-        .catch((err) => {
-          toast({ title: err?.message, variant: "destructive" });
-        })
-        .finally(() => {
-          form.reset();
-          setLoading(false);
-        });
-    },
-    []
-  );
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
+    try {
+      const user = await client.fetch(SANITY_LOGIN_USER(values));
+      if (user) {
+        dispatch(setUserInfo(user));
+        const returnUrl = sessionStorage.getItem("returnUrl") || "/";
+        sessionStorage.removeItem("returnUrl");
+        navigate(returnUrl);
+      } else {
+        toast({ title: "User not found!", variant: "destructive" });
+      }
+    } catch (err: any) {
+      toast({ title: err?.message || "An error occurred", variant: "destructive" });
+    } finally {
+      form.reset();
+      setLoading(false);
+    }
+  }, [dispatch, form, navigate, toast]);
 
   return (
     <Form {...form}>
@@ -101,6 +95,7 @@ export function LoginForm() {
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? (
                       <AiOutlineEyeInvisible size={20} />
