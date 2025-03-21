@@ -17,18 +17,20 @@ import { SANITY_LOGIN_USER } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "@/redux/slices/permamentData";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username or email must be at least 6 characters.",
   }),
   password: z.string().min(2, {
-    message: "Username or email must be at least 6 characters.",
+    message: "Password must be at least 6 characters.",
   }),
 });
 
 export function LoginForm() {
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -37,16 +39,14 @@ export function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    setLoading(true);
-    client
-      .fetch(SANITY_LOGIN_USER(values))
-      .then((user) => {
-        setLoading(false);
-
+  const onSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      setLoading(true);
+      client
+        .fetch(SANITY_LOGIN_USER(values))
+        .then((user) => {
           if (user) {
             dispatch(setUserInfo(user));
-
             const returnUrl = sessionStorage.getItem("returnUrl") || "/";
             sessionStorage.removeItem("returnUrl");
             navigate(returnUrl);
@@ -55,14 +55,18 @@ export function LoginForm() {
           }
         })
         .catch((err) => {
-          setLoading(false);
           toast({ title: err?.message, variant: "destructive" });
+        })
+        .finally(() => {
+          form.reset();
+          setLoading(false);
         });
-    }
-      , [])
+    },
+    []
+  );
 
   return (
-    <Form {...form} >
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
@@ -86,9 +90,25 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  className="bg-slate-50"
-                  type="password" placeholder="Password" {...field} />
+                <div className="relative">
+                  <Input
+                    className="bg-slate-50 pr-10"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500"
+                  >
+                    {showPassword ? (
+                      <AiOutlineEyeInvisible size={20} />
+                    ) : (
+                      <AiOutlineEye size={20} />
+                    )}
+                  </button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

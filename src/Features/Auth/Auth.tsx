@@ -5,7 +5,6 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 const Auth = () => {
   if (useLocation()?.pathname == "/auth")
     return <Navigate to={"/auth/login"} replace={true} />;
-
   const [isBgImgVisible, setIsBgImgVisible] = useState(false);
 
   const checkWindowWidth = (width: number) => {
