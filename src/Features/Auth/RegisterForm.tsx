@@ -63,8 +63,6 @@ export function RegisterForm() {
           password: values.password,
         };
 
-        console.log(values)
-
         const users = await client.fetch(SANITY_REGISTER_USER(values));
         if (users.length) {
           toast({

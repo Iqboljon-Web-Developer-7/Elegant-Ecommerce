@@ -49,7 +49,7 @@ export function LoginForm() {
         sessionStorage.removeItem("returnUrl");
         navigate(returnUrl);
       } else {
-        toast({ title: "User not found!", variant: "destructive" });
+        toast({ title: "Incorrect username or password.", variant: "destructive" });
       }
     } catch (err: any) {
       toast({ title: err?.message || "An error occurred", variant: "destructive" });
