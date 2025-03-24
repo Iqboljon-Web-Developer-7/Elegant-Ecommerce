@@ -66,7 +66,7 @@ export function RegisterForm() {
         console.log(values)
 
         const users = await client.fetch(SANITY_REGISTER_USER(values));
-        if (users) {
+        if (users.length) {
           toast({
             title: "User already exists!",
             description: "Please try to register again.",
