@@ -4,7 +4,7 @@ import Banner from "@/styledComponents/Banner";
 import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
-import Features from "@/Features/Home/Features";
+import Features from "@/Features/Home/components/Features";
 import { ContactForm } from "./ContactForm"
 
 const ContactUs = () => {

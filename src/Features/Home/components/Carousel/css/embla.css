@@ -16,6 +16,7 @@
   gap: 1px;
 }
 .embla__slide {
+  max-width: 80rem;
   transform: translate3d(0, 0, 0);
   flex: 0 0 var(--slide-size);
   min-width: 0;

@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import NotFound from "./components/notFound";
 import Layout from "./components/Layout";
-import Home from "./Features/Home/Home";
+import Home from "./Features/Home/components/Home";
 import Search from "./Features/Search";
 import ContactUs from "./Features/ContactUs/ContactUs";
 

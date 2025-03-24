@@ -1,6 +1,6 @@
 export default function PlaceholderSlide() {
   return (
-    <div className="embla__slide flex justify-center items-center">
+    <div className="embla__slide max-h-[80rem] flex justify-center items-center relative">
       <div
         className="w-full h-full bg-sky-50"
         style={{

@@ -16,7 +16,7 @@ import { client, urlFor } from "@/utils/Client";
 import PlaceholderSlide from "./Loading";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 
-const EmblaCarousel = () => {
+const HomeCarousel = () => {
   const [slides, setSlides] = useState<SlideType[]>([]);
 
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
@@ -92,8 +92,9 @@ const EmblaCarousel = () => {
   return (
     <div className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">{Slides}</div>
-        {!Slides.length && <PlaceholderSlide />}
+        <div className="embla__container">
+        {!Slides.length ? <PlaceholderSlide /> : Slides}
+        </div>
       </div>
       <div className="embla__controls">
         <div className="embla__buttons">
@@ -119,4 +120,4 @@ const EmblaCarousel = () => {
   );
 };
 
-export default EmblaCarousel;
+export default HomeCarousel;
