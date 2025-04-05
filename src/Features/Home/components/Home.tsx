@@ -19,7 +19,13 @@ const Home = React.memo(() => {
       <div className="container-xl">
         <HomeCarousel />
         <SimpleHeading />
-        <Suspense fallback={<SkeletonLoader count={3} />}>
+        <Suspense fallback={
+          <>
+            <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
+              <SkeletonLoader count={3} />
+            </div>
+          </>
+        }>
           <ShopCollection />
         </Suspense>
         <Suspense fallback={<ProductLoading />}>

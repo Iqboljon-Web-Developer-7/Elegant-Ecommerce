@@ -4,12 +4,20 @@ import { ProductType } from "@/lib/types";
 import { client } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import {
-  Link,
   useParams,
   useSearchParams,
 } from "react-router-dom";
 import ProductData from "./_components/ProductData";
 import Carousel from "./_components/Carousel/Carousel";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
 
 const Product: FC = () => {
   const [productData, setProductData] = useState<ProductType | undefined>(
@@ -29,7 +37,7 @@ const Product: FC = () => {
     (param: string, value: string | number) => {
       const updatedParams = new URLSearchParams(searchParams);
       updatedParams.set(param, value?.toString());
-      setSearchParams(updatedParams, {replace:true})
+      setSearchParams(updatedParams, { replace: true })
     },
     [searchParams, setSearchParams]
   );
@@ -42,7 +50,7 @@ const Product: FC = () => {
           .config({ useCdn: false })
           .fetch(SANITY_PRODUCT_QUERY(id))
 
-        const firstAvailableVariant = data.variants.find((variant) =>
+        const firstAvailableVariant = data?.variants?.find((variant) =>
           data.colors.some(
             (color) => color.name === variant.color && variant.stock > 0
           )
@@ -66,7 +74,7 @@ const Product: FC = () => {
     }
     fetchProduct(id!);
   }, []);
-  
+
   const selectedVariant = variants?.find(
     (variant) => variant.title === productVariant
   );
@@ -77,10 +85,21 @@ const Product: FC = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="breadcrumb mt-4 inter text-sm">
-        <span className="text-slate-600">
-          Home {">"} &nbsp; <Link to={"/products"}>Products</Link>{" "}
-        </span>{" "}
-        {">"} &nbsp; {title?.slice(0, 20)}
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{title?.slice(0, 20)}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
       <div className="main-info pt-4 mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <Carousel

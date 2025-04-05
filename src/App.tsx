@@ -10,8 +10,8 @@ const Home = lazy(() => import("./Features/Home/components/Home"));
 const Search = lazy(() => import("./Features/Search"));
 const ContactUs = lazy(() => import("./Features/ContactUs/ContactUs"));
 const Auth = lazy(() => import("./Features/Auth/Auth"));
-const Product = lazy(() => import("./Features/Product/Product"));
 const Products = lazy(() => import("./Features/Products"));
+const Product = lazy(() => import("./Features/Product/Product"));
 const Register = lazy(() => import("./Features/Auth/Register"));
 const Login = lazy(() => import("./Features/Auth/Login"));
 
