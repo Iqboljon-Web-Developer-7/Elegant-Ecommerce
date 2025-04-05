@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import Products from "@/components/Products/Products";
 
 import Banner from "@/styledComponents/Banner";
 import discountImage from "@/assets/discount-add/discount-add.webp";
@@ -8,27 +7,19 @@ import StyledLink from "@/styledComponents/StyledLink";
 import Features from "./Features";
 import InstagramFeed from "../InstagramFeed";
 const HomeCarousel = lazy(() => import("./Carousel/Carousel"));
-// const HomeCarousel = lazy(() =>
-//   new Promise((resolve) => {
-//     setTimeout(() => resolve(import("./Carousel/Carousel")), 1000); // 10-second delay
-//   })
-// );
 
 const ShopCollection = lazy(() => import("./ShopCollection/ShopCollection"));
 import SimpleHeading from "./SimpleHeading/SimpleHeading";
 import PlaceholderSlide from "./Carousel/Loading";
+import Products from "./Products/Products";
 
 const Home = () => {
   return (
     <>
       <div className="container-xl">
-        <Suspense fallback={<>
-          <PlaceholderSlide />
-        </>}>
+        <Suspense fallback={<PlaceholderSlide />}>
           <HomeCarousel />
         </Suspense>
-
-
         <SimpleHeading />
         <ShopCollection />
         <Products />

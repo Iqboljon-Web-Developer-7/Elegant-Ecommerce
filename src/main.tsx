@@ -1,7 +1,6 @@
 import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react";
 
 const App = lazy(() => import("./App.tsx"));
 
@@ -23,7 +22,6 @@ createRoot(document.getElementById("root")!).render(
         </Suspense>
       </Provider>
       <Toaster />
-      <Analytics />
     </BrowserRouter>
   </StrictMode>
 );
