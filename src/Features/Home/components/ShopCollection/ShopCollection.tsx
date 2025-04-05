@@ -3,7 +3,7 @@ import { CollectionType } from "@/lib/types";
 
 import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/styledComponents/StyledLink";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
 const ShopCollection = () => {
   const [collections, setCollections] = useState<CollectionType[]>([]);
@@ -18,21 +18,22 @@ const ShopCollection = () => {
     fetchCollections();
   }, []);
 
-  const Collections = collections?.map((item, index) => (
-    <div
-      key={index}
-      style={{
-        backgroundImage: `url("${item && urlFor(item.image?.asset?._ref)}")`,
-      }}
-      className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${index === 0 && "row-span-2 min-h-96 bg-top"
-        }`}
-    >
-      <div className="absolute bottom-10 left-10 grid text-black-800">
-        <h3 className="text-[2.125rem]">{item?.title}</h3>
-        <StyledLink destination={item?.url} name={item?.urlName} />
+  const Collections = useMemo(() => 
+    collections?.map((item, index) => (
+      <div
+        key={index}
+        style={{
+          backgroundImage: `url("${item && urlFor(item.image?.asset?._ref)}")`,
+        }}
+        className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${index === 0 && "row-span-2 min-h-96 bg-top"}`}
+      >
+        <div className="absolute bottom-10 left-10 grid text-black-800">
+          <h3 className="text-[2.125rem]">{item?.title}</h3>
+          <StyledLink destination={item?.url} name={item?.urlName} />
+        </div>
       </div>
-    </div>
-  ));
+    )),
+  [collections]);
 
   return (
     <div className="mt-5 md:mt-12">

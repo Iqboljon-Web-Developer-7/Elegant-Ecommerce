@@ -12,8 +12,8 @@ import "./css/embla.css";
 import { SlideType } from "@/lib/types";
 
 import { LazyLoadImage } from "./CarouselLazyLoading";
-import { client, urlFor } from "@/utils/Client";
 import PlaceholderSlide from "./Loading";
+import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 
 const HomeCarousel = () => {

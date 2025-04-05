@@ -1,12 +1,14 @@
+import React, { lazy, Suspense } from "react";
 import Banner from "@/styledComponents/Banner";
 import discountImage from "@/assets/discount-add/discount-add.webp";
 import StyledLink from "@/styledComponents/StyledLink";
 
-import SimpleHeading from "./SimpleHeading/SimpleHeading";
 import HomeCarousel from "./Carousel/Carousel";
-import ShopCollection from "./ShopCollection/ShopCollection";
-import React, { lazy, Suspense } from "react";
+import SimpleHeading from "./SimpleHeading/SimpleHeading";
+import ProductLoading from "./Products/ProductLoading";
+import SkeletonLoader from "./ShopCollection/SkeletonLoader";
 
+const ShopCollection = lazy(() => import("./ShopCollection/ShopCollection"));
 const Products = lazy(() => import("./Products/Products"));
 const Features = lazy(() => import("./Features"));
 const InstagramFeed = lazy(() => import("../InstagramFeed"));
@@ -17,8 +19,10 @@ const Home = React.memo(() => {
       <div className="container-xl">
         <HomeCarousel />
         <SimpleHeading />
-        <ShopCollection />
-        <Suspense fallback={<div>Loading Products...</div>}>
+        <Suspense fallback={<SkeletonLoader count={3} />}>
+          <ShopCollection />
+        </Suspense>
+        <Suspense fallback={<ProductLoading />}>
           <Products />
         </Suspense>
       </div>
