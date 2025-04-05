@@ -1,28 +1,26 @@
-import { lazy, Suspense } from "react";
-
 import Banner from "@/styledComponents/Banner";
 import discountImage from "@/assets/discount-add/discount-add.webp";
 import StyledLink from "@/styledComponents/StyledLink";
 
-import Features from "./Features";
-import InstagramFeed from "../InstagramFeed";
-const HomeCarousel = lazy(() => import("./Carousel/Carousel"));
-
-const ShopCollection = lazy(() => import("./ShopCollection/ShopCollection"));
 import SimpleHeading from "./SimpleHeading/SimpleHeading";
-import PlaceholderSlide from "./Carousel/Loading";
-import Products from "./Products/Products";
+import HomeCarousel from "./Carousel/Carousel";
+import ShopCollection from "./ShopCollection/ShopCollection";
+import React, { lazy, Suspense } from "react";
 
-const Home = () => {
+const Products = lazy(() => import("./Products/Products"));
+const Features = lazy(() => import("./Features"));
+const InstagramFeed = lazy(() => import("../InstagramFeed"));
+
+const Home = React.memo(() => {
   return (
     <>
       <div className="container-xl">
-        <Suspense fallback={<PlaceholderSlide />}>
-          <HomeCarousel />
-        </Suspense>
+        <HomeCarousel />
         <SimpleHeading />
         <ShopCollection />
-        <Products />
+        <Suspense fallback={<div>Loading Products...</div>}>
+          <Products />
+        </Suspense>
       </div>
       <div className="container-2xl">
         <Banner img={discountImage}>
@@ -43,11 +41,15 @@ const Home = () => {
         </Banner>
       </div>
       <div className="container-xl">
-        <Features />
-        <InstagramFeed />
+        <Suspense fallback={<div>Loading Features...</div>}>
+          <Features />
+        </Suspense>
+        <Suspense fallback={<div>Loading Instagram Feed...</div>}>
+          <InstagramFeed />
+        </Suspense>
       </div>
     </>
   );
-};
+});
 
 export default Home;

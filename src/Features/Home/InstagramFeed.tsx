@@ -10,7 +10,7 @@ const InstagramFeed = () => {
     const fetchImages = async () => {
       try {
         const data = await client.fetch(SANITY_INSTAFEED_QUERY);
-        const imageUrls = data.map(
+        const imageUrls = data?.map(
           (item: ImageTypeArray) => item.image[0].asset?._ref
         );
 
@@ -41,9 +41,9 @@ const InstagramFeed = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-6">
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <div
-            key={image}
+            key={index}
             className="overflow-hidden hover:shadow-md duration-200 relative"
           >
             <img

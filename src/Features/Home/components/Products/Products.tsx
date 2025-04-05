@@ -14,10 +14,10 @@ import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
-  const { toast } = useToast();
   console.log(category);
-
   const [products, setProducts] = useState<ProductType[]>([]);
+  
+  const { toast } = useToast();
 
   const SwiperContents = products?.map((product) => (
     <SwiperSlide key={product._id} className="pb-14">
@@ -37,7 +37,6 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         toast({ description: error?.message, variant: "destructive" });
       }
     };
-
     fetchInitialData();
   }, []);
 

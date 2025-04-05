@@ -3,8 +3,9 @@ import { HeaderSidebar } from "./Header/Sidebar";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import { Outlet } from "react-router-dom";
+import React from "react";
 
-const Layout = () => {
+const Layout = React.memo(() => {
   return (
     <SidebarProvider>
       <main className="w-full">
@@ -15,6 +16,6 @@ const Layout = () => {
       </main>
     </SidebarProvider>
   );
-};
+});
 
 export default Layout;
