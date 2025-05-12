@@ -1,0 +1,55 @@
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none; /* Prevents text selection */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* Older IE */
+}
+[data-rmiz-modal-content],
+[data-rmiz-modal-overlay="visible"] {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-rmiz-modal-content] img {
+  border-radius: 1rem;
+}
+
+/* Main Swiper Styles */
+
+.mySwiperMain .swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+.mySwiperMain .swiper-button-prev,
+.mySwiperMain .swiper-button-next {
+  color: black;
+}
+
+/* Thumbnail Swiper Styles */
+.mySwiperThumbs {
+  display: none;
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiperThumbs .swiper-slide {
+  width: 25%;
+  height: 100%;
+  border-bottom: 1px solid transparent;
+  opacity: 0.7;
+  transition: all ease-in-out 200ms;
+  border-radius: 0.5rem;
+}
+
+.mySwiperThumbs .swiper-slide-thumb-active {
+  border-color: #38a3a5;
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .mySwiperThumbs {
+    display: block;
+  }
+}

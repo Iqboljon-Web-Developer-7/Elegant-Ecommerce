@@ -1,0 +1,1587 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Tray Table",
+      "description": "Buy one or buy a few and make every space more convenient. Light and easy to move with a removable tray top for serving snacks.",
+      "price": 199,
+      "originalPrice": 300,
+      "status": "New",
+      "categories": ["Household", "Livingroom"],
+      "sku": "1117",
+      "colors": [
+        {
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        },
+        {
+          "name": "Grey",
+          "color": "#999999"
+        }
+      ],
+      "stock": {
+        "White": 5,
+        "Black": 0,
+        "Grey": 10
+      },
+      "images": [
+        {
+          "color": "White",
+          "images": [
+            "https://i5.walmartimages.com/asr/ddffb182-c549-4ae4-a05f-54c8776465c8.68fb22f7a2b7983117073cd796baa24c.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/85e7e570-e191-44a4-a864-c3d9e286c02d.1a13eefc1b02914af419bfe00998ddeb.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e0d31103-3f8a-4730-8539-66285ca02fdb.3d1656446dcb6f89dc296e5a2907afae.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Soontrans-Folding-Lap-Desk-for-Bed-Portable-Laptop-Bed-Tray-Table-Stand-Reading-Desk-Breakfast-Tray-Cup-Holder-Table-Black_e8dff371-51ed-44ec-bf60-44b4d9722181.26e0e78d02602067811efdfbf9a30794.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/8e99ae90-fa98-48da-b87a-fd364a969b66.f1a94c5422d95338e59f66fa9a9b13b8.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/b5f6e6ac-ac78-4e4a-9c9a-8601ce35f1ae.4e95c124bd2b5d5a8eaaa5b64d9627b7.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/fae1b7bd-94d4-48c2-bb82-8b752ed6145d.edf2b52899933a9251fef6acf35c774b.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Grey",
+          "images": [
+            "https://i5.walmartimages.com/asr/3b14749c-8295-4e77-8e4c-d7fdb7faca61.743aa63f1c368eb1a7620ba30404dd13.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/f5d2dc3a-bb2e-4743-b20f-dcd6fcce684e.63c74766f8271fc2b9b765f080e6ec66.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/1e65e132-f96e-481a-8f2e-014263a05c4a.4f42bcb9eb5353368b3a52c0272e6b6f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/a9b777fb-caaa-48c7-adf2-28189805bf64.53417777e339e5692c6c541c16b29744.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Emily Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/21.jpg",
+            "comment": "Absolutely love this product! The quality is fantastic.",
+            "rating": 5
+          },
+          {
+            "user": "Michael Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/32.jpg",
+            "comment": "Good value for the price, though I wish the delivery was faster.",
+            "rating": 4
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/43.jpg",
+            "comment": "Stylish and functional. Fits perfectly in my apartment!",
+            "rating": 5
+          },
+          {
+            "user": "David Lee",
+            "profileImg": "https://randomuser.me/api/portraits/men/14.jpg",
+            "comment": "Decent product, but I had some issues with the assembly instructions.",
+            "rating": 3
+          },
+          {
+            "user": "Olivia White",
+            "profileImg": "https://randomuser.me/api/portraits/women/56.jpg",
+            "comment": "Amazing customer service! They answered all my questions.",
+            "rating": 5
+          },
+          {
+            "user": "Daniel Harris",
+            "profileImg": "https://randomuser.me/api/portraits/men/29.jpg",
+            "comment": "The product is okay, but it didn’t quite meet my expectations.",
+            "rating": 3
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Tray Table Online | Convenient and Stylish",
+        "metaDescription": "The Tray Table is perfect for living rooms and bedrooms. Lightweight and functional, available in White, Black, and Grey.",
+        "slug": "tray-table"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-02T12:34:56Z",
+        "updatedAt": "2024-01-15T08:30:45Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "17.5",
+          "depth": "20.625",
+          "height": "23.5"
+        },
+        "weight": 12,
+        "material": "MDF with a steel frame",
+        "assemblyRequired": true,
+        "maxWeightCapacity": 30,
+        "brand": "ZAFLY",
+        "discountExpiry": "2024-11-30T00:00:00Z"
+      }
+    },
+    {
+      "id": "2",
+      "title": "Galaxy S24 Ultra",
+      "description": "User privacy continues to be our priority in the AI era. With the launch of Galaxy AI on the Galaxy S24 Series, you can rest assured that we will not store or use your personal data for any purpose without your consent.",
+      "price": 1100,
+      "originalPrice": 1300,
+      "colors": [
+        {
+          "name": "Grey",
+          "color": "#808080"
+        },
+        {
+          "name": "Violet",
+          "color": "#493E66"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        }
+      ],
+      "status": "New",
+      "categories": ["Phones", "Electronics"],
+      "sku": "1118",
+      "stock": {
+        "Grey": 1,
+        "Violet": 10,
+        "Black": 0
+      },
+      "images": [
+        {
+          "color": "Grey",
+          "images": [
+            "https://i5.walmartimages.com/seo/AT-T-Samsung-Galaxy-S24-Ultra-Titanium-Gray-512GB_a3758ac4-b9c8-4e23-a7d1-6078afcbffef.db690f368679ba85c4ac1395f1145bb5.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/0e923c8c-322b-4546-b0f4-3f59e51cc5d4.c4d7fff835a9994857863167c8fa1415.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/f8ab0697-cb43-4e98-bbbc-b836939a6098.82eeb0eb8c1169e02e55d782d6615ab6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Violet",
+          "images": [
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718189469AVTf3HAxOlGQ.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718190818XOpwYRQx5SKr.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718190817lHRjtmA98cGd.webp"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Samsung-Galaxy-S24-Ultra-5G-SM-S928B-DS-256GB-12GB-RAM-DUAL-SIM-Global-Model-Factory-Unlocked-GSM-Titanium-Black_be6b29a9-ba1e-4de4-9c3c-ac88c45d0c0b.47a268b75158f6267671c0e78cc84f44.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/c27a4494-2e0c-4107-aeb3-ea26681da4fe.e6e2393cbe7813d81bb4806a06a945a9.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e1600a40-8b9a-4792-8047-8f3405605456.63975267b65820778a986911842c14a2.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Rachel Adams",
+            "profileImg": "https://randomuser.me/api/portraits/women/65.jpg",
+            "comment": "Exceeded my expectations! The design is beautiful and elegant.",
+            "rating": 5
+          },
+          {
+            "user": "James Wilson",
+            "profileImg": "https://randomuser.me/api/portraits/men/42.jpg",
+            "comment": "Solid build quality, but the color wasn’t exactly what I expected.",
+            "rating": 4
+          },
+          {
+            "user": "Mia Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/38.jpg",
+            "comment": "Very easy to assemble. Took me less than 15 minutes!",
+            "rating": 5
+          },
+          {
+            "user": "Ethan Walker",
+            "profileImg": "https://randomuser.me/api/portraits/men/53.jpg",
+            "comment": "Nice product, but I think it’s a bit overpriced for what it offers.",
+            "rating": 3
+          },
+          {
+            "user": "Chloe Parker",
+            "profileImg": "https://randomuser.me/api/portraits/women/76.jpg",
+            "comment": "Perfect addition to my home! The size is just right for small spaces.",
+            "rating": 5
+          },
+          {
+            "user": "Jack Cooper",
+            "profileImg": "https://randomuser.me/api/portraits/men/24.jpg",
+            "comment": "It’s okay, but I had higher expectations. The finish isn’t as polished as I hoped.",
+            "rating": 3
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Galaxy S24 Ultra Online | Latest Smartphone",
+        "metaDescription": "The Galaxy S24 Ultra is designed for user privacy with cutting-edge features and elegant design. Available in Grey, Violet, and Black.",
+        "slug": "galaxy-s24-ultra"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-02T12:34:56Z",
+        "updatedAt": "2024-01-15T08:30:45Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "6.8inches",
+          "weight": "190g"
+        },
+        "discountExpiry": "2024-12-28T00:00:00Z",
+        "battery": {
+          "capacity": "5000mAh",
+          "type": "Lithium-ion"
+        },
+        "warranty": {
+          "duration": "1 year",
+          "coverage": "Limited warranty covering defects"
+        }
+      }
+    },
+    {
+      "id": "3",
+      "title": "MacBook Air 13",
+      "description": "The MacBook Air 13 M1 is Apple's ultra-thin, lightweight laptop, powered by the Apple M1 chip. This innovative chip integrates CPU, GPU, and machine learning technology, providing faster performance.",
+      "price": 800,
+      "originalPrice": 999,
+      "colors": [
+        {
+          "name": "Grey",
+          "color": "#808080"
+        },
+        {
+          "name": "Gold",
+          "color": "#D4AF37"
+        }
+      ],
+      "status": "New",
+      "categories": ["Laptops", "Electronics"],
+      "sku": "1119",
+      "stock": {
+        "Grey": 80,
+        "Gold": 20
+      },
+      "images": [
+        {
+          "color": "Grey",
+          "images": [
+            "https://i5.walmartimages.com/seo/Apple-MacBook-Air-13-3-inch-Laptop-Space-Gray-M1-Chip-8GB-RAM-256GB-storage_af1d4133-6de9-4bdc-b1c6-1ca8bd0af7a0.c0eb74c31b2cb05df4ed11124d0e255b.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/6241225e-db0b-44a0-a32f-c3d091feeb06.7efd482507c3842ef01d0073ea27c469.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/898b596c-7fb0-41e4-8cb0-24b3c536db6b.81748360a86f642b4ae1ee7f63516010.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Gold",
+          "images": [
+            "https://i5.walmartimages.com/asr/c797b78c-8c5d-48b0-b173-1c1808a6712f.ff33e4deb161d7284b89e1a258236644.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/841dddaa-f26c-4453-aa71-67fb1711cb28.751678646d8ef065d6090d74015f9405.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/24dc3dbc-9d27-4cdd-9562-8b8802936ffe.f8a70b1e996812111d523b42a94abc03.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Lily Evans",
+            "profileImg": "https://randomuser.me/api/portraits/women/23.jpg",
+            "comment": "Fantastic product! It fits perfectly in my workspace and looks great.",
+            "rating": 5
+          },
+          {
+            "user": "Ryan Scott",
+            "profileImg": "https://randomuser.me/api/portraits/men/44.jpg",
+            "comment": "The delivery was quick, but I had a small scratch on the surface.",
+            "rating": 3
+          },
+          {
+            "user": "Grace King",
+            "profileImg": "https://randomuser.me/api/portraits/women/17.jpg",
+            "comment": "Very sturdy and modern looking. Love the color options available.",
+            "rating": 4
+          },
+          {
+            "user": "Noah Taylor",
+            "profileImg": "https://randomuser.me/api/portraits/men/27.jpg",
+            "comment": "Overall, I’m happy with the product, but the assembly took longer than expected.",
+            "rating": 4
+          },
+          {
+            "user": "Ella Brooks",
+            "profileImg": "https://randomuser.me/api/portraits/women/33.jpg",
+            "comment": "Super stylish! The product is well-made and worth the price.",
+            "rating": 5
+          },
+          {
+            "user": "Liam Green",
+            "profileImg": "https://randomuser.me/api/portraits/men/59.jpg",
+            "comment": "The material is good, but I wish there were more color choices.",
+            "rating": 4
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy MacBook Air 13 Online | Apple M1 Laptop",
+        "metaDescription": "The Apple MacBook Air 13 is powered by the M1 chip with 8GB RAM and 256GB storage. Available in Grey and Gold.",
+        "slug": "macbook-air-13"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-02T12:34:56Z",
+        "updatedAt": "2024-01-15T08:30:45Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "13.3inches",
+          "depth": "20.625inches",
+          "weight": "8kg"
+        },
+        "batteryLife": "15 hours",
+        "processor": "Apple M1",
+        "ram": "8GB",
+        "storage": "256GB",
+        "discountExpiry": "2025-1-28T00:00:00Z"
+      }
+    },
+    {
+      "id": "4",
+      "title": "Galaxy A15",
+      "description": "Smartfon Samsung Galaxy A15, 6GB / 128GB, 6.5 Super AMOLED 90 Hz, Dual nano SIM",
+      "price": 210,
+      "originalPrice": 240,
+      "colors": [
+        {
+          "name": "Ice",
+          "color": "#F0F8FF"
+        },
+        {
+          "name": "Blue",
+          "color": "#0000FF"
+        },
+        {
+          "name": "DarkBlue",
+          "color": "#00008B"
+        }
+      ],
+      "status": "New",
+      "categories": ["Phones", "Electronics"],
+      "sku": "1120",
+      "stock": {
+        "Ice": 80,
+        "Blue": 10,
+        "DarkBlue": 20
+      },
+      "images": [
+        {
+          "color": "Ice",
+          "images": [
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718270979ScvyguPsZ92K.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718271376HMLkxoikErc3.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/17182713761XttI1B2nr4d.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/171827137688XkdRx4NSXY.webp"
+          ]
+        },
+        {
+          "color": "Blue",
+          "images": [
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1719297031Z9KuPIzRfU0L.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1719297031Ho7Jt5kh2T0y.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1719297031ZuhDJG1Cy7n6.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1719297031deAzX1Acn5Ly.webp"
+          ]
+        },
+        {
+          "color": "DarkBlue",
+          "images": [
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718270853tT6CJwH71Hw4.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718271032Gtsfd38K2jPw.webp",
+            "https://minapi.beemarket.uz/prod-media/productImages/thumbnails/medium/1718271031ELCeodAHchf7.webp",
+            ""
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Sophia Bennett",
+            "profileImg": "https://randomuser.me/api/portraits/women/22.jpg",
+            "comment": "Great value for the money. The product is even better than I expected!",
+            "rating": 5
+          },
+          {
+            "user": "Daniel Morgan",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Looks good, but the packaging could have been more secure.",
+            "rating": 3
+          },
+          {
+            "user": "Olivia Turner",
+            "profileImg": "https://randomuser.me/api/portraits/women/41.jpg",
+            "comment": "Love the minimalist design! It fits so well with my décor.",
+            "rating": 5
+          },
+          {
+            "user": "Ethan Miller",
+            "profileImg": "https://randomuser.me/api/portraits/men/18.jpg",
+            "comment": "Solid quality, but assembly instructions were a bit unclear.",
+            "rating": 4
+          },
+          {
+            "user": "Isabella Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/55.jpg",
+            "comment": "Super happy with my purchase! It's exactly as described and fits perfectly.",
+            "rating": 5
+          },
+          {
+            "user": "Mason Clark",
+            "profileImg": "https://randomuser.me/api/portraits/men/11.jpg",
+            "comment": "The product is okay, but I feel it could be more durable.",
+            "rating": 3
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Samsung Galaxy A15 Online | Dual nano SIM, 6GB RAM",
+        "metaDescription": "The Samsung Galaxy A15 features 6GB RAM, 128GB storage, and a 6.5 inch Super AMOLED display with 90 Hz. Available in Ice, Blue, and DarkBlue.",
+        "slug": "samsung-galaxy-a15"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-05T10:12:34Z",
+        "updatedAt": "2024-01-16T09:45:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "6.6 inches",
+          "height": "6.5 inches",
+          "depth": "0.33 inches",
+          "weight": "0.41 pounds"
+        },
+        "batteryCapacity": "5000 mAh",
+        "processor": "Exynos 850",
+        "ram": "6 GB",
+        "storage": "128 GB",
+        "camera": {
+          "rear": "48MP + 5MP + 2MP",
+          "front": "13MP"
+        },
+        "display": {
+          "size": "6.5 inches",
+          "type": "Super AMOLED",
+          "refreshRate": "90 Hz"
+        },
+        "discountExpiry": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "5",
+      "title": "Toster Sonifer",
+      "description": "The 2-Slice Toaster combines sleek design with exceptional performance, making it a must-have for your kitchen. With adjustable browning controls and wide slots, it accommodates everything from thin slices of bread to thick bagels, ensuring your toast comes out exactly the way you like it.",
+      "price": 50,
+      "originalPrice": 40,
+      "colors": [
+        {
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        }
+      ],
+      "status": "New",
+      "categories": ["Kitchen", "Home"],
+      "sku": "1121",
+      "stock": {
+        "White": 10,
+        "Black": 30
+      },
+      "images": [
+        {
+          "color": "White",
+          "images": [
+            "https://i5.walmartimages.com/seo/Toaster-4-Slice-Keenstone-Stainless-Steel-Retro-Toasters-Bagel-Defrost-Reheat-Cancel-Function-6-Shade-Settings-Removable-Crumb-Tray-Auto-Pop-Up-Kitch_fba43272-d548-42bf-a024-a6248ea4b0b5.5628dbbda111920381044f00416d4ca0.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/8c7344e6-926e-4894-814d-9f1b7d514104.56231507b3c4a520d8e80d47324366c6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/41145927-db3a-49dc-975c-e09fff1030de.7c209784c84f22a68aa7a243857091b0.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e048c1a6-fc2d-4193-be65-98aff8676549.a0c5ab132d7bb6451c8dd94ae74dd049.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Mainstays-2-Slice-Toaster-Black-with-6-Shade-Settings-and-Removable-Crumb-Tray-New_dfd0c6c5-3edd-4115-bd49-50e252231f0b.49419b3e8018c1b48311e9024de7c0e8.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/10613477-60e9-4102-a76c-7b8ba15f575a.cc3b6aaac8815ee64780cb0f611eb120.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e94ac8aa-a7ac-4f59-913d-e383a16d1f23.d2f2abf91a186c01037372fce59b6883.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/056ee838-244c-45df-aa04-26ee33ddcee2.2c399bc248bb1b08a09c32081845c15f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Ava Williams",
+            "profileImg": "https://randomuser.me/api/portraits/women/30.jpg",
+            "comment": "This toaster works great! My toast is always evenly browned. Couldn’t be happier!",
+            "rating": 5
+          },
+          {
+            "user": "James Robinson",
+            "profileImg": "https://randomuser.me/api/portraits/men/22.jpg",
+            "comment": "The wide slots are perfect for my thick bagels. A very reliable toaster.",
+            "rating": 4
+          },
+          {
+            "user": "Mia Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/27.jpg",
+            "comment": "I love the defrost feature! It's super convenient for busy mornings.",
+            "rating": 5
+          },
+          {
+            "user": "Liam Walker",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Simple design, easy to use, and quick to toast. Great for the price!",
+            "rating": 4
+          },
+          {
+            "user": "Ella Baker",
+            "profileImg": "https://randomuser.me/api/portraits/women/40.jpg",
+            "comment": "The removable crumb tray makes cleanup so easy! I highly recommend this toaster.",
+            "rating": 5
+          },
+          {
+            "user": "Noah Carter",
+            "profileImg": "https://randomuser.me/api/portraits/men/29.jpg",
+            "comment": "It does the job, but I wish it had more toast settings for precision.",
+            "rating": 3
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Sonifer 2-Slice Toaster Online | Adjustable Browning & Wide Slots",
+        "metaDescription": "Sonifer 2-Slice Toaster with adjustable browning, wide slots, and a sleek design. Available in White and Black. Perfect for any kitchen!",
+        "slug": "sonifer-2-slice-toaster"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-05T10:20:00Z",
+        "updatedAt": "2024-01-16T09:50:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "4 inches",
+          "depth": "4 inches",
+          "height": "7 inches"
+        },
+        "weight": "2.5 pounds",
+        "power": "800 watts",
+        "slots": "2 wide slots",
+        "features": [
+          "Adjustable browning control",
+          "Defrost function",
+          "Removable crumb tray",
+          "Auto pop-up feature"
+        ],
+        "materials": {
+          "body": "Stainless steel",
+          "crust": "Plastic"
+        },
+        "warranty": "1 year limited warranty",
+        "discountExpiry": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "6",
+      "title": "Frigidaire 7.5",
+      "description": "Transform your kitchen with our Stainless Steel French Door Refrigerator, designed to enhance both functionality and style. With its spacious layout and modern features, this refrigerator provides the ultimate storage solution for all your groceries.",
+      "price": 400,
+      "originalPrice": 500,
+      "colors": [
+        {
+          "name": "Grey",
+          "color": "#F0F0F0"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        }
+      ],
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "sku": "1122",
+      "stock": {
+        "Grey": 30,
+        "Black": 10
+      },
+      "images": [
+        {
+          "color": "Grey",
+          "images": [
+            "https://i5.walmartimages.com/seo/Frigidaire-7-5-Cu-ft-Refrigerator-Platinum-Series-Standard-Door-Style-Stainless-Look_a9d83b4d-d4cc-4d2f-9b54-3f012cf91912.2e8c15923b8817f1469c11d8a9f829f2.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/2e821a85-fb71-4fe6-9a00-0fab18f5c28d.964ec3643a648a663f175a8078f66b88.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/8c17da95-d7e3-4fca-a43d-fc4d630fcc02.9ca073cef989550bff05f1088943380f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/TCL-4-5-Cu-ft-Two-Door-Compact-Mini-Fridge-With-Freezer-Black-Energy-Star-MR453B_34a242b0-ecb4-4171-a12c-96e7a08b0051.db1e14ddbc57ea29ad5b75dbe6608d15.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/2a9fc14c-14fa-4213-892d-e348dac6c9cf.a8ea216e02a8faea31f36b281cacad19.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/ba7723aa-9a01-4b89-ac29-b91b6b6e4dfd.af41b6b067087a7d28dc935cedeb5c82.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Sophia Turner",
+            "profileImg": "https://randomuser.me/api/portraits/women/41.jpg",
+            "comment": "This fridge has so much space! I can finally organize my groceries without any hassle.",
+            "rating": 5
+          },
+          {
+            "user": "Ethan Reed",
+            "profileImg": "https://randomuser.me/api/portraits/men/42.jpg",
+            "comment": "The ice maker works like a charm. I love having cold drinks on hand!",
+            "rating": 4
+          },
+          {
+            "user": "Isabella Clark",
+            "profileImg": "https://randomuser.me/api/portraits/women/43.jpg",
+            "comment": "Very stylish and fits perfectly in my kitchen. The LED lights are a nice touch!",
+            "rating": 5
+          },
+          {
+            "user": "Aiden Hill",
+            "profileImg": "https://randomuser.me/api/portraits/men/44.jpg",
+            "comment": "Works well but I wish the shelves were a bit sturdier. Overall, a good buy!",
+            "rating": 3
+          },
+          {
+            "user": "Olivia Scott",
+            "profileImg": "https://randomuser.me/api/portraits/women/45.jpg",
+            "comment": "I appreciate the humidity-controlled drawers. My veggies last much longer now!",
+            "rating": 5
+          },
+          {
+            "user": "Mason Young",
+            "profileImg": "https://randomuser.me/api/portraits/men/46.jpg",
+            "comment": "Decent fridge but the water dispenser could be more powerful.",
+            "rating": 4
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Frigidaire 7.5 Cu Ft Refrigerator | Spacious & Stylish",
+        "metaDescription": "Frigidaire 7.5 Cu Ft Refrigerator with spacious storage, modern design, and ice maker. Available in Grey and Black. Perfect for any kitchen!",
+        "slug": "frigidaire-7-5-cu-ft-refrigerator"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-06T11:30:00Z",
+        "updatedAt": "2024-01-18T12:00:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "32 inches",
+          "depth": "30 inches",
+          "height": "68 inches"
+        },
+        "weight": "75 pounds",
+        "power": "200 watts",
+        "capacity": "7.5 cubic feet",
+        "features": [
+          "French door design",
+          "Ice maker and water dispenser",
+          "Humidity-controlled crispers",
+          "Adjustable shelves",
+          "Energy-efficient LED lighting"
+        ],
+        "materials": {
+          "body": "Stainless steel",
+          "interior": "Plastic"
+        },
+        "warranty": "1 year limited warranty",
+        "discountExpiry": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "7",
+      "title": "Note 13 Pro",
+      "description": "Smartfon Xiaomi Redmi Note 13 Pro, 8/256 GB, 12/512 GB, 6.67, 120 H, AMOLED, 5000 mA/soat",
+      "price": 230,
+      "originalPrice": 250,
+      "colors": [
+        {
+          "name": "Siren",
+          "color": "#C8102E"
+        },
+        {
+          "name": "Dark Turquoise",
+          "color": "#007C92"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        }
+      ],
+      "status": "New",
+      "categories": ["Phones", "Electronics"],
+      "sku": "1123",
+      "stock": {
+        "Siren": 10,
+        "Black": 10,
+        "Dark Turquoise": 40
+      },
+      "images": [
+        {
+          "color": "Siren",
+          "images": [
+            "https://i5.walmartimages.com/seo/Xiaomi-Redmi-Note-13-PRO-5G-4G-LTE-256GB-8GB-6-67-200MP-Triple-Tmobile-Mint-Tello-Global-Global-Bands-Unlocked-Aurora-Purple-Global-ROM_a6f7f021-b275-493a-b83f-7e2a5b848686.e458a7278b2916239ca1db889281e265.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/10daae65-8bfe-4f85-8ba3-3e4a9ce72964.5b3b6fefb067d27d38a407616f630633.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Xiaomi-Redmi-Note-13-PRO-5G-4G-LTE-256GB-8GB-6-67-200MP-Triple-Tmobile-Mint-Tello-Global-Global-Bands-Unlocked-Midnight-Black-Global-ROM_af87d38b-4613-4e6a-a3b4-c76ba335a6d4.014c7598503a1af2d96001bc68870ad7.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e655b76d-cf90-4f3f-a69d-c97017c36a61.4d91daf38a890b3baad631a1898ddf17.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/0567fda7-f177-4f5c-a12c-36690dc05832.b4ab3b933bae68b8b05a4ca9ec46c354.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e82c8fed-e06a-4d85-9008-427fdf3c0b76.7bbe362c9c7757190bb8c1c4a06c6540.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Dark Turquoise",
+          "images": [
+            "https://i5.walmartimages.com/seo/Xiaomi-Redmi-Note-13-PRO-4G-LTE-512GB-12GB-6-67-200MP-Triple-for-Tmobile-Metro-Tello-Mint-Global-GLOBAL-Bands-Unlocked-Forest-Green-Global-ROM_015d8124-4aaf-4787-be63-381c8dab5fb2.0ae7011992a00a63997123cdb150d777.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/70e85b7c-20ec-47fc-a271-0ccd2d39b86d.aed987f967d1a832a0fdcb084ad7e852.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/288688cd-2663-4ffb-bc10-dd3a71fbb81a.a58c5962825769722c304078b7f11a40.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/1d5dc9ed-e9bc-48d8-8f9f-6f50e42dd22f.9bee13f2396a70fe547b5e0c3a9e960f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Aiden Lee",
+            "profileImg": "https://randomuser.me/api/portraits/men/61.jpg",
+            "comment": "The performance on the Note 13 Pro is next-level! Handles everything I throw at it.",
+            "rating": 5
+          },
+          {
+            "user": "Mia Chen",
+            "profileImg": "https://randomuser.me/api/portraits/women/62.jpg",
+            "comment": "Absolutely love the design! It feels premium and looks stunning.",
+            "rating": 5
+          },
+          {
+            "user": "Ethan Garcia",
+            "profileImg": "https://randomuser.me/api/portraits/men/63.jpg",
+            "comment": "The battery life is impressive! I can go two days without charging.",
+            "rating": 4
+          },
+          {
+            "user": "Zoe Wilson",
+            "profileImg": "https://randomuser.me/api/portraits/women/64.jpg",
+            "comment": "The camera quality is phenomenal, especially in low light. Highly recommend!",
+            "rating": 5
+          },
+          {
+            "user": "Lucas Scott",
+            "profileImg": "https://randomuser.me/api/portraits/men/65.jpg",
+            "comment": "I was expecting more customization options in the software. Still a solid phone!",
+            "rating": 4
+          },
+          {
+            "user": "Ella Young",
+            "profileImg": "https://randomuser.me/api/portraits/women/66.jpg",
+            "comment": "The Note 13 Pro has made my life so much easier with its multitasking capabilities!",
+            "rating": 5
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Xiaomi Note 13 Pro | Ultimate Smartphone Experience",
+        "metaDescription": "Discover the Xiaomi Note 13 Pro with 8/256 GB and 12/512 GB options. Enjoy AMOLED display and a powerful 5000 mAh battery. Order now!",
+        "slug": "xiaomi-note-13-pro"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-06T11:30:00Z",
+        "updatedAt": "2024-01-18T12:00:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "3.07 inches",
+          "depth": "0.31 inches",
+          "height": "6.43 inches"
+        },
+        "weight": "0.5 pounds",
+        "battery": {
+          "capacity": "5000 mAh",
+          "type": "Lithium Polymer",
+          "fastCharging": "Yes, 67W"
+        },
+        "display": {
+          "type": "AMOLED",
+          "size": "6.67 inches",
+          "resolution": "2400 x 1080 pixels",
+          "refreshRate": "120 Hz"
+        },
+        "camera": {
+          "rear": {
+            "main": "200 MP",
+            "ultrawide": "8 MP",
+            "macro": "2 MP"
+          },
+          "front": {
+            "selfie": "16 MP"
+          }
+        },
+        "storageOptions": [
+          "8 GB RAM / 256 GB Storage",
+          "12 GB RAM / 512 GB Storage"
+        ],
+        "connectivity": ["5G", "Wi-Fi 6", "Bluetooth 5.3", "NFC"],
+        "materials": {
+          "frame": "Aluminum",
+          "back": "Glass"
+        },
+        "warranty": "1 year limited warranty",
+        "discountExpiry": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "8",
+      "title": "iPhone 15 Pro/Pro Max",
+      "description": "Introducing the iPhone 15 Pro Max, the ultimate smartphone designed for those who demand the very best. Featuring a brilliant 6.7-inch Super Retina XDR display with ProMotion technology, enjoy smooth scrolling and breathtaking visuals that bring your content to life in stunning detail.",
+      "price": 1200,
+      "originalPrice": 1300,
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "colors": [
+        {
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        },
+        {
+          "name": "Titan Grey",
+          "color": "#A7A8AA"
+        },
+        {
+          "name": "Dark Blue",
+          "color": "#002D72"
+        }
+      ],
+      "sku": "1124",
+      "stock": {
+        "White": 30,
+        "Black": 10,
+        "Titan Grey": 42,
+        "Dark Blue": 40
+      },
+      "images": [
+        {
+          "color": "White",
+          "images": [
+            "https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-15-Pro-Max-256GB-White-Prepaid-Smartphone_1d086a82-6bb6-4ad8-95ef-4909212c24ff.b7b3da6f23b1dd249e7ba93e3559205c.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/2f3f88be-e138-4d30-8d0b-1beefb6a2a90.736319aa920bd311ef8ba92c6347aa8a.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/37e4941c-05d9-47d5-b34f-d13033724471.0845de279545d8e3e66ab000afbfcd22.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Restored-Apple-iPhone-15-Pro-Max-256GB-Black-Titanium-Factory-Unlocked-Refurbished_7314943b-1438-4d9a-8631-20924be04425.51cd89df469b55edc9a71be82445567a.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/da7bb01c-689a-4680-b447-6057c0238686.2bcef8076927f3c1be1396f81ce31e0f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/869bdef7-f54d-476d-ae9f-1a5ae0cf74bc.6c4fc17024bbb7ab584a99061fe850e2.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Titan Grey",
+          "images": [
+            "https://i5.walmartimages.com/asr/7c542df3-e6b3-4b7a-8dfa-ad252d411dcb.2c1e103d237d8914cfb584ad4a5d828c.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/bc6873c6-7357-4297-8abd-9df968fe07ba.3d8b4395090baabf5a5a8d4e3c911bbb.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/0e97ac2d-f548-4ab6-b290-dddb39ebccfa.7533ef9e993259c188e760484c6eb4e8.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/2f54d1a1-c5a8-49a1-83a1-7b56c1de6b06.f32d9f0762c0d055b8da78ba8f63f5cc.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Dark Blue",
+          "images": [
+            "https://i5.walmartimages.com/seo/AT-T-Apple-iPhone-15-Pro-Max-512GB-Blue-Titanium_c5cd208a-a582-4a0b-9030-b484f3cfbee9.ac4fb383f6ec8f7f321ece6b4b807f48.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e99fbdf1-fe7c-4276-94b9-8e5e3511172d.893bb159847300d807548c7f75765b93.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/69603235-a7a1-41d1-b628-7a69b751f9ec.b1a2dfb6fff92634cf1909373270c23f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/657018a6-3646-4f67-af16-72939b0542d9.23d68cb410d0e485a7918c30917f31fd.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "Aiden Lee",
+            "profileImg": "https://randomuser.me/api/portraits/men/61.jpg",
+            "comment": "The iPhone 15 Pro Max is a beast! The A17 chip makes everything run so smoothly.",
+            "rating": 5
+          },
+          {
+            "user": "Mia Chen",
+            "profileImg": "https://randomuser.me/api/portraits/women/62.jpg",
+            "comment": "I’m in love with the new design! It feels lightweight and the titanium finish is stunning.",
+            "rating": 5
+          },
+          {
+            "user": "Ethan Garcia",
+            "profileImg": "https://randomuser.me/api/portraits/men/63.jpg",
+            "comment": "Battery life is solid. I can go nearly two days without needing to charge it.",
+            "rating": 4
+          },
+          {
+            "user": "Zoe Wilson",
+            "profileImg": "https://randomuser.me/api/portraits/women/64.jpg",
+            "comment": "The camera quality on this phone is insane! Night mode and 4K videos are top-notch.",
+            "rating": 5
+          },
+          {
+            "user": "Lucas Scott",
+            "profileImg": "https://randomuser.me/api/portraits/men/65.jpg",
+            "comment": "It’s a great phone, but I wish there were more customization options in iOS.",
+            "rating": 4
+          },
+          {
+            "user": "Ella Young",
+            "profileImg": "https://randomuser.me/api/portraits/women/66.jpg",
+            "comment": "Multitasking on the iPhone 15 Pro Max is super smooth, and the display is gorgeous!",
+            "rating": 5
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy iPhone 15 Pro/Pro Max | The Ultimate Smartphone Experience",
+        "metaDescription": "Discover the iPhone 15 Pro Max with a stunning 6.7-inch display, advanced A17 chip, and superior camera quality. Available in multiple colors!",
+        "slug": "iphone-15-pro-max"
+      },
+      "timestamps": {
+        "createdAt": "2024-01-06T11:30:00Z",
+        "updatedAt": "2024-01-18T12:00:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "3.06 inches",
+          "height": "6.33 inches",
+          "depth": "0.32 inches"
+        },
+        "weight": "8.78 ounces",
+        "battery": {
+          "capacity": "4422 mAh",
+          "type": "Li-Ion"
+        },
+        "discountExpiry": "2024-12-01"
+      }
+    },
+    {
+      "id": "9",
+      "title": "Microwave Oven",
+      "description": "The microwave oven is an essential appliance for any modern kitchen, offering quick and efficient heating, cooking, or defrosting options. With a spacious interior and multiple preset programs, it makes preparing a variety of dishes easy and convenient. The intuitive electronic control panel and adjustable power levels provide precise cooking control. Its sleek design complements any kitchen decor, while safety features like automatic shut-off and child safety lock ensure reliable and secure operation.",
+      "price": 60,
+      "originalPrice": 70,
+      "status": "New",
+      "categories": ["Kitchen", "Home"],
+      "colors": [
+        {
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "Black",
+          "color": "#000000"
+        }
+      ],
+      "sku": "1125",
+      "stock": {
+        "White": 30,
+        "Black": 10
+      },
+      "images": [
+        {
+          "color": "White",
+          "images": [
+            "https://i5.walmartimages.com/seo/Farberware-FMG13SS-1-3-Microwave-Oven-w-LED-Light-SENSOR-1100-Watts-Stainless_d101f906-a5d2-4cd7-8c48-8edaacbcfb16.1ab18ebbc8ba1170c5a14c2ad6b3efc1.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/13896204-4186-42e8-bfc4-96552d02a761.70928097ebb902d6f2f9847f86f4abe8.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/971947fa-cafc-470e-944d-e25a338d14a1.fd5f20444c73afbff375cb29f678e3bb.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Mainstays-2-2-Cu-ft-Microwave-Ovens-in-Black-Color_40a77273-39c5-424d-b3c2-91589ca59a23.24fd7829773ad65b21c26c3a40f11fca.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/35e5aa99-bcb8-4b18-b6c9-e538cacd75f2.a2f829b395ca38173afc8ded96fd5d10.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/ac46aaaf-8746-49a9-80ff-4dc85012fe33.3450fe3880d84626515034197657bb8f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The microwave heats food quickly and evenly. Very satisfied with my purchase.",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Great microwave for the price. Love the preset options!",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Super easy to use and fits perfectly in my kitchen. Highly recommend!",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "A little noisy, but works great for reheating leftovers.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Good microwave, but I wish it had more power levels.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Sleek design and very efficient. Love it!",
+            "rating": 5
+          }
+        ]
+      },
+      "seo": {
+        "metaTitle": "Buy Microwave Oven | Quick and Efficient Cooking",
+        "metaDescription": "Explore the microwave oven with multiple preset programs and adjustable power levels for efficient cooking and reheating. Available in sleek white and black colors!",
+        "slug": "microwave-oven"
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "measurements": {
+          "width": "18 inches",
+          "height": "12 inches",
+          "depth": "14 inches"
+        },
+        "weight": "25 pounds",
+        "power": "1100 watts",
+        "discountExpiry": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "10",
+      "title": "Redmi 13C",
+      "description": "Xiaomi Redmi 13C smartfoni, 120Hz, 5160MAH, NFC, asosiy kamera 50 mp",
+      "price": 110,
+      "originalPrice": 160,
+      "colors": [
+        {
+          "name": "Black",
+          "color": "#000000"
+        },
+        {
+          "name": "Green",
+          "color": "#00aa00"
+        }
+      ],
+      "status": "New",
+      "categories": ["Phones", "Electronics"],
+      "sku": "1127",
+      "stock": {
+        "Black": 10,
+        "Green": 90
+      },
+      "images": [
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Redmi-Xiaomi-13C-4G-LTE-256GB-8GB-Factory-Unlocked-Global-ROM-GSM-6-74-50MP-Triple-Camera-for-Tmobile-Metro-Tello-Mint-Globall-Midnight-Black-ROM_ec2bba48-e48f-4563-ab13-4b8f552869c8.aaaaa67027e1492b4c973cc32b9b4cc1.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/3c081fcd-25a8-4cdd-b781-3a80510bafea.f74a2c63fb4c8c1d20cd10a51bfbe463.jpeg?odnHeight=2000&odnWidth=2000&odnBg=737479",
+            "https://i5.walmartimages.com/asr/666d515c-5a6f-4108-bd52-63fec37192c7.ed6bf513261d529174240928dff5361a.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Green",
+          "images": [
+            "https://i5.walmartimages.com/asr/b6f3df22-e995-4c1b-9d2e-9c7492421d6c.8940dde7dd088dd5b9f8947db6ffebac.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/60a06067-bf6c-469b-914a-05240df0de58.5d348a3efc8f5bf68870f42115aafdfa.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/635712be-b025-4047-9d8b-7edfc40cc8f5.580065f0b64448688a50bf6b90946907.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The Redmi 13C offers great performance for the price. Super smooth experience!",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Loving the large display. It's perfect for watching videos and browsing the web.",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Battery life is amazing! Easily lasts me through a full day of heavy use.",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "The camera quality is decent, but it could be better in low-light conditions.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Great budget phone with fast performance. Highly recommend for everyday use.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Very sleek design, and the phone feels light in hand. Really happy with it.",
+            "rating": 5
+          }
+        ]
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "warranties": {
+          "warranty": "1 year limited warranty",
+          "water_resistence": "IP68"
+        },
+        "energy_efficiency": {
+          "Energy": "Energy Star certified",
+          "display": "Amoled Bright and Efficient"
+        },
+        "discountExpiry": "2024-12-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "11",
+      "title": "Behost 55 inch TV ",
+      "description": "Behost 55 inch TV Stand for 65 inch TV, TV Cabinet with 20 Colors LED Lights for Living Room, Brown",
+      "price": 100,
+      "originalPrice": 400,
+      "colors": [
+        {
+          "name": "Black",
+          "color": "#000000"
+        },
+        {
+          "name": "Rustin Brown",
+          "color": "#104059"
+        }
+      ],
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "sku": "1128",
+      "stock": {
+        "Black": 10,
+        "Rustin Brown": 30
+      },
+      "images": [
+        {
+          "color": "Rustin Brown",
+          "images": [
+            "https://i5.walmartimages.com/seo/Behost-55-inch-TV-Stand-for-65-inch-TV-TV-Cabinet-with-20-Colors-LED-Lights-for-Living-Room-Black_3cbccfb2-8d7a-4ce0-941c-80408d266d66.dca7bccf017c2a9b10902068ac3be446.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/a9b74988-4bf2-401a-b3bd-3aad5a2bc95f.79970d5c530e7975346535b2221affe8.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/5e1dee3f-513f-4fe8-bf07-bb3c84e9ffde.69a5b8f0216cdeec8af6b2843946f5a2.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/844d90b3-b9dd-4a35-b290-d93e1b4a6746.d15477c2fd25698bc9e448ddb5b6dfe6.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/asr/bbf13999-968a-4e09-a475-9dbeca4d7f46.85aff4c75d7409f660336e70dd7c8178.jpeg?odnHeight=717&odnWidth=717&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/501631bc-1d1b-43be-8c26-a5a8c22b96b7.16f05edf34444f707e49653c4f414c4b.jpeg?odnHeight=717&odnWidth=717&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/293e8127-5100-4e27-96d4-155000a1890d.015867c6006c83ae6ae3f8bff88584aa.jpeg?odnHeight=717&odnWidth=717&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/eb36a154-787e-497b-8786-d6e35b290dce.d459121cbd02dc0da735eceea7fe8f97.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The Redmi 13C offers great performance for the price. Super smooth experience!",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Loving the large display. It's perfect for watching videos and browsing the web.",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Battery life is amazing! Easily lasts me through a full day of heavy use.",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "The camera quality is decent, but it could be better in low-light conditions.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Great budget phone with fast performance. Highly recommend for everyday use.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Very sleek design, and the phone feels light in hand. Really happy with it.",
+            "rating": 5
+          }
+        ]
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "warranties": {
+          "warranty": "1 year limited warranty",
+          "water_resistence": "IP68"
+        },
+        "energy_efficiency": {
+          "Energy": "Energy Star certified",
+          "display": "Amoled Bright and Efficient"
+        },
+        "discountExpiry": "2024-12-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "12",
+      "title": "ZAFLY Queen Size Convertible",
+      "description": "ZAFLY Queen Size Convertible Futon Sofa Bed, Floor Sofa Bed Foldable, Foam Folding Mattress Sleeper, Cloth Fabrics Floor Couch Lounge Sleeper Bed for Living Room/Bedroom, Dark Grey",
+      "price": 268.9,
+      "originalPrice": 499,
+      "colors": [
+        {
+          "name": "Dark Grey",
+          "color": "#A9A9A9"
+        },
+        {
+          "name": "Light Grey",
+          "color": "#D3D3D3"
+        }
+      ],
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "sku": "1129",
+      "stock": {
+        "Dark Grey": 10,
+        "Light Grey": 30
+      },
+      "images": [
+        {
+          "color": "Dark Grey",
+          "images": [
+            "https://i5.walmartimages.com/seo/ZAFLY-Queen-Size-Convertible-Futon-Sofa-Bed-Floor-Bed-Foldable-Foam-Folding-Mattress-Sleeper-Cloth-Fabrics-Couch-Lounge-Sleeper-Living-Room-Bedroom-D_f75ebc3a-7b50-48bb-be19-d881f4fd7d2d.07919c78e81c4f854250e64ba77833ac.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/9160cd46-9399-4d8c-8c43-e92bc359cb1b.3b378d188e4569a56373a69713cd2192.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/b10c70f1-b189-429e-b4ca-27286daa0926.79aa2b4020d7b58314421ebf9c74cc53.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/dcb3bb8c-59a0-46d3-8d22-b845c6253d7e.29e54d9da554baee7d12832f80dc4e3e.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Light Grey",
+          "images": [
+            "https://i5.walmartimages.com/asr/44c90adb-9f5e-403e-af22-456dd0a89a09.83209fe7e71ae3a8d5b72d1a279ea8c6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/222a816c-668b-4576-ad85-35450566cbe6.ff67ed75d08e557752d790b3661ecaa8.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/248c5299-22ff-4775-9fa3-b958f46f6f89.a3604f6164a199a586e9188157a5abcf.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/44c90adb-9f5e-403e-af22-456dd0a89a09.83209fe7e71ae3a8d5b72d1a279ea8c6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The Redmi 13C offers great performance for the price. Super smooth experience!",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Loving the large display. It's perfect for watching videos and browsing the web.",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Battery life is amazing! Easily lasts me through a full day of heavy use.",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "The camera quality is decent, but it could be better in low-light conditions.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Great budget phone with fast performance. Highly recommend for everyday use.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Very sleek design, and the phone feels light in hand. Really happy with it.",
+            "rating": 5
+          }
+        ]
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "warranties": {
+          "warranty": "1 year limited warranty",
+          "water_resistence": "IP68"
+        },
+        "energy_efficiency": {
+          "Energy": "Energy Star certified",
+          "display": "Lightning Bright and Efficient"
+        },
+        "discountExpiry": "2024-12-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "13",
+      "title": "Mainstays 5-Shelf",
+      "description": "Traditional 5-shelf bookcase with 3 adjustable shelves and 2 fixed shelves",
+      "price": 34,
+      "originalPrice": 80,
+      "colors": [
+        {
+          "name": "Black",
+          "color": "#000000"
+        },
+        {
+          "name": "White",
+          "color": "#FFFFFF"
+        }
+      ],
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "sku": "1130",
+      "stock": {
+        "Black": 10,
+        "White": 30
+      },
+      "images": [
+        {
+          "color": "Black",
+          "images": [
+            "https://i5.walmartimages.com/seo/Mainstays-5-Shelf-Bookcase-with-Adjustable-Shelves-True-Black-Oak_d8b667f9-014c-4b78-a248-cbba1503e4e7.e863e5e725458e12a49667cf745b67f2.png?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/558d1d71-ad3c-439f-8e0e-f16c4bdd286e.99f031a35641e9348a37e02eb556eb5a.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/368f8e22-32b4-460d-a929-57eaa26b1501.8f748d876a29dc660246ee79995f0663.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e73d10d6-5deb-482e-8e31-f85cef5f8d7a_1.39dc308bf66ad7b71fecd8c74b908316.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "White",
+          "images": [
+            "https://i5.walmartimages.com/seo/Mainstays-5-Shelf-Bookcase-with-Adjustable-Shelves-White_4fc187dc-9c50-4dd8-a636-3e659ab74799.6f15f74ae9951e69d39329b5e161e35a.png?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/178a4cb5-c52c-475f-82f5-0818bc2bd249.b148dc6819d0d623f5327dd46be71099.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/5ddbf7d5-dcb0-4e69-9681-3eab43541174.554983cfeb7d7f2fe5337dd3739f4df6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/6cd7695f-ec12-4b97-9471-4d898aab7771_1.c4aa8a09f269f95a7797359053b53479.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The Redmi 13C offers great performance for the price. Super smooth experience!",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Loving the large display. It's perfect for watching videos and browsing the web.",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Battery life is amazing! Easily lasts me through a full day of heavy use.",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "The camera quality is decent, but it could be better in low-light conditions.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Great budget phone with fast performance. Highly recommend for everyday use.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Very sleek design, and the phone feels light in hand. Really happy with it.",
+            "rating": 5
+          }
+        ]
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "warranties": {
+          "warranty": "1 year limited warranty",
+          "water_resistence": "IP68"
+        },
+        "energy_efficiency": {
+          "Energy": "Energy Star certified",
+          "display": "Lightning Bright and Efficient"
+        },
+        "discountExpiry": "2024-12-01T00:00:00Z"
+      }
+    },
+    {
+      "id": "14",
+      "title": "Luxe Weavers",
+      "description": "Transform your living space with the Luxe Weavers Navy Modern Abstract Area Rug. Measuring 5x7 feet, this stylish carpet features a striking geometric design that adds a contemporary touch to any room. Crafted with high-quality fibers, it offers durability and softness underfoot, making it perfect for living rooms, bedrooms, or any high-traffic area. The deep navy color is beautifully contrasted with abstract patterns, enhancing the visual appeal and creating a focal point in your decor. Easy to clean and maintain, this rug is an excellent choice for elevating your home's aesthetic while providing comfort and functionality.",
+      "price": 90,
+      "originalPrice": 90,
+      "colors": [
+        {
+          "name": "Blue",
+          "color": "#0000FF"
+        },
+        {
+          "name": "Grey",
+          "color": "#808080"
+        },
+        {
+          "name": "Navy",
+          "color": "#000080"
+        }
+      ],
+      "status": "New",
+      "categories": ["Livingroom", "Home"],
+      "sku": "1131",
+      "stock": {
+        "Dark Grey": 10,
+        "Light Grey": 30
+      },
+      "images": [
+        {
+          "color": "Blue",
+          "images": [
+            "https://i5.walmartimages.com/seo/Luxe-Weavers-Blue-Modern-Abstract-Area-Rug-2x3-Geometric-Living-Room-Carpet_4281f055-a60b-4bfd-82a3-acf21f467ede.4b15d77f5e7697c836fe6628b2a71ddf.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/c13a1387-8492-4077-94ae-7cb31dbe308f.c770789a33e9a800495d173a5f84a00b.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/d1b821ea-3d2e-49b6-87ec-f0b68a94bc54.3f08cde5d8d5f8ce4ddf5f0ab420223f.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/2b26ae05-768b-48ed-b308-0abda5d4882f.47416a4ac3df83f3295ca59f2dd11d55.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Grey",
+          "images": [
+            "https://i5.walmartimages.com/asr/c205e238-f065-4bfd-b581-754f11cd3efd.9b0ec7b843988948f5e57cd521d49337.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/b5e818f3-74b2-4ec4-9a52-c424de59b409.2ec6697e2859c926d54005dff9153d57.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/e0e6500f-0fc7-4c0f-bc9b-ac0a286073c2.02d8c424a54dd4da7f6ce6f3a0bad3c6.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/c205e238-f065-4bfd-b581-754f11cd3efd.9b0ec7b843988948f5e57cd521d49337.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        },
+        {
+          "color": "Navy",
+          "images": [
+            "https://i5.walmartimages.com/asr/4d8fb856-969c-4ab3-a6dc-3906da2329c7.0a97a0e8a3d1e3ddf12b7ce28ab11ae7.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/ebb25000-576f-4501-93c3-dc929754c42e.bde42d517cfe78abd3aab6f52f7bc53d.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/33d17378-68a7-499c-a7c2-5fb4c6212cff.b0e9e094c9aac0da0896d112fb264ef2.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+            "https://i5.walmartimages.com/asr/4d8fb856-969c-4ab3-a6dc-3906da2329c7.0a97a0e8a3d1e3ddf12b7ce28ab11ae7.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+          ]
+        }
+      ],
+      "reviews": {
+        "comments": [
+          {
+            "user": "James O'Connor",
+            "profileImg": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "The Redmi 13C offers great performance for the price. Super smooth experience!",
+            "rating": 5
+          },
+          {
+            "user": "Sophia Martinez",
+            "profileImg": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Loving the large display. It's perfect for watching videos and browsing the web.",
+            "rating": 4
+          },
+          {
+            "user": "Daniel Williams",
+            "profileImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Battery life is amazing! Easily lasts me through a full day of heavy use.",
+            "rating": 5
+          },
+          {
+            "user": "Olivia Johnson",
+            "profileImg": "https://randomuser.me/api/portraits/women/34.jpg",
+            "comment": "The camera quality is decent, but it could be better in low-light conditions.",
+            "rating": 3
+          },
+          {
+            "user": "Lucas Brown",
+            "profileImg": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Great budget phone with fast performance. Highly recommend for everyday use.",
+            "rating": 4
+          },
+          {
+            "user": "Emma Thompson",
+            "profileImg": "https://randomuser.me/api/portraits/women/36.jpg",
+            "comment": "Very sleek design, and the phone feels light in hand. Really happy with it.",
+            "rating": 5
+          }
+        ]
+      },
+      "timestamps": {
+        "createdAt": "2024-10-01T10:00:00Z",
+        "updatedAt": "2024-10-01T12:00:00Z"
+      },
+      "additional_infos": {
+        "warranties": {
+          "warranty": "1 year limited warranty",
+          "water_resistence": "IP68"
+        },
+        "energy_efficiency": {
+          "Energy": "Energy Star certified",
+          "display": "Lightning Bright and Efficient"
+        },
+        "discountExpiry": "2024-12-01T00:00:00Z"
+      }
+    }
+  ]
+}
