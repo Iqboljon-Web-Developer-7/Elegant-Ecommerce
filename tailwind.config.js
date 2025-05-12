@@ -18,7 +18,8 @@ export const theme = {
 
       backgrounds: {
         softBlue: "#f0f4f8",
-        wormGrey: "#f8f9fa"
+        wormGrey: "#f8f9fa",
+        lightGreen: "#f1faee"
       },
 
       neutral: {

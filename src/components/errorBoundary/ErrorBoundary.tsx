@@ -13,7 +13,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
     <div className="errorBoundaryContainer">
       <div className="flex flex-col items-center">
         <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
-        <h4 className="text-3xl font-semibold text-gray-900 mb-2">
+        <h4 className="font-semibold text-gray-900 mb-2">
           Something went wrong
         </h4>
         <p className="text-gray-500 mb-6 max-w-md">
