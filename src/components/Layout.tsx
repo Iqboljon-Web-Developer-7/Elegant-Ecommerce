@@ -8,7 +8,7 @@ import React from "react";
 const Layout = React.memo(() => {
   return (
     <SidebarProvider>
-      <main className="w-full">
+      <main className="w-full bg-backgrounds-wormGrey">
         <Header />
         <HeaderSidebar />
         <Outlet />

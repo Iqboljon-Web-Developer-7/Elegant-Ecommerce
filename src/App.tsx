@@ -16,7 +16,6 @@ const Register = lazy(() => import("./Features/Auth/Register"));
 const Login = lazy(() => import("./Features/Auth/Login"));
 
 const App = () => {
-
   return (
     <AppErrorBoundary>
       <Suspense fallback={<Loading />}>

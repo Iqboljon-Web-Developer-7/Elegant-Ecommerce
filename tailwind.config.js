@@ -16,6 +16,11 @@ export const theme = {
         red: "#FF5630",
       },
 
+      backgrounds: {
+        softBlue: "#f0f4f8",
+        wormGrey: "#f8f9fa"
+      },
+
       neutral: {
         100: "#FEFEFE",
         200: "#F3F5F7",

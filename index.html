@@ -4,26 +4,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="keywords" content="ecommerce, online shopping, elegant store, stylish products" />
+  <meta name="keywords" content="elegant ecommerce, ecommerce, online shopping, elegant store, stylish products" />
   <meta name="description"
     content="Elegant: Shop stylishly with our seamless e-commerce platform blending aesthetics and functionality for a premium online store experience." />
   <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
   <title>Elegant - Stylish E-Commerce Shopping Platform</title>
 
   <!-- For Data Security -->
+
   <!-- <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' https://va.vercel-scripts.com;
-  style-src 'self' 'unsafe-inline';
-  img-src 'self' https://cdn.sanity.io data: https://encrypted-tbn0.gstatic.com;
-  font-src 'self' data:;
-  connect-src 'self' https://kvpqppgu.api.sanity.io;
-  object-src 'none';
-  base-uri 'self';
-  form-action 'self';
-  frame-ancestors 'none';
-  report-uri /csp-report;
-"> -->
+    default-src 'self';
+    script-src 'self' https://va.vercel-scripts.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' https://cdn.sanity.io data: https://encrypted-tbn0.gstatic.com;
+    font-src 'self' data:;
+    connect-src 'self' https://kvpqppgu.api.sanity.io;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    report-uri /csp-report;
+  "> -->
 
 
   <!-- Preloading Main Carousel Images -->
@@ -35,8 +36,7 @@
   <!-- Preloading Fonts -->
   <!-- src/assets/fonts/Poppins/Poppins-Regular.woff2 -->
   <link rel="preload" href="fonts/Poppins/Poppins-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-  <!-- <link rel="preload" href="src/assets/fonts/Inter/Inter-VariableFont.woff2" as="font" type="font/woff2"
-    crossorigin="anonymous" /> -->
+  <link rel="preload" href="fonts/Inter/Inter-VariableFont.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Elegant - Stylish E-Commerce Shopping Platform" />
@@ -55,7 +55,7 @@
     content="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
 
   <!-- Structured Data -->
-  <script type="application/ld+json">
+  <!-- <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -68,12 +68,12 @@
         "query-input": "required name=search_term_string"
       }
     }
-    </script>
+    </script> -->
 </head>
 
 <body class="poppins">
   <div id="root"></div>
-  <script type="module" src="/src/main.tsx" defer></script>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
