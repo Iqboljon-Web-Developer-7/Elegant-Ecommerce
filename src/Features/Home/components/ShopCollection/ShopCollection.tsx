@@ -27,7 +27,7 @@ const ShopCollection = () => {
         }}
         className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${index === 0 && "row-span-2 min-h-96 bg-top"}`}
       >
-        <div className="absolute bottom-10 left-10 grid text-black-800">
+        <div className="absolute bottom-10 left-10 grid text-black">
           <h3 className="text-[2.125rem]">{item?.title}</h3>
           <StyledLink destination={item?.url} name={item?.urlName} />
         </div>

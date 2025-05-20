@@ -29,10 +29,10 @@ import {
 import { clearUserInfo } from "@/redux/slices/permamentData";
 
 const navLinks = [
-  { to: "/", label: "Home" },
+    { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
   { to: "/product", label: "Product" },
-  { to: "/contact", label: "Contact Us" },
+  { to: "/contact-us", label: "Contact Us" },
 ];
 
 const Header = () => {
