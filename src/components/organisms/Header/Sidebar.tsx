@@ -13,7 +13,7 @@ import {
 import { SearchForm } from "./SidebarSearch";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import CartIcon from "@/assets/icons/cart.svg";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 import UserIcon from "@/assets/icons/user.svg";
 import InstagramIcon from "@/assets/icons/instagram.svg";

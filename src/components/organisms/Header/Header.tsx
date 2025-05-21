@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { SidebarTrigger } from "../ui/sidebar";
+import { SidebarTrigger } from "../../ui/sidebar";
 import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import UserIcon from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 import { client } from "@/utils/Client";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +28,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { clearUserInfo } from "@/redux/slices/permamentData";
 
+interface UserInfo {
+  _id: string;
+  // Add other user properties here
+}
+
+interface PermanentDataState {
+  userInfo: UserInfo | null;
+}
+
+interface RootState {
+  PermanentData: PermanentDataState;
+}
+
 const navLinks = [
-    { to: "/", label: "Home" },
+  { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
   { to: "/product", label: "Product" },
   { to: "/contact-us", label: "Contact Us" },
@@ -37,7 +50,7 @@ const navLinks = [
 
 const Header = () => {
   const [userWishlist, setUserWishlist] = useState([]);
-  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
+  const userInfo = useSelector((state: RootState) => state.PermanentData.userInfo);
 
   const dispatch = useDispatch();
 

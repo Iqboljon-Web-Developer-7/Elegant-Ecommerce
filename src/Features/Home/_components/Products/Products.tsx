@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
 import { Mousewheel, Scrollbar } from "swiper/modules";
 
-import StyledLink from "@/styledComponents/StyledLink";
+import StyledLink from "@/components/atoms/StyledLink";
 import { ProductType } from "@/lib/types";
 
 import "swiper/css";
@@ -15,15 +15,19 @@ import { useToast } from "@/hooks/use-toast";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
   console.log(category);
-  const [products, setProducts] = useState<ProductType[]>([]);
-  
   const { toast } = useToast();
+  const [products, setProducts] = useState<ProductType[]>([]);
 
-  const SwiperContents = products?.map((product) => (
-    <SwiperSlide key={product._id} className="pb-14">
-      <CarouselItem product={product} />
-    </SwiperSlide>
-  ));
+  const SwiperContents = useMemo(
+    () =>
+      products?.map((product) => (
+        <SwiperSlide key={product._id} className="pb-14">
+          <CarouselItem product={product} />
+        </SwiperSlide>
+      )),
+    [products]
+  );
+
 
   useEffect(() => {
     const fetchInitialData = async () => {

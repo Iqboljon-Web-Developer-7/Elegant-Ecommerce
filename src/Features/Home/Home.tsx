@@ -1,17 +1,19 @@
 import React, { lazy, Suspense } from "react";
-import Banner from "@/styledComponents/Banner";
+import Banner from "@/components/atoms/Banner";
 import discountImage from "@/assets/discount-add/discount-add.webp";
-import StyledLink from "@/styledComponents/StyledLink";
+import StyledLink from "@/components/atoms/StyledLink";
 
-import HomeCarousel from "./Carousel/Carousel";
-import SimpleHeading from "./SimpleHeading/SimpleHeading";
-import ProductLoading from "./Products/ProductLoading";
-import SkeletonLoader from "./ShopCollection/SkeletonLoader";
+import HomeCarousel from "./_components/Carousel/Carousel";
+import SimpleHeading from "./_components/SimpleHeading/SimpleHeading";
+import ProductLoading from "./_components/Products/ProductLoading";
+import SkeletonLoader from "./_components/ShopCollection/SkeletonLoader";
 
-const ShopCollection = lazy(() => import("./ShopCollection/ShopCollection"));
-const Products = lazy(() => import("./Products/Products"));
-const Features = lazy(() => import("./Features"));
-const InstagramFeed = lazy(() => import("../InstagramFeed"));
+const ShopCollection = lazy(
+  () => import("./_components/ShopCollection/ShopCollection")
+);
+const Products = lazy(() => import("./_components/Products/Products"));
+const Features = lazy(() => import("./_components/Features"));
+const InstagramFeed = lazy(() => import("./_components/InstagramFeed"));
 
 const Home = React.memo(() => {
   return (
@@ -19,13 +21,15 @@ const Home = React.memo(() => {
       <div className="container-xl">
         <HomeCarousel />
         <SimpleHeading />
-        <Suspense fallback={
-          <>
-            <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
-              <SkeletonLoader count={3} />
-            </div>
-          </>
-        }>
+        <Suspense
+          fallback={
+            <>
+              <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
+                <SkeletonLoader count={3} />
+              </div>
+            </>
+          }
+        >
           <ShopCollection />
         </Suspense>
         <Suspense fallback={<ProductLoading />}>

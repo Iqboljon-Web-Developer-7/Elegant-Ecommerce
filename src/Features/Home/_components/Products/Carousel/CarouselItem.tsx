@@ -10,16 +10,33 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { useRef } from "react";
+
+export interface WishlistItem {
+  _key: string;
+  product: {
+    _type: string;
+    _ref: number;
+  };
+}
+
+export interface Wishlist {
+  _id: string;
+  userId: string;
+  name: string;
+  items: WishlistItem[];
+}
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
+  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
-  const { toast } = useToast();
 
   // Handler to update the hovered image based on mouse position.
   const handleMouseMove = useCallback(
@@ -50,7 +67,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
       const imageRef = images[index]?.image?.asset?._ref;
       return imageRef
         ? urlFor(imageRef).url()
-        : "https://via.placeholder.com/260x350";
+        : "https://placehold.co/260x350?text=Loading...";
     },
     []
   );
@@ -76,11 +93,8 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   // Navigate to product details if the click is not on wishlist or add-to-cart buttons.
   const handleOpenProduct = useCallback(
     (event: React.MouseEvent<HTMLElement>, id: number) => {
-      const target = event.target as HTMLElement;
-      if (
-        !target.classList.contains("addWishlist") &&
-        !target.classList.contains("addCart")
-      ) {
+      const target = (event.target as HTMLElement).classList;
+      if (!target.contains("addWishlist") && !target.contains("addCart")) {
         navigate(`/products/${id}`);
       }
     },
@@ -112,19 +126,22 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         return;
       }
 
+      // for Optimistic updating
       const previousSavedState = isSaved;
-
       setIsSaved(!previousSavedState);
+
       setIsLoading(true);
 
       try {
-        const wishlist = await client.fetch(SANITY_USER_WISHLIST(userInfo._id));
+        const wishlist: Wishlist = await client.fetch(
+          SANITY_USER_WISHLIST(userInfo._id)
+        );
 
         if (previousSavedState) {
           // Optimistically removed product from wishlist.
           if (wishlist) {
             const filteredItems = wishlist.items.filter(
-              (item: any) => item.product._ref !== product._id
+              (item) => item.product._ref !== product._id
             );
             await client
               .patch(wishlist._id)
@@ -146,8 +163,9 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
               ],
             });
           } else {
+            // no need for now
             const duplicate = wishlist.items.some(
-              (item: any) => item.product._ref === product._id
+              (item) => item.product._ref === product._id
             );
             if (!duplicate) {
               await client
@@ -166,6 +184,11 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
       } catch (error) {
         console.error("Error toggling wishlist:", error);
         // Rollback the optimistic update if the API call fails.
+        toast({
+          title: "Error",
+          description: "Failed to update wishlist. Please try again.",
+          variant: "destructive",
+        });
         setIsSaved(previousSavedState);
       } finally {
         setIsLoading(false);
@@ -197,7 +220,31 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     }
   };
 
-  // Check if the product exists in the user's wishlist.
+  // Create a ref for the element we want to observe.
+  const wishlistRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  // Setup an Intersection Observer to update inView state.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setInView(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (wishlistRef.current) {
+      observer.observe(wishlistRef.current);
+    }
+    return () => {
+      if (wishlistRef.current) {
+        observer.unobserve(wishlistRef.current);
+      }
+    };
+  }, []);
+
+  // Check if the product exists in the user's wishlist only when in view.
   useEffect(() => {
     const checkWishlist = async () => {
       if (userInfo && product) {
@@ -216,11 +263,15 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         }
       }
     };
-    checkWishlist();
-  }, [userInfo, product]);
+
+    if (inView) {
+      checkWishlist();
+    }
+  }, [userInfo, product, inView]);
 
   return (
     <div
+      ref={wishlistRef}
       onClick={(e) => handleOpenProduct(e, product._id)}
       className="product-container flex flex-col gap-3 cursor-pointer"
     >

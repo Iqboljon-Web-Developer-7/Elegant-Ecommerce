@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Lottie from "react-lottie-player";
 import notFoundImage from "@/assets/404-animation.json";
 

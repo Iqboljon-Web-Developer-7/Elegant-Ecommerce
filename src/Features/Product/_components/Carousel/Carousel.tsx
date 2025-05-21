@@ -72,7 +72,7 @@ const Carousel: FC<ProductCarouselType> = ({
             NEW
           </p>
         )}
-        {discount !== null && (
+        {discount !== null && discount()! > 0 && (
           <p className="px-3 rounded-sm bg-secondary-green text-white font-medium shadow-md">
             {`-${discount()}%`}
           </p>
