@@ -218,7 +218,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
             </Button>
           </ToastAction>
         ),
-      });
+      }); 
     }
   };
 

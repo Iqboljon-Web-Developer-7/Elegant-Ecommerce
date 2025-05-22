@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
         <nav
           aria-label="Footer navigation"
-          className="flex flex-col sm:flex-row gap-4 md:gap-6 my-6 md:my-0"
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 my-6 md:my-0 text-center"
         >
           {navLinks.map((link) => (
             <li key={link.label} className="list-none">
