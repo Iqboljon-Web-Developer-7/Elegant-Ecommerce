@@ -37,6 +37,8 @@ const HomeCarousel = () => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
+  console.log("re-rendering");
+
   const Slides = useMemo(
     () =>
       slides
@@ -49,15 +51,16 @@ const HomeCarousel = () => {
           <div key={index} className="embla__slide flex-center">
             <img
               className="w-full h-full"
-              fetchPriority="high"
-              loading="eager"
+              fetchPriority={index === 0 ? "high" : undefined}
+              loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
               src={
-                slidesInView.includes(index)
+                index === 0 || slidesInView.includes(index)
                   ? urlFor(item?.images.asset._ref).url()
                   : undefined
               }
             />
+
             {/* <LazyLoadImage
             
               index={index}
@@ -66,7 +69,7 @@ const HomeCarousel = () => {
             /> */}
           </div>
         )),
-    [slidesInView, slides]
+    [slides]
   );
 
   const Dots = useMemo(
