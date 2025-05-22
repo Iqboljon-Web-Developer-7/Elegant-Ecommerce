@@ -11,7 +11,7 @@ import { DotButton, useDotButton } from "./CarouselDotButtons";
 import "./css/embla.css";
 import { SlideType } from "@/lib/types";
 
-import { LazyLoadImage } from "./CarouselLazyLoading";
+// import { LazyLoadImage } from "./CarouselLazyLoading";
 import PlaceholderSlide from "./Loading";
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
@@ -41,20 +41,33 @@ const HomeCarousel = () => {
     () =>
       slides
         ?.filter((item) =>
-          windowWidth < 768 ? item?.media === "mobile" : item?.media === "desktop"
+          windowWidth < 768
+            ? item?.media === "mobile"
+            : item?.media === "desktop"
         )
         .map((item, index) => (
           <div key={index} className="embla__slide flex-center">
-            <LazyLoadImage
+            <img
+              className="w-full h-full"
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
+              src={
+                slidesInView.includes(index)
+                  ? urlFor(item?.images.asset._ref).url()
+                  : undefined
+              }
+            />
+            {/* <LazyLoadImage
+            
               index={index}
               imgSrc={urlFor(item?.images.asset._ref).url()}
               inView={slidesInView.includes(index)}
-            />
+            /> */}
           </div>
         )),
     [slidesInView, slides]
   );
-
 
   const Dots = useMemo(
     () =>
@@ -63,11 +76,9 @@ const HomeCarousel = () => {
           aria-label={`indicator button ${index + 1}`}
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={
-            "w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
-              index === selectedIndex ? " !w-10" : ""
-            )
-          }
+          className={"w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
+            index === selectedIndex ? " !w-10" : ""
+          )}
         />
       )),
     [slidesInView]
@@ -79,7 +90,6 @@ const HomeCarousel = () => {
     emblaApi.on("slidesInView", updateSlidesInView);
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
-
 
   useEffect(() => {
     async function fetchSlides() {
@@ -93,7 +103,7 @@ const HomeCarousel = () => {
     <div className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-        {!Slides.length ? <PlaceholderSlide /> : Slides}
+          {!Slides.length ? <PlaceholderSlide /> : Slides}
         </div>
       </div>
       <div className="embla__controls">
