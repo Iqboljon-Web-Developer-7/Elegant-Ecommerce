@@ -28,7 +28,7 @@ const ShopCollection = () => {
         className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${index === 0 && "row-span-2 min-h-96 bg-top"}`}
       >
         <div className="absolute bottom-10 left-10 grid text-black-800">
-          <h3 className="text-[2.125rem]">{item?.title}</h3>
+          <h5 className="text-[2.125rem] leading-12">{item?.title}</h5>
           <StyledLink destination={item?.url} name={item?.urlName} />
         </div>
       </div>
@@ -37,9 +37,9 @@ const ShopCollection = () => {
 
   return (
     <div className="mt-5 md:mt-12">
-      <h2 className=" text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
+      <h4 className="text-2xl sm:text-3xl md:text-xl sm:text-left text-center">
         Shop Collection
-      </h2>
+      </h4>
       <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
         {loading ? <SkeletonLoader count={3} /> : Collections}
       </div>

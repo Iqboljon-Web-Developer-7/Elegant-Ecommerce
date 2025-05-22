@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@config "../tailwind.config.js";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -191,10 +192,10 @@
 
 /* Container */
 .container-xl {
-  @apply mx-auto max-w-(--breakpoint-xl);
+  @apply mx-auto max-w-7xl;
 }
 .container-2xl {
-  @apply mx-auto max-w-(--breakpoint-2xl);
+  @apply mx-auto max-w-7xl;
 }
 
 /* Loaders start */
@@ -299,7 +300,7 @@ h6 {
 
 /* ErrorBoundary */
 .errorBoundaryContainer {
-  @apply bg-backgrounds-softBlue flex h-screen flex-col items-center justify-center px-4 text-center;
+  @apply flex h-screen flex-col items-center justify-center px-4 text-center;
 }
 /* ErrorBoundary end */
 
@@ -314,7 +315,7 @@ h6 {
   @apply flex w-full flex-col items-start justify-between gap-3 px-[1%] pt-4 text-left sm:flex-row sm:items-center lg:text-left md:pt-8;
 }
 .simpleHeadingH2 {
-  @apply font-medium leading-9 text-[2.2rem] tracking-[-0.025rem] w-full flex-shrink-0 sm:w-[14ch] md:text-6xl md:leading-[auto] lg:text-7xl;
+  @apply font-medium leading-9 text-[2.2rem] tracking-[-0.025rem] w-full flex-shrink-0 sm:w-[14ch] md:text-6xl md:leading-16 lg:text-7xl;
 }
 .simpleHeadingP {
   @apply flex-grow text-sm text-gray-500 w-full max-w-108 lg:text-base;
