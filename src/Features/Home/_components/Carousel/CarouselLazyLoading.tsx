@@ -8,48 +8,104 @@ type PropType = {
 
 export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  // Reset loading state when out of view
   useEffect(() => {
     if (!inView) {
       setIsLoaded(false);
+      setProgress(0);
+      setImageUrl(null);
+      return;
     }
-  }, [inView]);
+
+    // const controller = new AbortController();
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("GET", imgSrc, true);
+    xhr.responseType = "blob";
+
+    xhr.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const percentComplete = Math.round((event.loaded / event.total) * 100);
+        setProgress(percentComplete);
+      }
+    };
+
+    xhr.onload = () => {
+      const blob = xhr.response;
+      const objectUrl = URL.createObjectURL(blob);
+      setImageUrl(objectUrl);
+      setIsLoaded(true);
+    };
+
+    xhr.onerror = () => {
+      console.error("Image failed to load");
+    };
+
+    xhr.send();
+
+    return () => {
+      xhr.abort();
+    };
+  }, [imgSrc, inView]);
 
   return (
     <div className="embla__slide relative">
-      {inView && !isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+      {!isLoaded && inView && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 flex-col">
           <svg
-            className="animate-spin h-8 w-8 text-gray-600"
-            viewBox="0 0 24 24"
+            className="w-16 h-16 mb-2 transform animate-spin"
+            viewBox="0 0 36 36"
           >
             <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
+              className="text-gray-300"
               stroke="currentColor"
               strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-            ></path>
+              fill="transparent"
+              r="16"
+              cx="18"
+              cy="18"
+            />
+            <circle
+              className="text-blue-500"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="transparent"
+              r="16"
+              cx="18"
+              cy="18"
+              strokeDasharray="100"
+              strokeDashoffset={`${100 - progress}`}
+              strokeLinecap="round"
+              style={{
+                transition: "stroke-dashoffset 0.3s ease",
+              }}
+            />
+            <text
+              x="50%"
+              y="50%"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              className="fill-gray-600 text-[10px] font-semibold"
+            >
+              {/* {progress}% */}
+            </text>
           </svg>
         </div>
+      )}  
+
+      {imageUrl && (
+        <img
+          className="w-full h-full object-cover"
+          src={imageUrl}
+          alt={`Slide image`}
+          style={{
+            opacity: isLoaded ? 1 : 0,
+            transition: "opacity 0.5s ease-in-out",
+          }}
+        />
       )}
-      <div className="embla__lazy-load grid items-center embla__lazy-load--has-loaded">
-        {inView && (
-          <img
-            className="embla__slide__img embla__lazy-load__img w-full"
-            src={imgSrc}
-            alt="Your alt text"
-            onLoad={() => setIsLoaded(true)}
-          />
-        )}
-      </div>
     </div>
   );
 };

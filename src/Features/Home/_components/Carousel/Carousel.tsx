@@ -11,7 +11,7 @@ import { DotButton, useDotButton } from "./CarouselDotButtons";
 import "./css/embla.css";
 import { SlideType } from "@/lib/types";
 
-// import { LazyLoadImage } from "./CarouselLazyLoading";
+import { LazyLoadImage } from "./CarouselLazyLoading";
 import PlaceholderSlide from "./Loading";
 import { client, urlFor } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
@@ -49,7 +49,7 @@ const HomeCarousel = () => {
         )
         .map((item, index) => (
           <div key={index} className="embla__slide flex-center">
-            <img
+            {/* <img
               className="w-full h-full"
               fetchPriority={index === 0 ? "high" : undefined}
               loading={index === 0 ? "eager" : "lazy"}
@@ -59,17 +59,16 @@ const HomeCarousel = () => {
                   ? urlFor(item?.images.asset._ref).url()
                   : undefined
               }
-            />
+            /> */}
 
-            {/* <LazyLoadImage
-            
+            <LazyLoadImage
               index={index}
               imgSrc={urlFor(item?.images.asset._ref).url()}
               inView={slidesInView.includes(index)}
-            /> */}
+            />
           </div>
         )),
-    [slides]
+    [slides, slidesInView]
   );
 
   const Dots = useMemo(
