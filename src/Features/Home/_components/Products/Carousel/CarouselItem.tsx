@@ -3,14 +3,16 @@ import { urlFor, client } from "@/utils/Client";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import { SANITY_USER_WISHLIST } from "@/utils/Data";
+import {
+  SANITY_IS_PRODUCT_IN_WISHLIST,
+  SANITY_USER_WISHLIST,
+} from "@/utils/Data";
 import { ProductType } from "@/lib/types";
 import { v4 as uuidv4 } from "uuid";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { useRef } from "react";
 
 export interface WishlistItem {
   _key: string;
@@ -220,58 +222,26 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     }
   };
 
-  // Create a ref for the element we want to observe.
-  const wishlistRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  // Setup an Intersection Observer to update inView state.
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setInView(entry.isIntersecting);
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (wishlistRef.current) {
-      observer.observe(wishlistRef.current);
-    }
-    return () => {
-      if (wishlistRef.current) {
-        observer.unobserve(wishlistRef.current);
-      }
-    };
-  }, []);
-
-  // Check if the product exists in the user's wishlist only when in view.
   useEffect(() => {
     const checkWishlist = async () => {
       if (userInfo && product) {
         try {
-          const wishlist = await client.fetch(
-            SANITY_USER_WISHLIST(userInfo._id)
+          const result = await client.fetch(
+            SANITY_IS_PRODUCT_IN_WISHLIST(userInfo._id, product._id)
           );
-          if (wishlist) {
-            const exists = wishlist.items.some(
-              (item: any) => item.product._ref === product._id
-            );
-            setIsSaved(exists);
-          }
+          setIsSaved(!!result);
         } catch (error) {
           console.error("Error checking wishlist:", error);
         }
       }
     };
 
-    if (inView) {
-      checkWishlist();
-    }
-  }, [userInfo, product, inView]);
+    checkWishlist();
+  }, []);
 
   return (
     <div
-      ref={wishlistRef}
+      // ref={wishlistRef}
       onClick={(e) => handleOpenProduct(e, product._id)}
       className="product-container flex flex-col gap-3 cursor-pointer"
     >

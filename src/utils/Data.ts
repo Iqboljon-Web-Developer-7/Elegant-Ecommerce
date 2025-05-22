@@ -38,3 +38,12 @@ export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;
 
 export const SANITY_USER_WISHLIST = (userId: string) =>
   `*[_type == "wishlist" && userId == '${userId}'][0]`;
+
+export const SANITY_IS_PRODUCT_IN_WISHLIST = (
+  userId: string,
+  productId: number
+) => `
+  *[_type == "wishlist" && userId == '${userId}' && "${productId}" in items[].product._ref][0] {
+    _id
+  }
+`;
