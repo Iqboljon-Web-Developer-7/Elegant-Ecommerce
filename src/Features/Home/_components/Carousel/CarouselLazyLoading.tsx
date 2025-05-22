@@ -41,15 +41,13 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
         </div>
       )}
       <div className="embla__lazy-load grid items-center embla__lazy-load--has-loaded">
-        {inView ? (
+        {inView && (
           <img
             className="embla__slide__img embla__lazy-load__img w-full"
             src={imgSrc}
             alt="Your alt text"
             onLoad={() => setIsLoaded(true)}
           />
-        ) : (
-          <div style={{ height: "100%", width: "100%" }} />
         )}
       </div>
     </div>
