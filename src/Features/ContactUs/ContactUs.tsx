@@ -1,11 +1,11 @@
-import StyledLink from "@/styledComponents/StyledLink";
+import StyledLink from "@/components/atoms/StyledLink";
 import contactImg from "@/assets/contact/contactBanner.png";
-import Banner from "@/styledComponents/Banner";
+import Banner from "@/components/atoms/Banner";
 import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
-import Features from "@/Features/Home/components/Features";
-import { ContactForm } from "./ContactForm"
+import Features from "@/Features/Home/_components/Features";
+import { ContactForm } from "./ContactForm";
 
 const ContactUs = () => {
   const features = [
