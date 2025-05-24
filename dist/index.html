@@ -1,53 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="keywords"
-      content="ecommerce, e-commerce, elegant, ecommerce-elegant, ecommerce elegant, online store"
-    />
-    <meta
-      name="description"
-      content="Welcome to Elegant, where style meets simplicity! Discover an elegantly designed e-commerce platform that blends aesthetics with functionality, offering a seamless shopping experience."
-    />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <title>Elegant</title>
 
-    <!-- Preloading Google font links -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="keywords" content="elegant ecommerce, ecommerce, online shopping, elegant store, stylish products" />
+  <meta name="description"
+    content="Elegant: Shop stylishly with our seamless e-commerce platform blending aesthetics and functionality for a premium online store experience." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <title>Elegant - Stylish E-Commerce Shopping Platform</title>
 
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
+  <!-- For Data Security -->
 
-    <!-- Preloading Main Carousel Images -->
-    <link
-      rel="preload"
-      as="image"
-      media="screen and (max-device-width: 768px)"
-      href="https://cdn.sanity.io/images/kvpqppgu/production/56b6743b48e8354259335f000b9b9f2ac72bebf9-1152x640.webp"
-    />
-    <link
-      rel="preload"
-      as="image"
-      media="screen and (min-device-width: 768px)"
-      href="https://cdn.sanity.io/images/kvpqppgu/production/7f0f6a0bc071303e090260cdaf7084f15bfd28dc-1350x450.webp"
-    />
-    <script type="module" crossorigin src="/assets/index-CxGRg9Xr.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CbQTLRbv.css">
-  </head>
-  <body class="poppins">
-    <div id="root"></div>
-  </body>
+  <!-- <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://va.vercel-scripts.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' https://cdn.sanity.io data: https://encrypted-tbn0.gstatic.com;
+    font-src 'self' data:;
+    connect-src 'self' https://kvpqppgu.api.sanity.io;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    report-uri /csp-report;
+  "> -->
+
+
+  <!-- Preloading Main Carousel Images -->
+  <link rel="preload" as="image" media="screen and (max-width: 768px)"
+    href="https://cdn.sanity.io/images/kvpqppgu/production/56b6743b48e8354259335f000b9b9f2ac72bebf9-1152x640.webp" />
+  <link rel="preload" as="image" media="screen and (min-width: 768px)"
+    href="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
+
+  <!-- Preloading Fonts -->
+  <!-- src/assets/fonts/Poppins/Poppins-Regular.woff2 -->
+  <link rel="preload" href="fonts/Poppins/Poppins-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="fonts/Inter/Inter-VariableFont.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Elegant - Stylish E-Commerce Shopping Platform" />
+  <meta property="og:description"
+    content="Discover a seamless shopping experience with Elegant, blending style and functionality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://elegant-ecommerce-nine.vercel.app" />
+  <meta property="og:image"
+    content="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Elegant - Stylish E-Commerce Shopping Platform" />
+  <meta name="twitter:description" content="Shop elegantly with our seamless e-commerce platform." />
+  <meta name="twitter:image"
+    content="https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg" />
+
+  <!-- Structured Data -->
+  <!-- <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Elegant",
+      "url": "https://elegant-ecommerce-nine.vercel.app/",
+      "description": "Elegant e-commerce platform offering a seamless shopping experience.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://elegant-ecommerce-nine.vercel.app//search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script> -->
+  <script type="module" crossorigin src="/assets/index-UEnZMSWB.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-0CPUqGQ2.css">
+</head>
+
+<body class="poppins">
+  <div id="root"></div>
+</body>
+
 </html>
