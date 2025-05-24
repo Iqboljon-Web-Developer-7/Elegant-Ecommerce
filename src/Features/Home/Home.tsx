@@ -41,16 +41,17 @@ const Home = React.memo(() => {
           <p className="text-base text-secondary-blue font-bold uppercase inter">
             Sale up to 35% off
           </p>
-          <h4 className="md:max-w-[16.7rem] lg:max-w-[22.3rem] mt-3 sm:mt-4 md:mt-2 lg:mt-4 text-[2rem] sm:text-[2.5rem] md:text-3xl lg:text-[2.5rem] font-medium text-neutral-700 tracking-normal !leading-8 sm:!leading-7 lg:!leading-10">
+          <h4
+          className="max-w-[22.3rem] font-medium"
+          >
             HUNDREDS of New lower prices!
           </h4>
-          <p className="text-[1.25rem] md:text-base lg:text-[1.25rem] text-neutral-700 mt-3 sm:mt-4 md:mt-2 lg:mt-6 font-normal inter">
-            Hurry up!!! Winter is coming!
+          <p className="text-sm sm:text-[1.25rem] md:text-base lg:text-[1.25rem] text-neutral-700 font-normal inter">
+          It’s more affordable than ever to give every room in your home a stylish makeover
           </p>
           <StyledLink
             destination="/products/discount"
             name="Shop Now"
-            className="mt-4 lg:mt-6"
           />
         </Banner>
       </div>

@@ -82,22 +82,13 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
                 transition: "stroke-dashoffset 0.3s ease",
               }}
             />
-            <text
-              x="50%"
-              y="50%"
-              dominantBaseline="middle"
-              textAnchor="middle"
-              className="fill-gray-600 text-[10px] font-semibold"
-            >
-              {/* {progress}% */}
-            </text>
           </svg>
         </div>
-      )}  
+      )}
 
       {imageUrl && (
         <img
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover ${imageUrl && "animate-fade-in-scale"}`}
           src={imageUrl}
           alt={`Slide image`}
           style={{

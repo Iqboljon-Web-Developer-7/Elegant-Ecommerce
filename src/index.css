@@ -271,7 +271,7 @@ h1 {
   @apply font-medium leading-21 text-[5rem] text-black tracking-[-0.1875rem];
 }
 h2 {
-  @apply font-medium leading-19 text-[4.5rem] text-black tracking-[-0.125rem];
+  @apply font-medium leading-19  text-black tracking-[-0.125rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 h3 {
@@ -279,11 +279,11 @@ h3 {
   font-feature-settings: "liga" off, "clig" off;
 }
 h4 {
-  @apply font-medium leading-11 text-[2.5rem] text-black tracking-[-0.025rem];
+  @apply font-medium leading-9 lg:leading-11 text-[2.125rem] md:text-3xl lg:text-[2.5rem] text-black tracking-[-0.025rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 h5 {
-  @apply font-medium leading-9.5 text-[2.125rem] text-black tracking-[-0.0375rem];
+  @apply font-medium leading-9 text-[2.125rem] text-black tracking-[-0.0375rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 h6 {
@@ -306,7 +306,7 @@ h6 {
 
 /* SV:Home Carousel */
 .carouselBtn {
-  @apply absolute hidden top-[50%] flex h-11 w-11 translate-y-[-50%] items-center justify-center rounded-full bg-white md:flex;
+  @apply absolute top-[50%] hidden sm:flex h-11 w-11 translate-y-[-50%] items-center justify-center rounded-full bg-white md:flex hover:cursor-pointer disabled:cursor-not-allowed;
 }
 /* SV:Home Carousel end*/
 
@@ -315,7 +315,7 @@ h6 {
   @apply flex w-full flex-col items-start justify-between gap-3 px-[1%] pt-4 text-left sm:flex-row sm:items-center lg:text-left md:pt-8;
 }
 .simpleHeadingH2 {
-  @apply font-medium leading-9 text-[2.2rem] tracking-[-0.025rem] w-full flex-shrink-0 sm:w-[14ch] md:text-6xl md:leading-16 lg:text-7xl;
+  @apply flex-shrink-0 font-medium leading-10 lg:text-7xl lg:leading-[4.75rem] md:text-6xl md:leading-16 sm:w-[14ch] text-[2.2rem] tracking-[-0.025rem] w-full;
 }
 .simpleHeadingP {
   @apply flex-grow text-sm text-gray-500 w-full max-w-108 lg:text-base;

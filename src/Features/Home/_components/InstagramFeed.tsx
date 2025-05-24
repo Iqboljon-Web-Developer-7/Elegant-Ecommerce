@@ -25,13 +25,15 @@ const InstagramFeed = () => {
 
   return (
     <div className="py-6 md:py-12 px-2 md:px-6">
-      <div className="text-center mb-10 flex flex-col sm:gap-2 md:gap-4">
+      <div className="text-center mb-10 flex flex-col gap-2 md:gap-4">
         <p className="inter font-semibold text-neutral-400 tracking-wide uppercase text-sm sm:text-base">
           Newsfeed
         </p>
-        <h4 className="text-xl sm:text-2xl lg:text-[2.5rem] font-normal text-gray-800">
+        <h5
+        // className="text-xl sm:text-2xl lg:text-[2.5rem] font-normal text-gray-800"
+        >
           Instagram
-        </h4>
+        </h5>
         <p className="inter text-neutral-900 mt-0 md:mt-2 text-sm sm:text-base lg:text-[1.25rem]">
           Follow us on social media for more discounts & promotions
         </p>

@@ -49,18 +49,6 @@ const HomeCarousel = () => {
         )
         .map((item, index) => (
           <div key={index} className="embla__slide flex-center">
-            {/* <img
-              className="w-full h-full"
-              fetchPriority={index === 0 ? "high" : undefined}
-              loading={index === 0 ? "eager" : "lazy"}
-              decoding="async"
-              src={
-                index === 0 || slidesInView.includes(index)
-                  ? urlFor(item?.images.asset._ref).url()
-                  : undefined
-              }
-            /> */}
-
             <LazyLoadImage
               index={index}
               imgSrc={urlFor(item?.images.asset._ref).url()}
@@ -78,7 +66,7 @@ const HomeCarousel = () => {
           aria-label={`indicator button ${index + 1}`}
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={"w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400".concat(
+          className={"w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400 hover:cursor-pointer".concat(
             index === selectedIndex ? " !w-10" : ""
           )}
         />
@@ -95,8 +83,12 @@ const HomeCarousel = () => {
 
   useEffect(() => {
     async function fetchSlides() {
-      const data = await client.fetch(SANITY_SLIDES_QUERY);
-      setSlides(data);
+      try {
+        const data = await client.fetch(SANITY_SLIDES_QUERY);
+        setSlides(data);
+      } catch (error) {
+        console.error("Error fetching slides:", error);
+      }
     }
     fetchSlides();
   }, []);
@@ -110,22 +102,26 @@ const HomeCarousel = () => {
       </div>
       <div className="embla__controls">
         <div className="embla__buttons">
-          <PrevButton
-            aria-label="prev-button"
-            className="carouselBtn left-8 group"
-            onClick={onPrevButtonClick}
-            disabled={prevBtnDisabled}
-          />
-          <NextButton
-            aria-label="next-button"
-            className="carouselBtn right-8 group"
-            onClick={onNextButtonClick}
-            disabled={nextBtnDisabled}
-          />
+          {Slides.length ? (
+            <PrevButton
+              aria-label="prev-button"
+              className="carouselBtn left-8 group"
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
+            />
+          ) : null}
+          {Slides.length ? (
+            <NextButton
+              aria-label="next-button"
+              className="carouselBtn right-8 group"
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
+          ) : null}
         </div>
 
         <div className="w-full absolute top-[90%] left-0 right-0 flex-center gap-3">
-          {Dots}
+          {Slides.length ? Dots : null}
         </div>
       </div>
     </div>

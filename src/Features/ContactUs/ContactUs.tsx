@@ -32,7 +32,7 @@ const ContactUs = () => {
         <div className="breadcrumb mt-4 text-sm inter">
           <span className="text-slate-600">Home {">"}</span> &nbsp; Contact Us
         </div>
-        <div className="mt-10 max-w-[44.8rem] inter">
+        <div className="mt-10 max-w-[45rem] inter">
           <h3 className="font-medium text-gray-900 tracking-tight">
             We believe in sustainable decor. We’re passionate about life at
             home.
@@ -47,14 +47,12 @@ const ContactUs = () => {
         </div>
 
         <Banner img={contactImg} className="mt-12">
-          <h4 className="md:max-w-[16.7rem] lg:max-w-[22.3rem] mt-3 sm:mt-4 md:mt-2 lg:mt-4 text-[2rem] sm:text-[2.5rem] md:text-3xl lg:text-[2.5rem] font-medium text-neutral-700 tracking-normal !leading-8 sm:!leading-7 lg:!leading-10">
-            About Us
-          </h4>
-          <p className="mt-4 inter text-neutral-700 max-w-[28rem]">
+          <h4 className="max-w-[22.3rem] font-medium">About Us</h4>
+          <p className="text-sm sm:text-[1.25rem] md:text-base lg:text-[1.25rem] text-neutral-700 font-normal inter">
             3legant is a gift & decorations store based in HCMC, Vietnam. Est
             since 2019.
           </p>
-          <p className="inter text-neutral-700 max-w-[28rem]">
+          <p className="text-sm sm:text-[1.25rem] md:text-base lg:text-[1.25rem] text-neutral-700 font-normal inter">
             Our customer service is always prepared to support you 24/7
           </p>
           <StyledLink
@@ -80,9 +78,7 @@ const ContactUs = () => {
                     className="w-8 h-8"
                   />
                 </div>
-                <h5 className="text-neutral-400 text-base lg:text-[1.25rem] uppercase font-medium">
-                  {feature.title}
-                </h5>
+                <p className="font-bold">{feature.title}</p>
                 <p className="text-xs lg:text-sm text-center font-semibold text-neutral-700 mt-2 sm:mt-2">
                   {feature.description}
                 </p>

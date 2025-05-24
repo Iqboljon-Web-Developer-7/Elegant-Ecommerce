@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import NotFound from "./components/malecules/notFound";
-import Layout from "./components/malecules/Layout";
-import AppErrorBoundary from "./components/malecules/errorBoundary/ErrorBoundary";
+import NotFound from "./components/molecules/notFound";
+import Layout from "./components/molecules/Layout";
+import AppErrorBoundary from "./components/molecules/errorBoundary/ErrorBoundary";
 import Loading from "./loading";
 
 const Home = lazy(() => import("./Features/Home/Home"));

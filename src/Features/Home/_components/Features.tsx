@@ -45,9 +45,7 @@ const Features = () => {
                 className="w-8 h-8 sm:w-12 sm:h-12"
               />
             </div>
-            <h5 className="text-base sm:text-[1.25rem] font-medium leading-5 sm:leading-[auto]">
-              {feature?.title}
-            </h5>
+            <span className="h7">{feature?.title}</span>
             <p className="text-xs sm:text-sm text-neutral-400 mt-2 sm:mt-3">
               {feature?.description}
             </p>

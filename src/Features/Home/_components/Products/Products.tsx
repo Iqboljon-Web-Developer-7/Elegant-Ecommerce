@@ -47,9 +47,9 @@ const Products: FC<{ category?: string }> = ({ category }) => {
   return (
     <div className="products mb-6">
       <div className="products__info my-12 flex items-end justify-between">
-        <h3 className="w-[3ch] text-[2.5rem] leading-[2.75rem] font-medium">
+        <h5 className="w-[3ch] leading-[2.75rem] font-medium">
           New Arrival
-        </h3>
+        </h5>
         <StyledLink destination={"/products"} name="More Products" />
       </div>
       <Swiper

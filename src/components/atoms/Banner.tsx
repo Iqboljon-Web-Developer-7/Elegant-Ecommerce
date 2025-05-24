@@ -21,7 +21,7 @@ const Banner: FC<BannerTypes> = ({ img, className, children }) => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 ps-3 py-12 sm:p-10 md:p-0">
+      <div className="w-full grid gap-2 sm:gap-3 md:w-1/2 ps-3 py-12 sm:p-10 md:p-0">
         {children}
       </div>
     </div>
