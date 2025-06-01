@@ -1,17 +1,18 @@
 import { FC, useEffect, useMemo, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
 import { Mousewheel, Scrollbar } from "swiper/modules";
 
+import "swiper/css";
+import "swiper/css/scrollbar";
+
 import StyledLink from "@/components/atoms/StyledLink";
 import { ProductType } from "@/lib/types";
 
-import "swiper/css";
-import "swiper/css/scrollbar";
-import ProductLoading from "./ProductLoading";
 import { client } from "@/utils/Client";
+import ProductLoading from "./ProductLoading";
 import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
-import { useToast } from "@/hooks/use-toast";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
   console.log(category);
@@ -27,7 +28,6 @@ const Products: FC<{ category?: string }> = ({ category }) => {
       )),
     [products]
   );
-
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -47,9 +47,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
   return (
     <div className="products mb-6">
       <div className="products__info my-12 flex items-end justify-between">
-        <h5 className="w-[3ch] leading-[2.75rem] font-medium">
-          New Arrival
-        </h5>
+        <h5 className="w-[3ch] leading-[2.75rem] font-medium">New Arrival</h5>
         <StyledLink destination={"/products"} name="More Products" />
       </div>
       <Swiper

@@ -218,7 +218,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
             </Button>
           </ToastAction>
         ),
-      }); 
+      });
     }
   };
 
@@ -255,16 +255,14 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           )
         }
       >
-        <div
-          className="min-h-80 bg-neutral-50 flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${getImageUrl(
-              product,
-              hoveredImageIndex[product._id] || 0
-            )})`,
-            backgroundSize: "80%",
-          }}
-        ></div>
+        <div className="min-h-80 bg-neutral-50 flex items-center justify-center overflow-hidden">
+          <img
+            loading="lazy"
+            src={getImageUrl(product, hoveredImageIndex[product._id] || 0)}
+            alt={product.title}
+            className="object-contain w-full h-full transition-transform duration-300 px-2"
+          />
+        </div>
 
         <div className="absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
           {isNewProduct && (

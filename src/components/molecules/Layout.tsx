@@ -1,11 +1,9 @@
-import { SidebarProvider } from "../ui/sidebar";
-// import { HeaderSidebar } from "./Header/Sidebar";
-// import Header from "./Header/Header";
-import Footer from "../organisms/Footer/Footer";
-import { Outlet } from "react-router-dom";
 import React from "react";
+import { SidebarProvider } from "../ui/sidebar";
 import Header from "../organisms/Header/Header";
 import { HeaderSidebar } from "../organisms/Header/Sidebar";
+import { Outlet } from "react-router-dom";
+import Footer from "../organisms/Footer/Footer";
 
 const Layout = React.memo(() => {
   return (

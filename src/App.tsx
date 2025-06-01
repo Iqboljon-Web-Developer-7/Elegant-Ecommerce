@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-
-import NotFound from "./components/molecules/notFound";
-import Layout from "./components/molecules/Layout";
-import AppErrorBoundary from "./components/molecules/errorBoundary/ErrorBoundary";
 import Loading from "./loading";
+
+const AppErrorBoundary = lazy(
+  () => import("./components/molecules/errorBoundary/ErrorBoundary")
+);
+const Layout = lazy(() => import("./components/molecules/Layout"));
 
 const Home = lazy(() => import("./Features/Home/Home"));
 const Search = lazy(() => import("./Features/Search"));
@@ -14,6 +15,8 @@ const Products = lazy(() => import("./Features/Products"));
 const Product = lazy(() => import("./Features/Product/Product"));
 const Register = lazy(() => import("./Features/Auth/Register"));
 const Login = lazy(() => import("./Features/Auth/Login"));
+
+const NotFound = lazy(() => import("./components/molecules/notFound"));
 
 const App = () => {
   return (

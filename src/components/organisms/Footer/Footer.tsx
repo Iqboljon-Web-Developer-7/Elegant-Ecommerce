@@ -25,7 +25,7 @@ const Footer = () => {
           <div className="hidden md:block w-px h-6 mx-4 bg-gray-600" />
           <span className="text-sm text-gray-400">Gift & Decoration Store</span>
         </div>
-        <nav
+        <ul
           aria-label="Footer navigation"
           className="flex flex-col sm:flex-row gap-4 md:gap-6 my-6 md:my-0 text-center"
         >
@@ -39,7 +39,7 @@ const Footer = () => {
               </Link>
             </li>
           ))}
-        </nav>
+        </ul>
       </div>
       <div className="container mx-auto px-4 mb-8 pt-5 flex flex-col md:flex-row items-center justify-between gap-7 md:gap-0">
         <div className="flex flex-col md:flex-row gap-4 text-center text-xs">

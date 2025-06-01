@@ -11,6 +11,9 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
   const [progress, setProgress] = useState(0);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
+  console.log(imageUrl);
+  
+
   useEffect(() => {
     if (!inView) {
       setIsLoaded(false);

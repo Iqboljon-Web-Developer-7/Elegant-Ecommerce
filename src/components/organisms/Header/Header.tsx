@@ -58,7 +58,6 @@ const Header = () => {
     const fetchData = async () => {
       if (userInfo) {
         try {
-          // Fetch initial data
           if (!userWishlist.length) {
             const result = await client.fetch(
               SANITY_USER_WISHLIST(userInfo._id)
@@ -66,7 +65,6 @@ const Header = () => {
             setUserWishlist(result?.items || []);
           }
 
-          // real-time updates
           const realTimeWishlistUpdate = client
             .listen(SANITY_USER_WISHLIST(userInfo._id))
             .subscribe((update) => {
