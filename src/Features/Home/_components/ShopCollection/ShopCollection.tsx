@@ -43,8 +43,7 @@ const ShopCollection = () => {
   );
 
   return (
-    <div className="mt-5 md:mt-12" 
-{/*       ref={mainRef} */}
+    <div className="mt-5 md:mt-12"  
       >
       <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] sm:text-left text-center">
         Shop Collection
