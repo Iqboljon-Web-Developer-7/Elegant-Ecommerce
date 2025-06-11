@@ -17,7 +17,7 @@ const ProductLoading = lazy(
   () => import("./_components/Products/ProductLoading")
 );
 
-const Banner = lazy(() => import("@/components/atoms/Banner"));
+const Banner = lazy(() => import("@/components/molecules/Banner"));
 import discountImage from "@/assets/discount-add/discount-add.webp";
 const StyledLink = lazy(() => import("@/components/atoms/StyledLink"));
 

@@ -1,6 +1,6 @@
 import StyledLink from "@/components/atoms/StyledLink";
 import contactImg from "@/assets/contact/contactBanner.png";
-import Banner from "@/components/atoms/Banner";
+import Banner from "@/components/molecules/Banner";
 import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
