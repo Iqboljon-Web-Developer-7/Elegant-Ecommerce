@@ -5,10 +5,10 @@ import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/components/atoms/StyledLink";
 import { useEffect, useMemo, useState } from "react";
 import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 
 const ShopCollection = () => {
-  const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.1});
+  // const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.1});
   const [collections, setCollections] = useState<CollectionType[]>([]);
   const [loading, setLoading] = useState(true);
 
