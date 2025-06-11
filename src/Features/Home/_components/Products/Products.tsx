@@ -14,7 +14,10 @@ import { client } from "@/utils/Client";
 import ProductLoading from "./ProductLoading";
 import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 
+import { useInView } from "react-intersection-observer";
+
 const Products: FC<{ category?: string }> = ({ category }) => {
+  const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.2});
   console.log(category);
   const { toast } = useToast();
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -41,11 +44,13 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         toast({ description: error?.message, variant: "destructive" });
       }
     };
-    fetchInitialData();
-  }, []);
+    if(inView){
+      fetchInitialData();
+    }
+  }, [inView]);
 
   return (
-    <div className="products mb-6">
+    <div className="products mb-6" ref={mainRef}>
       <div className="products__info my-12 flex items-end justify-between">
         <h5 className="w-[3ch] leading-[2.75rem] font-medium">New Arrival</h5>
         <StyledLink destination={"/products"} name="More Products" />

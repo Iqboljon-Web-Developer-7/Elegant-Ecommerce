@@ -30,7 +30,6 @@ const InstagramFeed = () => {
           Newsfeed
         </p>
         <h5
-        // className="text-xl sm:text-2xl lg:text-[2.5rem] font-normal text-gray-800"
         >
           Instagram
         </h5>

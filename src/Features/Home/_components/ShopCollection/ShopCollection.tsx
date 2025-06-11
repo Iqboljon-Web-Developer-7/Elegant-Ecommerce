@@ -8,20 +8,19 @@ import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
 import { useInView } from "react-intersection-observer";
 
 const ShopCollection = () => {
-  const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.1});
+  const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.6});
   const [collections, setCollections] = useState<CollectionType[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCollections = async () => {
       const data = await client.fetch(SANITY_COLLECTIONS_QUERY);
       setCollections(data);
-      setLoading(false);
     };
-    // if(inView){
+    
+    if(inView){
       fetchCollections();
-    // }
-  }, []);
+    }
+  }, [inView]);
 
   const Collections = useMemo(
     () =>
@@ -48,7 +47,7 @@ const ShopCollection = () => {
         Shop Collection
       </h2>
       <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 md:mt-12">
-        {loading ? <SkeletonLoader count={3} /> : Collections}
+        {!Collections.length ? <SkeletonLoader count={3} /> : Collections}
       </div>
     </div>
   );
