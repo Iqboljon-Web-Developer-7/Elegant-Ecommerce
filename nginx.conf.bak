@@ -74,8 +74,8 @@ http {
 
     server {
         listen       80;
-        server_name  example.com;
-        root   /path/to/your/root;
+        server_name  elegantapp.vercel.app;
+        root    /var/www/elegant-ecommerce;
 
         location / {
 
