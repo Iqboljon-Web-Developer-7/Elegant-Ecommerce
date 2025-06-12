@@ -137,6 +137,10 @@
   }
 }
 
+/* .bg-backgrounds-wormGrey { */
+  /* background-color: #f8f9fa; */
+/* } */
+
 /* All scrollbars styles */
 ::-webkit-scrollbar {
   width: 0.4rem;

@@ -36,10 +36,6 @@ const Products: FC<{ category?: string }> = ({ category }) => {
     [products]
   );
 
-  // if (isLoading) {
-  //   return <ProductLoading />
-  // }
-
   return (
     <div className="products mb-6" ref={mainRef}>
       <div className="products__info my-12 flex items-end justify-between">

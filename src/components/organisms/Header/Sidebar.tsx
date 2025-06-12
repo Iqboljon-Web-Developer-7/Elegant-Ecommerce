@@ -26,7 +26,6 @@ export function HeaderSidebar() {
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo, (prev, next) => prev === next); // Memoized selector
   const [loadImages, setLoadImages] = useState(false);
 
-  // Load images only when sidebar is open for faster initial page load
   useEffect(() => {
     if (open) {
       setLoadImages(true);

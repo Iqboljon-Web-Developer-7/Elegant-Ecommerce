@@ -8,7 +8,7 @@ import Footer from "../organisms/Footer/Footer";
 const Layout = React.memo(() => {
   return (
     <SidebarProvider>
-      <main className="w-full bg-backgrounds-wormGrey">
+      <main className="w-full bg-backgrounds-worm-grey">
         <Header />
         <HeaderSidebar />
         <Outlet />

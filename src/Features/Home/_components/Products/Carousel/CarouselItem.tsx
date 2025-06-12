@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { urlFor, client } from "@/utils/Client";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
+import { urlFor } from "@/utils/Client";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
-import {
-  SANITY_IS_PRODUCT_IN_WISHLIST,
-  SANITY_USER_WISHLIST,
-} from "@/utils/Data";
 import { ProductType } from "@/lib/types";
-import { v4 as uuidv4 } from "uuid";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import { useProductInWishlist } from "@/hooks/Home/Products/use-product-in-wishlist";
+import { useWishlistActions } from "@/hooks/Home/Products/use-wishlist-actions";
 
 export interface WishlistItem {
   _key: string;
@@ -37,10 +34,41 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
-  const [isSaved, setIsSaved] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    isInWishlist,
+    isLoading: wishlistLoading,
+    error: wishlistError,
+  } = useProductInWishlist(userInfo?._id, product._id);
 
-  // Handler to update the hovered image based on mouse position.
+  console.log(wishlistLoading);
+  console.log(wishlistError);
+
+
+  const [optimisticSaved, setOptimisticSaved] = useState<null | boolean>(null);
+
+  const { addToWishlist, removeFromWishlist } = useWishlistActions();
+
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
+
+  const getImageUrl = useCallback(
+    (product: ProductType, index: number): string => {
+      const images = product?.images[0]?.images || [];
+      const imageRef = images[index]?.image?.asset?._ref;
+      return imageRef
+        ? urlFor(imageRef).url()
+        : "https://placehold.co/260x350?text=Loading...";
+    },
+    []
+  );
+
+  useEffect(() => {
+    setImgLoaded(false);  
+    setCurrentImgIndex(hoveredImageIndex[product._id] || 0);
+  }, [hoveredImageIndex[product._id], product._id]);
+
+  const imgSrc = getImageUrl(product, currentImgIndex);
+
   const handleMouseMove = useCallback(
     (
       e: React.MouseEvent<HTMLDivElement>,
@@ -62,19 +90,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     []
   );
 
-  // Utility to get the current image URL.
-  const getImageUrl = useCallback(
-    (product: ProductType, index: number): string => {
-      const images = product?.images[0]?.images || [];
-      const imageRef = images[index]?.image?.asset?._ref;
-      return imageRef
-        ? urlFor(imageRef).url()
-        : "https://placehold.co/260x350?text=Loading...";
-    },
-    []
-  );
-
-  // Memoized flag indicating if the product is "new".
   const isNewProduct = useMemo(() => {
     const createdAt = new Date(product._createdAt);
     const now = new Date();
@@ -85,14 +100,12 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     return diffInMonths < 2;
   }, [product._createdAt]);
 
-  // Memoized discount percentage.
   const discountPercentage = useMemo(() => {
     const price = product.variants[0].price;
     const salePrice = product.variants[0].salePrice;
     return Math.round(((price - salePrice) / price) * 100);
   }, [product.variants]);
 
-  // Navigate to product details if the click is not on wishlist or add-to-cart buttons.
   const handleOpenProduct = useCallback(
     (event: React.MouseEvent<HTMLElement>, id: number) => {
       const target = (event.target as HTMLElement).classList;
@@ -127,76 +140,32 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         });
         return;
       }
-
-      // for Optimistic updating
-      const previousSavedState = isSaved;
-      setIsSaved(!previousSavedState);
-
-      setIsLoading(true);
-
+      const previousSavedState =
+        optimisticSaved === null ? isInWishlist : optimisticSaved;
+      setOptimisticSaved(!previousSavedState);
       try {
-        const wishlist: Wishlist = await client.fetch(
-          SANITY_USER_WISHLIST(userInfo._id)
-        );
-
         if (previousSavedState) {
-          // Optimistically removed product from wishlist.
-          if (wishlist) {
-            const filteredItems = wishlist.items.filter(
-              (item) => item.product._ref !== product._id
-            );
-            await client
-              .patch(wishlist._id)
-              .set({ items: filteredItems })
-              .commit();
-          }
+          await removeFromWishlist.mutateAsync({
+            userId: userInfo._id,
+            productId: product._id,
+          });
         } else {
-          // Optimistically added product to wishlist.
-          if (!wishlist) {
-            await client.create({
-              _type: "wishlist",
-              userId: userInfo._id,
-              name: `${userInfo.username}'s Wishlist`,
-              items: [
-                {
-                  _key: uuidv4(),
-                  product: { _type: "reference", _ref: product._id },
-                },
-              ],
-            });
-          } else {
-            // no need for now
-            const duplicate = wishlist.items.some(
-              (item) => item.product._ref === product._id
-            );
-            if (!duplicate) {
-              await client
-                .patch(wishlist._id)
-                .setIfMissing({ items: [] })
-                .append("items", [
-                  {
-                    _key: uuidv4(),
-                    product: { _type: "reference", _ref: product._id },
-                  },
-                ])
-                .commit();
-            }
-          }
+          await addToWishlist.mutateAsync({
+            userId: userInfo._id,
+            productId: product._id,
+            username: userInfo.username,
+          });
         }
       } catch (error) {
-        console.error("Error toggling wishlist:", error);
-        // Rollback the optimistic update if the API call fails.
         toast({
           title: "Error",
           description: "Failed to update wishlist. Please try again.",
           variant: "destructive",
         });
-        setIsSaved(previousSavedState);
-      } finally {
-        setIsLoading(false);
+        setOptimisticSaved(previousSavedState);
       }
     },
-    [userInfo, isSaved, product, navigate]
+    [userInfo, isInWishlist, optimisticSaved, product, navigate, addToWishlist, removeFromWishlist]
   );
 
   const handleToggleCart = () => {
@@ -222,26 +191,8 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     }
   };
 
-  useEffect(() => {
-    const checkWishlist = async () => {
-      if (userInfo && product) {
-        try {
-          const result = await client.fetch(
-            SANITY_IS_PRODUCT_IN_WISHLIST(userInfo._id, product._id)
-          );
-          setIsSaved(!!result);
-        } catch (error) {
-          console.error("Error checking wishlist:", error);
-        }
-      }
-    };
-
-    checkWishlist();
-  }, []);
-
   return (
     <div
-      // ref={wishlistRef}
       onClick={(e) => handleOpenProduct(e, product._id)}
       className="product-container flex flex-col gap-3 cursor-pointer"
     >
@@ -255,12 +206,15 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           )
         }
       >
-        <div className="min-h-80 bg-neutral-50 flex items-center justify-center overflow-hidden">
+        <div className="min-h-80 bg-white flex items-center justify-center overflow-hidden">
           <img
             loading="lazy"
-            src={getImageUrl(product, hoveredImageIndex[product._id] || 0)}
+            src={imgLoaded ? imgSrc : "https://placehold.co/260x350?text=Loading..."}
             alt={product.title}
-            className="object-contain w-full h-full transition-transform duration-300 px-2"
+            className="object-cover w-full h-full transition-transform duration-300"
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgLoaded(false)}
+          // onLoadStart={() => setImgLoaded(false)}
           />
         </div>
 
@@ -279,9 +233,16 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           <button
             aria-label="addWishlist"
             onClick={handleToggleWishlist}
-            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-500 shadow-md ${isLoading && "animate-pulse"}`}
+            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-500 shadow-md ${addToWishlist.isPending || removeFromWishlist.isPending && "animate-pulse"}`}
           >
-            {isSaved ? (
+            {optimisticSaved === null ? isInWishlist ? (
+              <IoMdHeart size={24} className="text-red-500" />
+            ) : (
+              <IoIosHeartEmpty
+                size={24}
+                className="fill-neutral-400 hover:fill-black duration-200"
+              />
+            ) : optimisticSaved ? (
               <IoMdHeart size={24} className="text-red-500" />
             ) : (
               <IoIosHeartEmpty
@@ -303,11 +264,10 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           {product.images[0].images.slice(0, 5).map((_, index) => (
             <div
               key={index}
-              className={`w-full h-[.1rem] rounded-full ${
-                index === (hoveredImageIndex[product._id] || 0)
+              className={`w-full h-[.1rem] rounded-full ${index === (hoveredImageIndex[product._id] || 0)
                   ? "bg-neutral-900"
                   : "bg-neutral-300"
-              }`}
+                }`}
             ></div>
           ))}
         </div>

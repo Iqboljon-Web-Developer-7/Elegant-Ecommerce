@@ -19,6 +19,9 @@ module.exports = {
       colors: {
         // your colors...
       },
+      backgroundColor: {
+        // "wormGrey": "#f8f9fa",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

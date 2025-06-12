@@ -7,13 +7,11 @@ type PropType = {
 };
 
 export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (!inView) {
-      setIsLoaded(false);
       setProgress(0);
       setImageUrl(null);
       return;
@@ -35,7 +33,6 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
       const blob = xhr.response;
       const objectUrl = URL.createObjectURL(blob);
       setImageUrl(objectUrl);
-      setIsLoaded(true);
     };
 
     xhr.onerror = () => {
@@ -51,7 +48,7 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
 
   return (
     <div className="embla__slide relative">
-      {!isLoaded && inView && (
+      {inView && progress < 100 && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 flex-col">
           <svg
             className="w-16 h-16 mb-2 transform animate-spin"
@@ -92,7 +89,6 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
           alt={`Slide image`}
           loading="eager"
           style={{
-            opacity: isLoaded ? 1 : 0,
             transition: "opacity 0.5s ease-in-out",
           }}
         />
