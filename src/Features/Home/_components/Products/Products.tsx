@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./Carousel/CarouselItem";
@@ -8,19 +8,23 @@ import "swiper/css";
 import "swiper/css/scrollbar";
 
 import StyledLink from "@/components/atoms/StyledLink";
-import { ProductType } from "@/lib/types";
 
-import { client } from "@/utils/Client";
 import ProductLoading from "./ProductLoading";
-import { SANITY_PRODUCTS_QUERY } from "@/utils/Data";
 
 import { useInView } from "react-intersection-observer";
+import { useProducts } from "@/hooks/Home/Products/useProducts";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
-  const [mainRef, inView] = useInView({triggerOnce: true, threshold: 0.2});
+  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
   console.log(category);
   const { toast } = useToast();
-  const [products, setProducts] = useState<ProductType[]>([]);
+
+  const { data: products, isLoading, isError, error } = useProducts(inView)
+
+  if (isError) {
+    console.error("Error fetching data:", error);
+    toast({ description: error?.message, variant: "destructive" });
+  }
 
   const SwiperContents = useMemo(
     () =>
@@ -32,22 +36,9 @@ const Products: FC<{ category?: string }> = ({ category }) => {
     [products]
   );
 
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const fetchedProducts = await client.fetch(
-          SANITY_PRODUCTS_QUERY(0, 20)
-        );
-        setProducts(fetchedProducts);
-      } catch (error: any) {
-        console.error("Error fetching data:", error);
-        toast({ description: error?.message, variant: "destructive" });
-      }
-    };
-    if(inView){
-      fetchInitialData();
-    }
-  }, [inView]);
+  // if (isLoading) {
+  //   return <ProductLoading />
+  // }
 
   return (
     <div className="products mb-6" ref={mainRef}>
@@ -68,8 +59,8 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         scrollbar={{ hide: true }}
         modules={[Scrollbar, Mousewheel]}
         className="mySwiper"
-      >
-        {products?.length <= 0 ? <ProductLoading /> : SwiperContents}
+      > 
+        {isLoading ? <ProductLoading /> : SwiperContents}
       </Swiper>
     </div>
   );

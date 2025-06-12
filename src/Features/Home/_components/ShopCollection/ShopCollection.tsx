@@ -1,30 +1,18 @@
-import { client, urlFor } from "@/utils/Client";
+import {  urlFor } from "@/utils/Client";
 import { CollectionType } from "@/lib/types";
-
 import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/components/atoms/StyledLink";
-import { useEffect, useMemo, useState } from "react";
-import { SANITY_COLLECTIONS_QUERY } from "@/utils/Data";
+import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
+import { useCollections } from "@/hooks/Home/ShopCollection/useCollection";
 
 const ShopCollection = () => {
   const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.6 });
-  const [collections, setCollections] = useState<CollectionType[]>([]);
-
-  useEffect(() => {
-    const fetchCollections = async () => {
-      const data = await client.fetch(SANITY_COLLECTIONS_QUERY);
-      setCollections(data);
-    };
-
-    if (inView) {
-      fetchCollections();
-    }
-  }, [inView]);
+  const { data: collections, isLoading } = useCollections(inView)
 
   const Collections = useMemo(
     () =>
-      collections?.map((item, index) => (
+      collections?.map((item: CollectionType, index: number) => (
         <div
           key={index}
           style={{
@@ -49,7 +37,7 @@ const ShopCollection = () => {
         Shop Collection
       </h2>
       <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 md:mt-12">
-        {!Collections.length ? <SkeletonLoader count={3} /> : Collections}
+        {isLoading || !Collections?.length ? <SkeletonLoader count={3} /> : Collections}
       </div>
     </div>
   );

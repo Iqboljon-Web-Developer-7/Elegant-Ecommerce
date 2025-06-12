@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from "react";
 
-const HomeCarousel = lazy(() => import("./_components/Carousel/Carousel"));
-const SimpleHeading = lazy(
-  () => import("./_components/SimpleHeading/SimpleHeading")
-);
+import HomeCarousel from "./_components/Carousel/Carousel"
+import SimpleHeading from "./_components/SimpleHeading/SimpleHeading";
 
 const ShopCollection = lazy(
   () => import("./_components/ShopCollection/ShopCollection")
@@ -18,11 +16,12 @@ const ProductLoading = lazy(
 );
 
 const Banner = lazy(() => import("@/components/molecules/Banner"));
-import discountImage from "@/assets/discount-add/discount-add.webp";
 const StyledLink = lazy(() => import("@/components/atoms/StyledLink"));
 
 const Features = lazy(() => import("./_components/Features"));
 const InstagramFeed = lazy(() => import("./_components/InstagramFeed"));
+
+import discountImage from "@/assets/discount-add/discount-add.webp";
 
 const Home = React.memo(() => {
   return (
@@ -32,11 +31,7 @@ const Home = React.memo(() => {
         <SimpleHeading />
         <Suspense
           fallback={
-            <>
-              <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 mt-12">
-                <SkeletonLoader count={3} />
-              </div>
-            </>
+            <SkeletonLoader count={3} />
           }
         >
           <ShopCollection />

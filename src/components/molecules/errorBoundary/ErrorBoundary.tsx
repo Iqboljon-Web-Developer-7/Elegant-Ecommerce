@@ -34,7 +34,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
           {location.pathname !== "/" && (
             <Link
               to="/"
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition cursor-pointer"
             >
               Go to Home
             </Link>

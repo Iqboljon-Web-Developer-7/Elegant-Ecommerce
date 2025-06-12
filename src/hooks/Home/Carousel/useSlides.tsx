@@ -1,4 +1,3 @@
-// hooks/useSlides.ts
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
@@ -12,6 +11,6 @@ export const useSlides = () => {
   return useQuery({
     queryKey: ["slides"],
     queryFn: () => fetchSlides(),
-    refetchInterval: 300000,
+    refetchInterval: 600000,
   });
 };

@@ -11,9 +11,6 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
   const [progress, setProgress] = useState(0);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  console.log(imageUrl);
-  
-
   useEffect(() => {
     if (!inView) {
       setIsLoaded(false);
@@ -22,7 +19,6 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
       return;
     }
 
-    // const controller = new AbortController();
     const xhr = new XMLHttpRequest();
 
     xhr.open("GET", imgSrc, true);
@@ -94,6 +90,7 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
           className={`w-full h-full object-cover ${imageUrl && "animate-fade-in-scale"}`}
           src={imageUrl}
           alt={`Slide image`}
+          loading="eager"
           style={{
             opacity: isLoaded ? 1 : 0,
             transition: "opacity 0.5s ease-in-out",

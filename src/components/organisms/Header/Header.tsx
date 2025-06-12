@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarTrigger } from "../../ui/sidebar";
 import WebsiteLogo from "@/assets/logo.svg";
@@ -6,8 +6,6 @@ import SearchIcon from "@/assets/icons/search.svg";
 import UserIcon from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
 import { Button } from "../../ui/button";
-import { SANITY_USER_WISHLIST } from "@/utils/Data";
-import { client } from "@/utils/Client";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DropdownMenu,
@@ -27,10 +25,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { clearUserInfo } from "@/redux/slices/permamentData";
+import { useUserWishlist } from "@/hooks/use-user-wishlist";
 
 interface UserInfo {
   _id: string;
-  // Add other user properties here
 }
 
 interface PermanentDataState {
@@ -49,40 +47,13 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const [userWishlist, setUserWishlist] = useState([]);
   const userInfo = useSelector((state: RootState) => state.PermanentData.userInfo);
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (userInfo) {
-        try {
-          if (!userWishlist.length) {
-            const result = await client.fetch(
-              SANITY_USER_WISHLIST(userInfo._id)
-            );
-            setUserWishlist(result?.items || []);
-          }
+  const { wishlist: userWishlist, isLoading: wishlistLoading, error: wishlistError } = useUserWishlist(userInfo?._id);
 
-          const realTimeWishlistUpdate = client
-            .listen(SANITY_USER_WISHLIST(userInfo._id))
-            .subscribe((update) => {
-              if (update.result) {
-                setUserWishlist(update.result.items);
-              }
-            });
-
-          // Cleanup real-time updates on component unmount
-          return () => realTimeWishlistUpdate.unsubscribe();
-        } catch (error) {
-          console.error("Error fetching or subscribing to wishlist:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, []);
+  console.log(wishlistError);
+  console.log(wishlistLoading);
 
   const Links = useMemo(
     () =>
