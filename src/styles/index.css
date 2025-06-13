@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @config "../../tailwind.config.js";
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -78,6 +78,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -129,17 +130,15 @@
   * {
     @apply border-border;
   }
+
   html {
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
-
-/* .bg-backgrounds-wormGrey { */
-  /* background-color: #f8f9fa; */
-/* } */
 
 /* All scrollbars styles */
 ::-webkit-scrollbar {
@@ -147,6 +146,7 @@
   height: 0.35rem;
   background-color: rgb(238, 238, 238);
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 1rem;
   background-color: silver;
@@ -156,6 +156,11 @@
 .poppins {
   font-family: "Poppins", sans-serif;
 }
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins/Poppins-Regular.woff2") format("truetype");
@@ -163,6 +168,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins/Poppins-Medium.woff2") format("truetype");
@@ -170,6 +176,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins/Poppins-SemiBold.woff2") format("truetype");
@@ -181,11 +188,13 @@
 .inter {
   font-family: "Inter", serif;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter/Inter-VariableFont.woff2");
   font-display: swap;
 }
+
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter/static/Inter_24pt-Medium.woff2") format("truetype");
@@ -198,6 +207,7 @@
 .container-xl {
   @apply mx-auto max-w-7xl;
 }
+
 .container-2xl {
   @apply mx-auto max-w-7xl;
 }
@@ -213,17 +223,20 @@
   background-size: calc(100% / 2) 100%;
   animation: l14 1.5s infinite;
 }
+
 @keyframes l14 {
   0% {
     background-position:
       calc(100% / -4) 0,
       calc(100% / 4) 0;
   }
+
   50% {
     background-position:
       calc(100% / -4) -14px,
       calc(100% / 4) 14px;
   }
+
   100% {
     background-position:
       calc(100% / 4) -14px,
@@ -242,6 +255,7 @@
   position: relative;
   animation: flash 0.5s ease-out infinite alternate;
 }
+
 @keyframes flash {
   0% {
     background-color: #fff2;
@@ -249,12 +263,14 @@
       32px 0 #fff2,
       -32px 0 #fff;
   }
+
   50% {
     background-color: #fff;
     box-shadow:
       32px 0 #fff2,
       -32px 0 #fff2;
   }
+
   100% {
     background-color: #fff2;
     box-shadow:
@@ -262,42 +278,52 @@
       -32px 0 #fff2;
   }
 }
+
 /* Loaders end */
 
 /* Configuration start */
 .flex-center {
   @apply flex items-center justify-center;
 }
+
 .hero {
   @apply font-medium leading-[100%] text-8xl tracking-tight;
 }
+
 h1 {
   @apply font-medium leading-21 text-[5rem] tracking-[-0.1875rem];
 }
+
 h2 {
-  @apply font-medium leading-19  tracking-[-0.125rem];
+  @apply font-medium leading-19 tracking-[-0.125rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 h3 {
   @apply font-medium leading-14.5 text-[3.375rem] tracking-[-0.0625rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 h4 {
   @apply font-medium leading-9 lg:leading-11 text-[2.125rem] md:text-3xl lg:text-[2.5rem] tracking-[-0.025rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 h5 {
   @apply font-medium leading-9 text-[2.125rem] tracking-[-0.0375rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 h6 {
   @apply font-medium leading-8.5 text-[1.75rem] tracking-[-0.0375rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 .h7 {
   @apply font-medium sm:leading-7 sm:text-[1.25rem];
   font-feature-settings: "liga" off, "clig" off;
 }
+
 /* Configuration end */
 
 /* Style variables */
@@ -306,6 +332,7 @@ h6 {
 .errorBoundaryContainer {
   @apply flex h-screen flex-col items-center justify-center px-4 text-center;
 }
+
 /* ErrorBoundary end */
 
 /* SV:Home Carousel */
@@ -317,18 +344,177 @@ h6 {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
+
 /* SV:Home Carousel end*/
 
 /* SV: SimpleHeading */
 .simpleHeadingContainer {
   @apply flex w-full flex-col items-start justify-between gap-3 px-[1%] pt-4 text-left sm:flex-row sm:items-center lg:text-left md:pt-8;
 }
+
 .simpleHeadingH2 {
   @apply flex-shrink-0 font-medium leading-10 lg:text-7xl lg:leading-[4.75rem] md:text-6xl md:leading-16 sm:w-[14ch] text-[2.2rem] tracking-[-0.025rem] w-full;
 }
+
 .simpleHeadingP {
   @apply flex-grow text-sm text-gray-500 w-full max-w-108 lg:text-base;
 }
+
 /* SV: SimpleHeading end*/
 
 /* Style variables end */
+
+/* Empla styles start */
+
+.embla__button,
+.embla__dot:after {
+  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+}
+.embla {
+  max-width: 80rem;
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+}
+.embla__viewport {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  gap: 1px;
+}
+.embla__slide {
+  max-width: 80rem;
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  align-self: center;
+  aspect-ratio: 16 / 9;
+}
+@media (min-width: 768px) {
+  .embla__slide {
+    aspect-ratio: 3 / 1;
+  }
+}
+.embla__slide__img {
+  display: block;
+  height: -moz-available;
+  max-height: 28rem;
+  object-fit: cover;
+  object-position: left;
+}
+.embla__controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+.embla__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  align-items: center;
+}
+.embla__button,
+.embla__dot {
+  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  align-items: center;
+}
+.embla__button {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  z-index: 1;
+  border-radius: 50%;
+  color: var(--text-body);
+  display: flex;
+  justify-content: center;
+}
+.embla__button:disabled {
+  color: var(--detail-high-contrast);
+}
+.embla__button__svg {
+  width: 35%;
+  height: 35%;
+}
+.embla__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+}
+.embla__dot {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+}
+.embla__dot:after {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  content: "";
+}
+.embla__dot--selected:after {
+  box-shadow: inset 0 0 0 0.2rem var(--text-body);
+}
+.embla__lazy-load {
+  position: relative;
+  height: 100%;
+}
+.embla__lazy-load__spinner {
+  border: 0.4rem solid rgba(var(--text-high-contrast-rgb-value), 0.2);
+  border-left: 0.4rem solid var(--text-high-contrast);
+  font-size: 1rem;
+  display: inline-flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  text-indent: -9999em;
+  animation: 1.1s linear infinite loading;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+}
+.embla__lazy-load__spinner:after {
+  border-radius: inherit;
+  width: 5rem;
+  height: 5rem;
+}
+.embla__lazy-load__img {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.embla__lazy-load--has-loaded .embla__lazy-load__img {
+  opacity: 1;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empla styles end */
