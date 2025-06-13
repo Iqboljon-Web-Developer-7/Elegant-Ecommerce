@@ -186,7 +186,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
 
   useEffect(() => {
     setCurrentImgIndex(hoveredImageIndex[product._id] || 0);
-    // setImgLoaded(false);  
+    setImgLoaded(false);
   }, [hoveredImageIndex[product._id], product._id]);
 
   return (
@@ -204,14 +204,15 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           )
         }
       >
+
         <div className="min-h-80 bg-white flex items-center justify-center overflow-hidden">
           <img
             loading="lazy"
-            src={imgLoaded ? imgSrc : "https://placehold.co/240x100?text=Loading..."}
+            src={imgLoaded ? imgSrc : "https://placehold.co/240x100/transparent/222?text=Loading..."}
             alt={product.title}
-            className={`object-cover w-full h-full transition-transform duration-300 ${!imgLoaded && "animate-pulse"}`}
-            onLoad={() => setImgLoaded(true)}
+            className={`object-cover w-full h-full transition-transform duration-300`}
             onError={() => alert("Error loading image")}
+            onLoad={() => setImgLoaded(true)}
           />
         </div>
 
@@ -262,8 +263,8 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
             <div
               key={index}
               className={`w-full h-[.1rem] rounded-full ${index === (hoveredImageIndex[product._id] || 0)
-                  ? "bg-neutral-900"
-                  : "bg-neutral-300"
+                ? "bg-neutral-900"
+                : "bg-neutral-300"
                 }`}
             ></div>
           ))}

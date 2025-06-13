@@ -83,7 +83,7 @@ const Product: FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="container-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="breadcrumb mt-4 inter text-sm">
         <Breadcrumb>
           <BreadcrumbList>

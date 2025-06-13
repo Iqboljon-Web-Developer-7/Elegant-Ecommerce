@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { useCollections } from "@/Features/Home/hook/ShopCollection/useCollection";
 
 const ShopCollection = () => {
-  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.4 });
+  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const { data: collections, isLoading } = useCollections(inView)
 
   const Collections = useMemo(

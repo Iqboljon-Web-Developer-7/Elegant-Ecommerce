@@ -15,7 +15,7 @@ import { useInView } from "react-intersection-observer";
 import { useProducts } from "@/Features/Home/hook/Products/useProducts";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
-  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [mainRef, inView] = useInView({ triggerOnce: true });
   console.log(category);
   const { toast } = useToast();
 
@@ -37,7 +37,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
   );
 
   return (
-    <div className="products mb-6" ref={mainRef}>
+    <div className="products mb-6 mx-1" ref={mainRef}>
       <div className="products__info my-12 flex items-end justify-between">
         <h5 className="w-[3ch] leading-[2.75rem] font-medium">New Arrival</h5>
         <StyledLink destination={"/products"} name="More Products" />

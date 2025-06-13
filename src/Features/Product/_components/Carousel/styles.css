@@ -40,11 +40,12 @@
   border-bottom: 1px solid transparent;
   opacity: 0.7;
   transition: all ease-in-out 200ms;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
+  background-color: white;
 }
 
 .mySwiperThumbs .swiper-slide-thumb-active {
-  border-color: #38a3a5;
+  border-color: #000000;
   opacity: 1;
 }
 

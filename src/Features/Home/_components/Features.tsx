@@ -46,7 +46,7 @@ const Features = () => {
               />
             </div>
             <span className="h7">{feature?.title}</span>
-            <p className="text-xs sm:text-sm text-neutral-400 mt-2 sm:mt-3">
+            <p className="text-xs sm:text-sm text-neutral-400 mt-1 sm:mt-3">
               {feature?.description}
             </p>
           </div>

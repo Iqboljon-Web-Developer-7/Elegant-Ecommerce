@@ -15,6 +15,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { ProductCarouselType } from "@/lib/types";
 import { urlFor } from "@/utils/Client";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
+import { Button } from "@/components/ui/button";
 
 const Carousel: FC<ProductCarouselType> = ({
   images,
@@ -54,10 +55,10 @@ const Carousel: FC<ProductCarouselType> = ({
   const discount = () =>
     selectedVariant
       ? Math.round(
-          ((selectedVariant.price - selectedVariant.salePrice) /
-            selectedVariant.price) *
-            100
-        )
+        ((selectedVariant.price - selectedVariant.salePrice) /
+          selectedVariant.price) *
+        100
+      )
       : null;
 
   const allImages = images?.flatMap((item) =>
@@ -95,7 +96,7 @@ const Carousel: FC<ProductCarouselType> = ({
             <SwiperSlide key={idx}>
               <Zoom zoomMargin={20}>
                 <img
-                  className="max-w-[36.5rem] max-h-[36.5rem]"
+                  className="max-w-[36.5rem] max-h-[36.5rem] mx-auto"
                   width={2000}
                   height={2000}
                   src={urlFor(image?.asset?._ref).toString()}
@@ -116,12 +117,14 @@ const Carousel: FC<ProductCarouselType> = ({
             />
           </SwiperSlide>
         )}
-        <div className="custom-prev cursor-pointer shadow-md absolute w-11 h-11 rounded-full items-center justify-center left-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex z-10">
-          <GoArrowLeft className="group-disabled:opacity-60" size={26} />
-        </div>
-        <div className="custom-next cursor-pointer shadow-md absolute w-11 h-11 rounded-full items-center justify-center right-8 top-[50%] translate-y-[-50%] bg-white group hidden md:flex z-10">
-          <GoArrowRight className="group-disabled:opacity-60" size={26} />
-        </div>
+        <Button className="carouselBtn custom-prev z-10 left-8 top-[50%] translate-y-[-50%]">
+          <GoArrowLeft className="group-disabled:opacity-60 scale-125 !drop-shadow-[10px 10px red] drop-shadow-amber-700" color="#000" size={26}
+          />
+
+        </Button>
+        <Button className="carouselBtn custom-next z-10 right-8 top-[50%] translate-y-[-50%]">
+          <GoArrowRight className="group-disabled:opacity-60 scale-125" color="black" size={26} />
+        </Button>
       </Swiper>
 
       <Swiper
