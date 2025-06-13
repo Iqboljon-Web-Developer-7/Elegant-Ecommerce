@@ -155,11 +155,11 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <Link tabIndex={1} to={"/auth/login"}>
-              <Button>
+            <Link to={"/auth/login"} className="bg-black rounded-md text-white px-3 py-1 text-sm">
+              {/* <Button> */}
                 Sign in
-
-              </Button>
+{/*  */}
+              {/* </Button> */}
             </Link>
           )}
           <SidebarTrigger className="text-2xl md:hidden" />
