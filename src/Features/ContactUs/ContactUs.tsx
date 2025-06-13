@@ -1,5 +1,5 @@
 import StyledLink from "@/components/atoms/StyledLink";
-import contactImg from "@/assets/contact/contactBanner.png";
+import contactImg from "@/assets/contact/contactBanner.webp";
 import Banner from "@/components/molecules/Banner";
 import storeIcon from "@/assets/icons/store.svg";
 import emailIcon from "@/assets/icons/mail.svg";
@@ -94,7 +94,9 @@ const ContactUs = () => {
       </div>
       <div className="container-xl py-10 grid grid-cols-2 gap-[5%] items-center">
         <ContactForm />
-        <div style={{ position: "relative", overflow: "hidden" }}>
+        <div
+          className="relative hidden"
+        >
           <a
             href="https://yandex.uz/maps/org/94800077397/?utm_medium=mapframe&utm_source=maps"
             style={{

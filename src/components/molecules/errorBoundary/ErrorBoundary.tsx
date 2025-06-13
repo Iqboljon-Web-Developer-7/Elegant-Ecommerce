@@ -1,7 +1,24 @@
 import React, { ErrorInfo, ReactNode } from "react";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { Link, useLocation } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
+
+const ErrorIcon = () => (
+  <svg
+    width="64"
+    height="64"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="text-red-500 mb-4"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="8" x2="12" y2="12" />
+    <line x1="12" y1="16" x2="12.01" y2="16" />
+  </svg>
+);
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
@@ -12,7 +29,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
   return (
     <div className="errorBoundaryContainer">
       <div className="flex flex-col items-center">
-        <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
+        <ErrorIcon />
         <h4 className="font-semibold text-gray-900 mb-2">
           Something went wrong
         </h4>

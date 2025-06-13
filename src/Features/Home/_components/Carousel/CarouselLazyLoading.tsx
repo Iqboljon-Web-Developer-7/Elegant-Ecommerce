@@ -84,13 +84,10 @@ export const LazyLoadImage: React.FC<PropType> = ({ imgSrc, inView }) => {
 
       {imageUrl && (
         <img
-          className={`w-full h-full object-cover ${imageUrl && "animate-fade-in-scale"}`}
+          className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${imageUrl && "animate-fade-in-scale"}`}
           src={imageUrl}
           alt={`Slide image`}
           loading="eager"
-          style={{
-            transition: "opacity 0.5s ease-in-out",
-          }}
         />
       )}
     </div>

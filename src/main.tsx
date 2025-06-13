@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 
 import "@/styles/index.css";
-import "react-medium-image-zoom/dist/styles.css";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/index.ts";

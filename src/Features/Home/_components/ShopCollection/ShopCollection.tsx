@@ -21,7 +21,7 @@ const ShopCollection = () => {
           className={`bg-neutral-200 bg-right sm:bg-top bg-no-repeat bg-contain sm:bg-cover relative min-h-48 ${index === 0 && "row-span-2 min-h-96 bg-top"}`}
         >
           <div className="absolute bottom-10 left-10 grid text-black">
-            <h5>{item?.title}</h5>
+            <span className="font-medium leading-9 text-[2.125rem] tracking-[-0.0375rem];">{item?.title}</span>
             <StyledLink destination={item?.url} name={item?.urlName} />
           </div>
         </div>

@@ -13,10 +13,9 @@ const Banner: FC<BannerTypes> = ({ img, className, children }) => {
     >
       <div className="w-full md:w-1/2">
         <img
-          style={{ aspectRatio: "4 / 3" }}
           src={img}
           alt="Person wearing a red winter jacket"
-          className="w-full h-auto object-cover"
+          className="w-full h-auto object-cover aspect-[4/3]"
           loading="lazy"
         />
       </div>

@@ -155,8 +155,11 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <Link to={"/auth/login"}>
-              <Button>Sign in</Button>
+            <Link tabIndex={1} to={"/auth/login"}>
+              <Button>
+                Sign in
+
+              </Button>
             </Link>
           )}
           <SidebarTrigger className="text-2xl md:hidden" />

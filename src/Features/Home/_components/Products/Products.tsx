@@ -43,7 +43,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         <StyledLink destination={"/products"} name="More Products" />
       </div>
       <Swiper
-        mousewheel={{ forceToAxis: true }}
+        mousewheel={{ forceToAxis: true,  }}
         spaceBetween={8}
         slidesPerView={1.3}
         breakpoints={{
