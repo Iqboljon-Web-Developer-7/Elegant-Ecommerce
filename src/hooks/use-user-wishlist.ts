@@ -4,7 +4,6 @@ import { client } from "@/utils/Client";
 import { SANITY_USER_WISHLIST } from "@/utils/Data";
 
 interface WishlistItem {
-  // Define the structure as needed, fallback to any for now
   [key: string]: any;
 }
 

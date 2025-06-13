@@ -310,7 +310,12 @@ h6 {
 
 /* SV:Home Carousel */
 .carouselBtn {
-  @apply absolute top-[50%] hidden sm:flex h-11 w-11 translate-y-[-50%] items-center justify-center rounded-full bg-white md:flex hover:cursor-pointer disabled:cursor-not-allowed;
+  @apply absolute top-[50%] hidden sm:flex h-11 w-11 translate-y-[-50%] items-center justify-center rounded-full md:flex hover:cursor-pointer disabled:cursor-not-allowed;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 /* SV:Home Carousel end*/
 

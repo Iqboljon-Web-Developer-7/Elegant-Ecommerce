@@ -19,6 +19,7 @@ const legalLinks = [
 const Footer = () => {
   return (
     <footer className="bg-black text-white px-2 md:px-0 py-6 pt-10 md:pt-20">
+      <div className="container-xl">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between pb-0 md:pb-12 border-b border-gray-700">
         <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-2 sm:gap-4 md:gap-8 mb-4 md:mb-0">
           <p className="text-2xl font-medium text-white">3legant.</p>
@@ -106,6 +107,8 @@ const Footer = () => {
             />
           </Link>
         </div>
+      </div>
+
       </div>
     </footer>
   );

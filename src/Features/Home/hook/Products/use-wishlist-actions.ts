@@ -36,7 +36,6 @@ export function useWishlistActions() {
             .commit();
         }
       }
-      // Invalidate or refetch queries as needed
       queryClient.invalidateQueries({ queryKey: ["user-wishlist", userId] });
       queryClient.invalidateQueries({ queryKey: ["product-in-wishlist", userId, productId] });
       return true;
@@ -49,8 +48,7 @@ export function useWishlistActions() {
       if (wishlist) {
         const filteredItems = wishlist.items.filter((item: any) => item.product._ref !== productId);
         await client.patch(wishlist._id).set({ items: filteredItems }).commit();
-      }
-      // Invalidate or refetch queries as needed
+      } 
       queryClient.invalidateQueries({ queryKey: ["user-wishlist", userId] });
       queryClient.invalidateQueries({ queryKey: ["product-in-wishlist", userId, productId] });
       return true;

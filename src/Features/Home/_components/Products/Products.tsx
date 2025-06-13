@@ -12,7 +12,7 @@ import StyledLink from "@/components/atoms/StyledLink";
 import ProductLoading from "./ProductLoading";
 
 import { useInView } from "react-intersection-observer";
-import { useProducts } from "@/hooks/Home/Products/useProducts";
+import { useProducts } from "@/Features/Home/hook/Products/useProducts";
 
 const Products: FC<{ category?: string }> = ({ category }) => {
   const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });

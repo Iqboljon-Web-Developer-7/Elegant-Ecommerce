@@ -1,12 +1,13 @@
 import { urlFor } from "@/utils/Client";
-import { useInstaFeed } from "@/hooks/Home/InstagramFeed/useInstaFeed";
+import { useInstaFeed } from "@/Features/Home/hook/InstagramFeed/useInstaFeed";
 import { useInView } from "react-intersection-observer";
 
 const Skeleton = () => (
   <div className="overflow-hidden relative">
     <div
-      className="w-full h-[250px] bg-neutral-200 animate-pulse"
-      // style={{ aspectRatio: "1/1" }}
+      className="w-full h-full bg-neutral-300 animate-pulse"
+      style={{ aspectRatio: "4/3" }}
+
     />
   </div>
 );
@@ -48,6 +49,8 @@ export default function InstagramFeed() {
               className="overflow-hidden hover:shadow-md duration-200 relative"
             >
               <img
+      style={{ aspectRatio: "4/3" }}
+
                 src={`${urlFor(image).toString()}`}
                 loading="lazy"
                 width={262}

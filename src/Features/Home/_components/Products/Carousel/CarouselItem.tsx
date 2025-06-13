@@ -8,8 +8,8 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import { useProductInWishlist } from "@/hooks/Home/Products/use-product-in-wishlist";
-import { useWishlistActions } from "@/hooks/Home/Products/use-wishlist-actions";
+import { useProductInWishlist } from "@/Features/Home/hook/Products/use-product-in-wishlist";
+import { useWishlistActions } from "@/Features/Home/hook/Products/use-wishlist-actions";
 
 export interface WishlistItem {
   _key: string;
@@ -31,9 +31,13 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  const [optimisticSaved, setOptimisticSaved] = useState<null | boolean>(null);
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
+
   const {
     isInWishlist,
     isLoading: wishlistLoading,
@@ -43,13 +47,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   console.log(wishlistLoading);
   console.log(wishlistError);
 
-
-  const [optimisticSaved, setOptimisticSaved] = useState<null | boolean>(null);
-
   const { addToWishlist, removeFromWishlist } = useWishlistActions();
-
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
 
   const getImageUrl = useCallback(
     (product: ProductType, index: number): string => {
@@ -61,11 +59,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     },
     []
   );
-
-  useEffect(() => {
-    setImgLoaded(false);  
-    setCurrentImgIndex(hoveredImageIndex[product._id] || 0);
-  }, [hoveredImageIndex[product._id], product._id]);
 
   const imgSrc = getImageUrl(product, currentImgIndex);
 
@@ -191,13 +184,18 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     }
   };
 
+  useEffect(() => {
+    setCurrentImgIndex(hoveredImageIndex[product._id] || 0);
+    // setImgLoaded(false);  
+  }, [hoveredImageIndex[product._id], product._id]);
+
   return (
     <div
       onClick={(e) => handleOpenProduct(e, product._id)}
       className="product-container flex flex-col gap-3 cursor-pointer"
     >
       <div
-        className="product__main w-full h-full relative group flex-grow bg-red-500"
+        className="product__main w-full h-full relative group flex-grow"
         onMouseMove={(e) =>
           handleMouseMove(
             e,
@@ -209,12 +207,11 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         <div className="min-h-80 bg-white flex items-center justify-center overflow-hidden">
           <img
             loading="lazy"
-            src={imgLoaded ? imgSrc : "https://placehold.co/260x350?text=Loading..."}
+            src={imgLoaded ? imgSrc : "https://placehold.co/240x100?text=Loading..."}
             alt={product.title}
-            className="object-cover w-full h-full transition-transform duration-300"
+            className={`object-cover w-full h-full transition-transform duration-300 ${!imgLoaded && "animate-pulse"}`}
             onLoad={() => setImgLoaded(true)}
-            onError={() => setImgLoaded(false)}
-          // onLoadStart={() => setImgLoaded(false)}
+            onError={() => alert("Error loading image")}
           />
         </div>
 

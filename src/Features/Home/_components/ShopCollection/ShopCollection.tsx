@@ -1,13 +1,13 @@
-import {  urlFor } from "@/utils/Client";
+import { urlFor } from "@/utils/Client";
 import { CollectionType } from "@/lib/types";
 import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/components/atoms/StyledLink";
 import { useMemo } from "react";
 import { useInView } from "react-intersection-observer";
-import { useCollections } from "@/hooks/Home/ShopCollection/useCollection";
+import { useCollections } from "@/Features/Home/hook/ShopCollection/useCollection";
 
 const ShopCollection = () => {
-  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.6 });
+  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.4 });
   const { data: collections, isLoading } = useCollections(inView)
 
   const Collections = useMemo(

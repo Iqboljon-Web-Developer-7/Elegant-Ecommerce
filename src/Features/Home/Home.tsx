@@ -2,24 +2,20 @@ import React, { lazy, Suspense } from "react";
 
 import HomeCarousel from "./_components/Carousel/Carousel"
 import SimpleHeading from "./_components/SimpleHeading/SimpleHeading";
-
 const ShopCollection = lazy(
   () => import("./_components/ShopCollection/ShopCollection")
 );
 const SkeletonLoader = lazy(
   () => import("./_components/ShopCollection/SkeletonLoader")
 );
-
 const Products = lazy(() => import("./_components/Products/Products"));
 const ProductLoading = lazy(
   () => import("./_components/Products/ProductLoading")
 );
-
 const Banner = lazy(() => import("@/components/molecules/Banner"));
 const StyledLink = lazy(() => import("@/components/atoms/StyledLink"));
-
-const Features = lazy(() => import("./_components/Features"));
-const InstagramFeed = lazy(() => import("./_components/InstagramFeed"));
+import Features from "./_components/Features";
+import InstagramFeed from "./_components/InstagramFeed";
 
 import discountImage from "@/assets/discount-add/discount-add.webp";
 
@@ -56,12 +52,8 @@ const Home = React.memo(() => {
         </Banner>
       </div>
       <div className="container-xl">
-        <Suspense fallback={<div>Loading Features...</div>}>
           <Features />
-        </Suspense>
-        <Suspense fallback={<div>Loading Instagram Feed...</div>}>
           <InstagramFeed />
-        </Suspense>
       </div>
     </>
   );
