@@ -5,7 +5,6 @@ import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import UserIcon from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";
-import { Button } from "../../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DropdownMenu,
@@ -156,10 +155,7 @@ const Header = () => {
             </>
           ) : (
             <Link to={"/auth/login"} className="bg-black rounded-md text-white px-3 py-1 text-sm">
-              {/* <Button> */}
                 Sign in
-{/*  */}
-              {/* </Button> */}
             </Link>
           )}
           <SidebarTrigger className="text-2xl md:hidden" />
