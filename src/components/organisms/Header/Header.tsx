@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarTrigger } from "../../ui/sidebar";
-import WebsiteLogo from "@/assets/logo.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import UserIcon from "@/assets/icons/user.svg";
 import CartIcon from "@/assets/icons/cart.svg";

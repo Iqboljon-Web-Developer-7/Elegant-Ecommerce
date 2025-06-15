@@ -1,23 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-// import Lottie from "react-lottie-player";
-// import notFoundImage from "@/assets/404-animation.json";
 
-import notFoundGIF from "@/assets/not-found.gif"
+import notFoundGIF from "@/assets/404-page.gif"
 
 const NotFound = () => {
   const navigate = useNavigate();
 
   return (
     <div className="animate-fade-in bg-backgrounds-lightGreen flex flex-col items-center justify-center min-h-screen p-4 text-center">
-      {/* <Lottie
-        loop
-        animationData={notFoundImage}
-        play
-        className="max-w-screen-sm mb-8 w-full"
-      /> */}
-
-      <img src={notFoundGIF} loading="lazy" alt="Not found pool gif" />
+      <img src={notFoundGIF} width={600} height={600} loading="lazy" alt="Not found magnifying glass gif" />
 
       <h4 className="font-bold mb-4 sm:text-5xl text-3xl text-gray-800">
         Page Not Found
