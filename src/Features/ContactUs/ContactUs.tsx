@@ -28,7 +28,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <div className="container-xl bg-white">
+      <div className="container-xl">
         <div className="breadcrumb mt-4 text-sm inter">
           <span className="text-slate-600">Home {">"}</span> &nbsp; Contact Us
         </div>
@@ -79,7 +79,7 @@ const ContactUs = () => {
                   />
                 </div>
                 <p className="font-bold">{feature.title}</p>
-                <p className="text-xs lg:text-sm text-center font-semibold text-neutral-700 mt-2 sm:mt-2">
+                <p className="text-xs lg:text-sm text-center text-neutral-700 mt-2 sm:mt-2">
                   {feature.description}
                 </p>
               </div>
@@ -92,10 +92,10 @@ const ContactUs = () => {
           <Features />
         </div>
       </div>
-      <div className="container-xl py-10 grid grid-cols-2 gap-[5%] items-center">
+      <div className="container-xl py-10 grid grid-cols-1 md:grid-cols-2 gap-[5%] items-center">
         <ContactForm />
         <div
-          className="relative hidden"
+          className="relative mx-auto mb-4 md:mx-0"
         >
           <a
             href="https://yandex.uz/maps/org/94800077397/?utm_medium=mapframe&utm_source=maps"

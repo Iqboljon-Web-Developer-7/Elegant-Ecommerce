@@ -4,7 +4,7 @@ import heartIcon from "@/assets/icons/heart.svg";
 import redHeartIcon from "@/assets/icons/red-heart.svg";
 import { ProductDataProps } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useSelector } from "react-redux";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
@@ -15,7 +15,6 @@ import useWishlist from "./Wishlist/Wishlist";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
-  changeParam,
   selectedVariant,
   productColor,
   productVariant,
@@ -24,6 +23,17 @@ const ProductData: FC<ProductDataProps> = ({
   const { toast } = useToast();
   const navigate = useNavigate();
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const changeParam = useCallback(
+    (param: string, value: string | number) => {
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.set(param, value?.toString());
+      setSearchParams(updatedParams, { replace: true });
+    },
+    [searchParams, setSearchParams]
+  );
 
   // Use custom wishlist hook if user and product data exist
   const { isInWishlist, isLoading, saveWishlist, removeWishlist } = useWishlist(

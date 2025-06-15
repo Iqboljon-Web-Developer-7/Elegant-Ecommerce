@@ -1,12 +1,6 @@
-import { useEffect, useState, useCallback, FC } from "react";
+import { useEffect, FC } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { ProductType } from "@/lib/types";
-import { client } from "@/utils/Client";
-import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
-import {
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import ProductData from "./_components/ProductData";
 import Carousel from "./_components/Carousel/Carousel";
 import {
@@ -16,70 +10,62 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-
+} from "@/components/ui/breadcrumb";
+import { useProduct } from "./hooks/useProduct";
+// import Loading
 
 const Product: FC = () => {
-  const [productData, setProductData] = useState<ProductType | undefined>(
-    undefined
-  );
   const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
 
-  const productColor = searchParams.get("color");
-  const productVariant = searchParams.get("variant");
-  const productQuantity = Number(searchParams.get("quantity")) || 1;
-
+  const { data: productData, isError } = useProduct(id);
   const { variants, title, images, _createdAt } = productData || {};
 
-  const changeParam = useCallback(
-    (param: string, value: string | number) => {
-      const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set(param, value?.toString());
-      setSearchParams(updatedParams, { replace: true })
-    },
-    [searchParams, setSearchParams]
-  );
+  const { color: productColor, variant: productVariant, quantity: productQuantity } = Object.fromEntries(searchParams);
+
+  useEffect(() => {
+    if (!productData) return;
+    const firstAvailableVariant = productData?.variants?.find((variant) =>
+      productData.colors.some(
+        (color) => color.name === variant.color && variant.stock > 0
+      )
+    );
+    if (firstAvailableVariant) {
+      setSearchParams(
+        {
+          color: firstAvailableVariant.color,
+          variant: firstAvailableVariant.title,
+          quantity: "1",
+        },
+        { replace: true }
+      );
+    }
+  }, [productData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    async function fetchProduct(id: string) {
-      try {
-        const data: ProductType = await client
-          .config({ useCdn: false })
-          .fetch(SANITY_PRODUCT_QUERY(id))
-
-        const firstAvailableVariant = data?.variants?.find((variant) =>
-          data.colors.some(
-            (color) => color.name === variant.color && variant.stock > 0
-          )
-        );
-
-        if (firstAvailableVariant) {
-          setSearchParams({
-            color: firstAvailableVariant.color,
-            variant: firstAvailableVariant.title,
-            quantity: "1",
-          }, { replace: true });
-        }
-        setProductData(data);
-      } catch (error) {
-        console.error(error);
-        toast({
-          description: "Failed to fetch product data.",
-          variant: "destructive",
-        });
-      }
-    }
-    fetchProduct(id!);
   }, []);
+
 
   const selectedVariant = variants?.find(
     (variant) => variant.title === productVariant
   );
-  if (selectedVariant && productQuantity > selectedVariant.stock) {
-    changeParam("quantity", selectedVariant.stock);
+  if (selectedVariant && +productQuantity > selectedVariant.stock) {
+    setSearchParams(
+      {
+        quantity: selectedVariant.stock.toString(),
+      },
+      { replace: true }
+    );
+  }
+
+  if (isError) {
+    toast({
+      description: "Failed to fetch product data.",
+      variant: "destructive",
+    });
+    return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
   }
 
   return (
@@ -108,10 +94,9 @@ const Product: FC = () => {
           selectedVariant={selectedVariant!}
         />
         <ProductData
-          changeParam={changeParam}
           productColor={productColor}
           productData={productData}
-          productQuantity={productQuantity}
+          productQuantity={+productQuantity}
           productVariant={productVariant}
           selectedVariant={selectedVariant!}
         />

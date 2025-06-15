@@ -91,7 +91,6 @@ export interface ProductCarouselType {
 
 export interface ProductDataProps {
   productData?: ProductType;
-  changeParam: (param: string, value: string | number) => void;
   selectedVariant: ProductVariantType;
   productColor: string | null;
   productVariant: string | null;
