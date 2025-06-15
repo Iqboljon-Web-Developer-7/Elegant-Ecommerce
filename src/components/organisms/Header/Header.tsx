@@ -74,13 +74,9 @@ const Header = () => {
     <header className="py-3 md:py-4 px-2 md:px-1 border-b border-neutral-200">
       <div className="container-xl flex items-center justify-between">
         <Link to={"/"}>
-          <img
-            src={WebsiteLogo}
-            width={105}
-            height={24}
-            alt="website-logo"
-            className="w-[4.5rem] sm:w-[6.5rem]"
-          />
+          <span className="text-xl font-bold inter tracking-wide pointer-events-none">
+            3legant.
+          </span>
         </Link>
         <div className="header__links hidden md:flex items-center justify-center gap-6 lg:gap-10 text-sm">
           {Links}

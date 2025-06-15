@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import "./styles.css";
 import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
 } from "./CarouselArrowButtons";
 import { DotButton, useDotButton } from "./CarouselDotButtons";
+import { LazyLoadImage } from "./CarouselLazyLoading";
+import PlaceholderSlide from "./Loading";
 import { useSlides } from "@/Features/Home/hook/Carousel/useSlides";
 import { urlFor } from "@/utils/Client";
-import { LazyLoadImage } from "./CarouselLazyLoading";
 import { EmblaCarouselType } from "embla-carousel";
-import PlaceholderSlide from "./Loading";
 import { useToast } from "@/hooks/use-toast";
 
 const HomeCarousel = () => {

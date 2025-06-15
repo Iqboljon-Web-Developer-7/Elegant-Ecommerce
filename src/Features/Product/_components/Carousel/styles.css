@@ -15,8 +15,6 @@
   border-radius: 1rem;
 }
 
-/* Main Swiper Styles */
-
 .mySwiperMain .swiper-slide {
   background-size: cover;
   background-position: center;
@@ -54,6 +52,3 @@
     display: block;
   }
 }
-
-
-/*  */
