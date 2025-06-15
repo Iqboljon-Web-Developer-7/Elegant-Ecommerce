@@ -12,12 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { client } from "@/utils/Client";
-import { SANITY_LOGIN_USER } from "@/utils/Data";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "@/redux/slices/permamentData";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useLoginApi } from "../hooks/useLoginApi";
 
 const formSchema = z.object({
   name: z.string().min(6, {
@@ -29,7 +28,6 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,15 +36,21 @@ export function LoginForm() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { mutateAsync, isPending } = useLoginApi();
 
   const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
-    setLoading(true);
     try {
-      const user = await client.fetch(SANITY_LOGIN_USER(values));
+      const user = await mutateAsync(values);
       if (user) {
+        console.log(user);
+        
         dispatch(setUserInfo(user));
         const returnUrl = sessionStorage.getItem("returnUrl") || "/";
         sessionStorage.removeItem("returnUrl");
+        toast({
+          title: "Login successful",
+          description: "Welcome back!",
+        });
         navigate(returnUrl);
       } else {
         toast({ title: "Incorrect username or password.", variant: "destructive" });
@@ -55,9 +59,8 @@ export function LoginForm() {
       toast({ title: err?.message || "An error occurred", variant: "destructive" });
     } finally {
       form.reset();
-      setLoading(false);
     }
-  }, [dispatch, form, navigate, toast]);
+  }, [dispatch, form, navigate, toast, mutateAsync]);
 
   return (
     <Form {...form}>
@@ -109,8 +112,8 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button disabled={loading} type="submit" className="w-full">
-          {loading ? <div className="loader"></div> : "Submit"}
+        <Button disabled={isPending} type="submit" className="w-full">
+          {isPending ? <div className="loader"></div> : "Submit"}
         </Button>
       </form>
     </Form>

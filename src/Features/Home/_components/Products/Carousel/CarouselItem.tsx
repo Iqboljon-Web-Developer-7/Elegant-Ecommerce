@@ -231,7 +231,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
           <button
             aria-label="addWishlist"
             onClick={handleToggleWishlist}
-            className={`addWishlist p-[.35rem] bg-white rounded-full opacity-0 group-hover:opacity-100 duration-500 shadow-md ${addToWishlist.isPending || removeFromWishlist.isPending && "animate-pulse"}`}
+            className={`addWishlist p-[.35rem] bg-[rgba(255,255,255,0.7)] backdrop-blur-xs rounded-full md:opacity-0 group-hover:opacity-100 duration-500 shadow-md ${addToWishlist.isPending || removeFromWishlist.isPending && "animate-pulse"}`}
           >
             {optimisticSaved === null ? isInWishlist ? (
               <IoMdHeart size={24} className="text-red-500" />
@@ -253,7 +253,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
 
         <Button
           onClick={handleToggleCart}
-          className="addCart absolute right-4 bottom-4 left-4 font-medium text-base opacity-0 group-hover:!opacity-100 transition-all"
+          className="addCart bg-[rgba(2,94,115,0.1)] md:bg-black text-black md:text-white hover:text-amber-50 backdrop-blur-sm cursor-pointer  absolute right-4 bottom-4 left-4 font-medium text-base md:opacity-0 group-hover:opacity-100 transition-all"
         >
           Add to cart
         </Button>

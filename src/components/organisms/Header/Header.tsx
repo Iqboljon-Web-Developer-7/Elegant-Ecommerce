@@ -116,8 +116,10 @@ const Header = () => {
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle className="Inter tracking-wide">
-                            Are you absolutely sure?
+                          <AlertDialogTitle   > 
+                            <h6 className="mb-4">
+                              Are you absolutely sure?
+                            </h6>
                           </AlertDialogTitle>
                           <AlertDialogDescription>
                             This action cannot be undone. This will permanently
@@ -155,7 +157,7 @@ const Header = () => {
             </>
           ) : (
             <Link to={"/auth/login"} className="bg-black rounded-md text-white px-3 py-1 text-sm">
-                Sign in
+              Sign in
             </Link>
           )}
           <SidebarTrigger className="text-2xl md:hidden" />

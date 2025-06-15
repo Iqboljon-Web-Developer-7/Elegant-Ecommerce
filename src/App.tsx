@@ -5,7 +5,7 @@ import Loading from "./loading";
 import "react-medium-image-zoom/dist/styles.css";
 
 const AppErrorBoundary = lazy(
-  () => import("./components/molecules/errorBoundary/ErrorBoundary")
+  () => import("./components/molecules/ErrorBoundary")
 );
 const Layout = lazy(() => import("./components/molecules/Layout"));
 
