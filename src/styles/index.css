@@ -3,6 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 @theme {
   --text-xl: 1.375rem;
   --text-2xl: 1.625rem;

@@ -27,24 +27,6 @@ const Carousel: FC<ProductCarouselType> = ({
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (mainSwiperRef.current) {
-        const swiper = mainSwiperRef.current.swiper;
-        if (event.key === "ArrowLeft") {
-          swiper.slidePrev();
-        } else if (event.key === "ArrowRight") {
-          swiper.slideNext();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   const isNew = () => {
     const CreatedAt = new Date(createdAt!);
     const now = new Date();
@@ -89,6 +71,23 @@ const Carousel: FC<ProductCarouselType> = ({
     }
   }, [selectedVariant?.color]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (mainSwiperRef.current) {
+        const swiper = mainSwiperRef.current.swiper;
+        if (event.key === "ArrowLeft") {
+          swiper.slidePrev();
+        } else if (event.key === "ArrowRight") {
+          swiper.slideNext();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <PhotoProvider>
@@ -119,10 +118,10 @@ const Carousel: FC<ProductCarouselType> = ({
         >
           {filteredImages?.length ? (
             filteredImages?.map((image, idx) => (
-              <SwiperSlide key={idx}>
+              <SwiperSlide key={image.src}>
                 <PhotoView src={urlFor(image.src).toString()}>
                   <img
-                    className="max-w-[36.5rem] max-h-[36.5rem] mx-auto rounded-md"
+                    className="max-w-[36.5rem] max-h-[36.5rem] mx-auto rounded-md animate-fade-in-scale duration-300"
                     width={2000}
                     height={2000}
                     src={urlFor(image.src).toString()}
