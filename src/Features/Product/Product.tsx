@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useProduct } from "./hooks/useProduct";
 // import Loading
+import { Helmet } from "react-helmet";
 
 const Product: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -91,6 +92,11 @@ const Product: FC = () => {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={productData?.description} />
+    </Helmet>
     <div className="container-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="breadcrumb mt-4 inter text-sm">
         <Breadcrumb>
@@ -124,6 +130,7 @@ const Product: FC = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 
