@@ -16,12 +16,18 @@ import { useProduct } from "./hooks/useProduct";
 
 const Product: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Product id
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
 
+  // Product data by id
   const { data: productData, isError } = useProduct(id);
-  const { variants, title, images, _createdAt } = productData || {};
 
+  // extracted product data
+  const { variants, title, images, _createdAt} = productData || {};
+
+  // params from url
   const { color: productColor, variant: productVariant, quantity: productQuantity } = Object.fromEntries(searchParams);
 
   useEffect(() => {
@@ -41,11 +47,27 @@ const Product: FC = () => {
         { replace: true }
       );
     }
+    window.scrollTo(0, 0);
   }, [productData]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (productData) {
+      document.title = `${productData.title} | Elegant Ecommerce`;
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        productData.description
+      );
+      document.querySelector('meta[property="og:image"]')?.setAttribute(
+        'content',
+        productData.images[0]?.images[0]?.image?.asset?._ref
+          ? `https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/${productData.images[0].images[0].image.asset._ref
+              .split('-')[1]
+              .split('.')[0]}.${productData.images[0].images[0].image.asset._ref
+              .split('.')[1]}`
+          : ''
+      );
+    }
+  }, [productData]);
 
 
   const selectedVariant = variants?.find(

@@ -66,6 +66,13 @@ export interface ProductType {
       _id: string;
     };
   }[];
+  metadata: {
+    _id: string;
+    brand: string;
+    dimension: string;
+    material: string;
+    weight: string;
+  };
 }
 
 export interface ProductVariantType {
