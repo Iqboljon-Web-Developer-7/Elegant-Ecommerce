@@ -32,7 +32,7 @@ const Auth = () => {
   return (
     <div
       style={{ backgroundImage: isBgImgVisible ? `url(${AuthImg})` : "" }}
-      className="h-screen w-full flex items-center justify-between flex-col md:flex-row bg-slate-50 bg-cover bg-center"
+      className="h-screen w-full flex items-center justify-between flex-col md:flex-row bg-cover bg-center bg-slate-100"
     >
       <img
         width={661}
@@ -41,7 +41,7 @@ const Auth = () => {
         alt="auth-img"
         className="h-screen w-96 lg:w-auto hidden md:block flex-shrink object-cover"
       />
-      <div className="flex-grow flex items-center justify-center min-w-80 w-full bg-[#00000077] md:bg-transparent">
+      <div className="flex-grow flex items-center justify-center sm:min-w-80 w-full bg-[#00000077] md:bg-transparent px-2">
         <Outlet />
       </div>
     </div>
