@@ -83,6 +83,22 @@ const Product: FC = () => {
     );
   }
 
+  // Compute allImages and filteredImages here
+  const allImages = (() => {
+    let count = 0;
+    let array: { src: string, color: string }[] = [];
+    while ((images?.length ?? 0) > count) {
+      images?.[count]?.images?.forEach((item) => {
+        array.push({ src: item?.image?.asset?._ref, color: images?.[count]?.color });
+      });
+      count++;
+    }
+    return array;
+  })();
+  const filteredImages = selectedVariant?.color
+    ? allImages.filter(img => img.color === selectedVariant.color)
+    : allImages;
+
   if (isError) {
     toast({
       description: "Failed to fetch product data.",
@@ -94,8 +110,23 @@ const Product: FC = () => {
   return (
     <>
     <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={productData?.description} />
+      <title>{title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'}</title>
+      <meta name="description" content={productData?.description || 'Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
+      {/* Open Graph */}
+      <meta property="og:title" content={title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'} />
+      <meta property="og:description" content={productData?.description || 'Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
+      <meta property="og:type" content="product" />
+      <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
+      <meta property="og:image" content={filteredImages?.[0]?.src
+        ? `https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/${filteredImages[0].src.split('-')[1].split('.')[0]}.${filteredImages[0].src.split('.')[1]}`
+        : 'https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg'} />
+      {/* Twitter Cards */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'} />
+      <meta name="twitter:description" content={productData?.description || 'Shop elegantly with our seamless e-commerce platform.'} />
+      <meta name="twitter:image" content={filteredImages?.[0]?.src
+        ? `https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/${filteredImages[0].src.split('-')[1].split('.')[0]}.${filteredImages[0].src.split('.')[1]}`
+        : 'https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg'} />
     </Helmet>
     <div className="container-xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="breadcrumb mt-4 inter text-sm">
@@ -120,6 +151,7 @@ const Product: FC = () => {
           images={images!}
           createdAt={_createdAt}
           selectedVariant={selectedVariant!}
+          filteredImages={filteredImages}
         />
         <ProductData
           productColor={productColor}

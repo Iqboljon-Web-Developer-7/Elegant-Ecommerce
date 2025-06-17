@@ -19,10 +19,11 @@ import { Button } from "@/components/ui/button";
 
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
-const Carousel: FC<ProductCarouselType> = ({
+const Carousel: FC<ProductCarouselType & { filteredImages: { src: string, color: string }[] }> = ({
   images,
   createdAt,
   selectedVariant,
+  filteredImages,
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
@@ -44,24 +45,6 @@ const Carousel: FC<ProductCarouselType> = ({
         100
       )
       : null;
-
-
-  const allImages = (() => {
-    let count = 0
-    let array: { src: string, color: string }[] = []
-    while (images?.length > count) {
-      images[count]?.images?.forEach((item) => {
-        array.push({ src: item?.image?.asset?._ref, color: images[count]?.color })
-      })
-      count++
-    }
-    return array
-  })()
-
-  // Filter images by selected variant color
-  const filteredImages = selectedVariant?.color
-    ? allImages.filter(img => img.color === selectedVariant.color)
-    : allImages;
 
   // Slide to the first relevant image when selectedVariant changes
   useEffect(() => {
