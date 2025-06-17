@@ -13,7 +13,7 @@ const client = createClient({
 async function generateRoutes() {
   const query = `*[_type == "product"]{_id}`;
   const products = await client.fetch(query);
-  const productRoutes = products.map((product) => `/products/${product._id}`);
+  const productRoutes = products.map((product) => `/product/${product._id}`);
 
   const routes = [
     "/",

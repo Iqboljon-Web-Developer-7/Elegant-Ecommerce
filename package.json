@@ -13,7 +13,6 @@
   "reactSnap": {
     "source": "dist",
     "destination": "dist",
-    "include": [],
     "routeSource": "./react-snap.routes.json",
     "userAgent": "ReactSnap",
     "minifyHtml": true,
