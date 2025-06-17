@@ -19,8 +19,7 @@ import { Button } from "@/components/ui/button";
 
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
-const Carousel: FC<ProductCarouselType & { filteredImages: { src: string, color: string }[] }> = ({
-  images,
+const Carousel: FC<ProductCarouselType> = ({
   createdAt,
   selectedVariant,
   filteredImages,

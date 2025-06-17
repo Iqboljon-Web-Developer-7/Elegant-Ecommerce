@@ -148,7 +148,6 @@ const Product: FC = () => {
       </div>
       <div className="main-info pt-4 mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <Carousel
-          images={images!}
           createdAt={_createdAt}
           selectedVariant={selectedVariant!}
           filteredImages={filteredImages}

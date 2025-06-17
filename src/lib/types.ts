@@ -91,7 +91,7 @@ export interface ProductsCarouselProps {
 }
 
 export interface ProductCarouselType {
-  images: ProductImage[];
+  filteredImages: { src: string, color: string }[] 
   createdAt?: string;
   selectedVariant: ProductVariantType;
 }
