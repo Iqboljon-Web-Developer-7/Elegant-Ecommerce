@@ -111,10 +111,10 @@ const Product: FC = () => {
     <>
     <Helmet>
       <title>{title ? `${title} | Elegant Ecommerce11` : '11Elegant Ecommerce'}</title>
-      <meta name="description" content={productData?.description || 'Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
+      <meta name="description" content={productData?.description || '11Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
       {/* Open Graph */}
-      <meta property="og:title" content={title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'} />
-      <meta property="og:description" content={productData?.description || 'Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
+      <meta property="og:title" content={title ? `${title} | Elegant Ecommerce11` : '11Elegant Ecommerce'} />
+      <meta property="og:description" content={productData?.description || '11Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
       <meta property="og:type" content="product" />
       <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
       <meta property="og:image" content={filteredImages?.[0]?.src
@@ -122,8 +122,8 @@ const Product: FC = () => {
         : 'https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg'} />
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'} />
-      <meta name="twitter:description" content={productData?.description || 'Shop elegantly with our seamless e-commerce platform.'} />
+      <meta name="twitter:title" content={title ? `${title} | Elegant Ecommerce` : '11Elegant Ecommerce'} />
+      <meta name="twitter:description" content={productData?.description || '111Shop elegantly with our seamless e-commerce platform.'} />
       <meta name="twitter:image" content={filteredImages?.[0]?.src
         ? `https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/${filteredImages[0].src.split('-')[1].split('.')[0]}.${filteredImages[0].src.split('.')[1]}`
         : 'https://cdn.sanity.io/images/kvpqppgu/production/91d54154e9fea75d229a98d90282acc8a092ea0d-1106x382.jpg'} />
