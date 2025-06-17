@@ -6,8 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "prerender": "node prerender.mjs",
+    "postbuild": "npm run prerender && react-snap",
     "preview": "vite preview"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "destination": "dist",
+    "include": [],
+    "routeSource": "./react-snap.routes.json",
+    "userAgent": "ReactSnap",
+    "minifyHtml": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -50,6 +63,7 @@
     "react-photo-view": "^1.2.7",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
+    "react-snap": "^1.23.0",
     "sonner": "^1.7.1",
     "swiper": "^11.2.0",
     "tailwind-merge": "^2.5.5",

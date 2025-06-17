@@ -12,9 +12,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useProduct } from "./hooks/useProduct";
-import { Helmet } from "react-helmet-async"; // Recommend using react-helmet-async
+import { Helmet } from "react-helmet-async";
 import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/utils/Client"; // Your Sanity client
+import { client } from "@/utils/Client";
 
 const builder = imageUrlBuilder(client);
 const urlFor = (source: string) => builder.image(source).url();
@@ -73,6 +73,24 @@ const Product: FC = () => {
     ? allImages.filter((img) => img.color === selectedVariant.color)
     : allImages;
 
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <Helmet>
+  //         <title>Loading Product...</title>
+  //         <meta name="description" content="Loading product details..." />
+  //         <meta property="og:title" content="Loading Product..." />
+  //         <meta property="og:description" content="Loading product details..." />
+  //         <meta property="og:type" content="product" />
+  //         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
+  //         <meta name="twitter:card" content="summary_large_image" />
+  //         <meta name="twitter:title" content="Loading Product..." />
+  //         <meta name="twitter:description" content="Loading product details..." />
+  //       </Helmet>
+  //       <div>Loading...</div>
+  //     </>
+  //   );
+  // }
 
   if (isError) {
     toast({
@@ -82,25 +100,25 @@ const Product: FC = () => {
     return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
   }
 
-  if (!productData) {
-    return null; // Avoid rendering Helmet or content if productData is unavailable
-  }
+    // if (!productData) {
+    //   return null;
+    // }
 
   return (
     <>
       <Helmet>
-        <title>{`${title}`}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={`${title}`} />
-        <meta property="og:description" content={description} />
+        <title>{title}</title>
+        {description && <meta name="description" content={description} />}
+        <meta property="og:title" content={title} />
+        {description && <meta property="og:description" content={description} />}
         <meta property="og:type" content="product" />
         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
         {filteredImages?.[0]?.src && (
           <meta property="og:image" content={urlFor(filteredImages[0].src)} />
         )}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${title}`} />
-        <meta name="twitter:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        {description && <meta name="twitter:description" content={description} />}
         {filteredImages?.[0]?.src && (
           <meta name="twitter:image" content={urlFor(filteredImages[0].src)} />
         )}

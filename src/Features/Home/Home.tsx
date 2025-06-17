@@ -20,6 +20,8 @@
 
   import discountImage from "@/assets/discount-add/discount-add.webp";
 
+
+  
   const Home = React.memo(() => {
     return (
       <>

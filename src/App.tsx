@@ -24,27 +24,27 @@ import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   return (
-    
+
     <AppErrorBoundary>
-      <HelmetProvider>  
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="products" element={<Products />} />
-            <Route path="products/:id" element={<Product />} />
-            <Route path="contact-us" element={<ContactUs />} />
-            <Route path="search" element={<Search />} />
-          </Route>
-          <Route path="/auth" element={<Auth />}>
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-          </Route>
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
+      <HelmetProvider>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/:id" element={<Product />} />
+              <Route path="contact-us" element={<ContactUs />} />
+              <Route path="search" element={<Search />} />
+            </Route>
+            <Route path="/auth" element={<Auth />}>
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+            </Route>
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
         </Suspense>
-    </HelmetProvider>
-      </AppErrorBoundary>
+      </HelmetProvider>
+    </AppErrorBoundary>
   );
 };
 
