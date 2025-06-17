@@ -108,9 +108,9 @@ const Product: FC = () => {
     <>
       <Helmet>
         <title>{title}</title>
-        {description && <meta name="description" content={description} />}
+        {description && <meta name="description" content={description.slice(0, 80)} />}
         <meta property="og:title" content={title} />
-        {description && <meta property="og:description" content={description} />}
+        {description && <meta property="og:description" content={description.slice(0, 80)} />}
         <meta property="og:type" content="product" />
         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
         {filteredImages?.[0]?.src && (
@@ -118,7 +118,7 @@ const Product: FC = () => {
         )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
-        {description && <meta name="twitter:description" content={description} />}
+        {description && <meta name="twitter:description" content={description.slice(0, 80)} />}
         {filteredImages?.[0]?.src && (
           <meta name="twitter:image" content={urlFor(filteredImages[0].src)} />
         )}
