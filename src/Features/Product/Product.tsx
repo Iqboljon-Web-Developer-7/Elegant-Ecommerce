@@ -110,7 +110,7 @@ const Product: FC = () => {
   return (
     <>
     <Helmet>
-      <title>{title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'}</title>
+      <title>{title ? `${title} | Elegant Ecommerce11` : '11Elegant Ecommerce'}</title>
       <meta name="description" content={productData?.description || 'Discover a seamless shopping experience with Elegant, blending style and functionality.'} />
       {/* Open Graph */}
       <meta property="og:title" content={title ? `${title} | Elegant Ecommerce` : 'Elegant Ecommerce'} />
