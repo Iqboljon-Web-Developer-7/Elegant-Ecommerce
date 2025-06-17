@@ -19,10 +19,14 @@ const Register = lazy(() => import("./Features/Auth/Register"));
 const Login = lazy(() => import("./Features/Auth/Login"));
 
 const NotFound = lazy(() => import("./components/molecules/notFound"));
+import { HelmetProvider } from "react-helmet-async";
+
 
 const App = () => {
   return (
+    
     <AppErrorBoundary>
+      <HelmetProvider>  
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -38,8 +42,9 @@ const App = () => {
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
-      </Suspense>
-    </AppErrorBoundary>
+        </Suspense>
+    </HelmetProvider>
+      </AppErrorBoundary>
   );
 };
 
