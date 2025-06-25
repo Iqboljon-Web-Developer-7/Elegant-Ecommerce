@@ -2,13 +2,26 @@ import { urlFor } from "@/utils/Client";
 import { CollectionType } from "@/lib/types";
 import SkeletonLoader from "./SkeletonLoader";
 import StyledLink from "@/components/atoms/StyledLink";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { useCollections } from "@/Features/Home/hook/ShopCollection/useCollection";
+import { useDispatch } from "react-redux";
+import { setShopCollectionView } from "@/redux/slices/homePageData";
 
 const ShopCollection = () => {
-  const [mainRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [mainRef, inView] = useInView({ triggerOnce: true });
   const { data: collections, isLoading } = useCollections(inView)
+
+  const dispatch = useDispatch()
+
+  useEffect(() =>{
+    if(inView){
+      setTimeout(() => {
+        // alert('products carousel is fetching')
+        dispatch(setShopCollectionView(inView))
+      }, 2200);
+    }
+  },[inView])
 
   const Collections = useMemo(
     () =>

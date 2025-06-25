@@ -35,7 +35,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
     Record<number, number>
   >({});
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
 
   const {
@@ -53,9 +52,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     (product: ProductType, index: number): string => {
       const images = product?.images[0]?.images || [];
       const imageRef = images[index]?.image?.asset?._ref;
-      return imageRef
-        ? urlFor(imageRef).url()
-        : "https://placehold.co/260x350?text=Loading...";
+      return urlFor(imageRef).width(230).height(230).url()
     },
     []
   );
@@ -186,7 +183,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
 
   useEffect(() => {
     setCurrentImgIndex(hoveredImageIndex[product._id] || 0);
-    setImgLoaded(false);
   }, [hoveredImageIndex[product._id], product._id]);
 
   return (
@@ -208,11 +204,10 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         <div className="min-h-80 bg-white flex items-center justify-center overflow-hidden">
           <img
             loading="lazy"
-            src={imgLoaded ? imgSrc : "https://placehold.co/240x100/transparent/222?text=Loading..."}
-            alt={product.title}
+            src={imgSrc}
+            alt={product?.title}
             className={`object-cover w-full h-full transition-transform duration-300`}
             onError={() => alert("Error loading image")}
-            onLoad={() => setImgLoaded(true)}
           />
         </div>
 

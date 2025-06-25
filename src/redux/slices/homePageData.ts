@@ -1,32 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface HomePageState {
-  slides: Array<any>;
-  collections: Array<any>;
-  products: Array<any>;
+  isShopCollectionInView: boolean
 }
 
-type KeyType = keyof HomePageState;
-
 const initialState: HomePageState = {
-  slides: [],
-  collections: [],
-  products: [],
+  isShopCollectionInView: false,
 };
 
 const HomePageData = createSlice({
   name: "homePageData",
   initialState,
   reducers: {
-    add: (
-      state,
-      action: PayloadAction<{ key: KeyType; value: Array<any> }>
-    ) => {
-      const { key, value } = action.payload;
-      state[key] = value;
-    },
+    setShopCollectionView: (state, action ) => {
+      state['isShopCollectionInView'] = action.payload
+    }
   },
 });
 
-export const { add } = HomePageData.actions;
+export const { setShopCollectionView } = HomePageData.actions;
 export default HomePageData.reducer;

@@ -50,7 +50,7 @@ const HomeCarousel = () => {
         <div key={index} className="embla__slide flex-center">
           <LazyLoadImage
             index={index}
-            imgSrc={urlFor(item?.images.asset._ref).url()}
+            imgSrc={urlFor(item?.images.asset._ref).width(1300).url()}
             inView={slidesInView.includes(index)}
           />
         </div>

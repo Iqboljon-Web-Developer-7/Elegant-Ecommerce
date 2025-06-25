@@ -47,7 +47,7 @@ export default function InstagramFeed() {
               className="overflow-hidden hover:shadow-md duration-200 relative"
             >
               <img
-                src={`${urlFor(image).toString()}`}
+                src={`${urlFor(image).width(230).height(170).url()}`}
                 loading="lazy"
                 width={262}
                 height={262}
