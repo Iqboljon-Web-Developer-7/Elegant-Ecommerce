@@ -19,11 +19,8 @@
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
-    ],
-    "puppeteer": {
-      "cache": false
-    }
-  },
+    ]
+    },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-alert-dialog": "^1.1.6",

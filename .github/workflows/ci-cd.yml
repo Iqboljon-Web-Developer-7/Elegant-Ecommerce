@@ -1,15 +1,12 @@
-name: CI/CD for React + Sanity + Vercel
+name: CI/CD for Vite + Sanity + Vercel
 
 on:
-push:
+  push:
     branches:
       - main
   pull_request:
     branches:
       - main
-
-env:
-  SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }} # For Sanity API access
 
 jobs:
   build-and-test:
@@ -22,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Match local Node version
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm install
@@ -36,14 +33,15 @@ jobs:
       - name: Build Project
         run: npm run build
         env:
-          REACT_APP_SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
-          REACT_APP_SANITY_DATASET: production
+          VITE_SANITY_PROJECT_ID: ${{ secrets.VITE_SANITY_PROJECT_ID }}
+          VITE_SANITY_DATASET_ID: ${{ secrets.VITE_SANITY_DATASET_ID }}
+          VITE_SANITY_USER_TOKEN: ${{ secrets.VITE_SANITY_USER_TOKEN }}
 
       - name: Run Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
-            http://localhost:3000
+            https://your-vercel-app.vercel.app
           runs: 3
           uploadArtifacts: true
           temporaryPublicStorage: true
@@ -53,8 +51,8 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
 
   deploy:
     needs: build-and-test
@@ -68,8 +66,8 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
