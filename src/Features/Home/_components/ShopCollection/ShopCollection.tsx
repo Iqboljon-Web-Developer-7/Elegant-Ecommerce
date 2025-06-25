@@ -17,7 +17,6 @@ const ShopCollection = () => {
   useEffect(() =>{
     if(inView){
       setTimeout(() => {
-        // alert('products carousel is fetching')
         dispatch(setShopCollectionView(inView))
       }, 2200);
     }

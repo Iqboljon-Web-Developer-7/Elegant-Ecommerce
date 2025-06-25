@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useProductInWishlist } from "@/Features/Home/hook/Products/use-product-in-wishlist";
 import { useWishlistActions } from "@/Features/Home/hook/Products/use-wishlist-actions";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchProduct } from "@/Features/Product/hooks/useProduct";
 
 export interface WishlistItem {
   _key: string;
@@ -26,25 +28,33 @@ export interface Wishlist {
   items: WishlistItem[];
 }
 
+
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
   const navigate = useNavigate();
   const { toast } = useToast();
-
+  
   const [optimisticSaved, setOptimisticSaved] = useState<null | boolean>(null);
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
-    Record<number, number>
+  Record<number, number>
   >({});
   const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
+  
+  const queryClient = useQueryClient();
+  
+    const prefetchProduct = async () => {
+      await queryClient.prefetchQuery({
+        queryKey: ['product', product?._id],
+        queryFn: () => fetchProduct(product?._id.toString()),
+        staleTime: 30 * 60 * 1000, // 0.5 hour
+      });
+    };
 
   const {
     isInWishlist,
-    isLoading: wishlistLoading,
-    error: wishlistError,
+    // isLoading: wishlistLoading,
+    // error: wishlistError,
   } = useProductInWishlist(userInfo?._id, product._id);
-
-  console.log(wishlistLoading);
-  console.log(wishlistError);
 
   const { addToWishlist, removeFromWishlist } = useWishlistActions();
 
@@ -192,6 +202,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     >
       <div
         className="product__main w-full h-full relative group flex-grow"
+        onMouseEnter={() => prefetchProduct()}
         onMouseMove={(e) =>
           handleMouseMove(
             e,

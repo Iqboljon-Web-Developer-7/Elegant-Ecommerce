@@ -11,4 +11,5 @@ const fetchedProducts = async ():Promise<ProductType[]> => await client.fetch(
     queryKey:["home-products"],
     queryFn:fetchedProducts,
     enabled: inView,
+    staleTime: 30 * 60 * 1000 // 0.5 hour
   });

@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import "./styles.css";
+import { QueryClient } from "@tanstack/react-query";
 import {
   NextButton,
   PrevButton,
@@ -9,17 +10,31 @@ import {
 import { DotButton, useDotButton } from "./CarouselDotButtons";
 import { LazyLoadImage } from "./CarouselLazyLoading";
 import PlaceholderSlide from "./Loading";
-import { useSlides } from "@/Features/Home/hook/Carousel/useSlides";
+import { fetchSlides, useSlides } from "@/Features/Home/hook/Carousel/useSlides";
 import { urlFor } from "@/utils/Client";
 import { EmblaCarouselType } from "embla-carousel";
 import { useToast } from "@/hooks/use-toast";
 
+const prefetchSlides = async (queryClient: any) => {
+  queryClient = new queryClient
+
+  await queryClient.prefetchQuery({
+    queryKey: ['slides'],
+    queryFn: () => fetchSlides,
+    staleTime: 30 * 60 * 1000, // Cache for 30 minutes
+  });
+};
+
 const HomeCarousel = () => {
-  const { data: slides = [], isLoading, isError } = useSlides();
+  useEffect(() => {
+    prefetchSlides(QueryClient)
+  }, [])
+
+  const [media, setMedia] = useState("desktop")
+  const { data: slides = [], isLoading, isError } = useSlides(media)
 
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
   const [emblaRef, emblaApi] = useEmblaCarousel();
-  const windowWidth = window.innerWidth;
 
   const { toast } = useToast();
 
@@ -36,17 +51,9 @@ const HomeCarousel = () => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  const filteredSlides = useMemo(
-    () =>
-      slides.filter((item) =>
-        windowWidth < 768 ? item?.media === "mobile" : item?.media === "desktop"
-      ),
-    [slides, windowWidth]
-  );
-
   const Slides = useMemo(
     () =>
-      filteredSlides.map((item, index) => (
+      slides.map((item, index) => (
         <div key={index} className="embla__slide flex-center">
           <LazyLoadImage
             index={index}
@@ -55,7 +62,7 @@ const HomeCarousel = () => {
           />
         </div>
       )),
-    [filteredSlides, slidesInView]
+    [slides, slidesInView]
   );
 
   const Dots = useMemo(
@@ -65,15 +72,14 @@ const HomeCarousel = () => {
           aria-label={`indicator button ${index + 1}`}
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={`w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400 hover:cursor-pointer${
-            index === selectedIndex ? " !w-10" : ""
-          }`}
+          className={`w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400 hover:cursor-pointer${index === selectedIndex ? " !w-10" : ""
+            }`}
         />
       )),
     [scrollSnaps, selectedIndex, onDotButtonClick]
   );
 
-  
+
   useEffect(() => {
     if (!emblaApi) return;
     updateSlidesInView(emblaApi);
@@ -82,6 +88,10 @@ const HomeCarousel = () => {
   }, [emblaApi, updateSlidesInView]);
 
 
+  useLayoutEffect(() => {
+    setMedia(window.innerWidth < 768 ? "mobile" : "desktop")
+  }, [])
+
   if (isLoading) return <PlaceholderSlide />;
   if (isError) {
     toast({
@@ -89,7 +99,7 @@ const HomeCarousel = () => {
       description: "Failed to load carousel slides. Please try again later.",
       variant: "destructive",
     });
-    
+
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
         <div className="text-center space-y-4">
@@ -102,8 +112,8 @@ const HomeCarousel = () => {
             <h3 className="text-lg font-semibold text-gray-900">Unable to load carousel</h3>
             <p className="text-sm text-gray-500 mt-1">Something went wrong while loading the slides.</p>
           </div>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
           >
             Try again

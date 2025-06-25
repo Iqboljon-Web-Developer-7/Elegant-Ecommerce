@@ -3,14 +3,14 @@ import { client } from "@/utils/Client";
 import { SANITY_SLIDES_QUERY } from "@/utils/Data";
 import { SlideType } from "@/lib/types";
 
-const fetchSlides = async (): Promise<SlideType[]> => {
-  return await client.fetch(SANITY_SLIDES_QUERY);
+export const fetchSlides = async (media:string): Promise<SlideType[]> => {
+  return await client.fetch(SANITY_SLIDES_QUERY(media));
 };
 
-export const useSlides = () => {
+export const useSlides = (media:string) => {
   return useQuery({
     queryKey: ["slides"],
-    queryFn: () => fetchSlides(),
-    refetchInterval: 600000,
+    queryFn: () => fetchSlides(media as string),
+    staleTime: 30 * 60 * 1000 // 0.5 hour    
   });
 };

@@ -9,7 +9,11 @@ export const SANITY_REGISTER_USER = (user: UserType) => {
   return `*[_type == "user" && username == '${user.username}']`;
 };
 
-export const SANITY_SLIDES_QUERY = `*[_type == "carousel"]`;
+export const SANITY_SLIDES_QUERY = (media: string) => {
+  console.log(media);
+  
+  return `*[_type == "carousel" && media == '${media}']`
+}
 
 export const SANITY_COLLECTIONS_QUERY = `*[_type == "collection"] | order(_createdAt)`;
 

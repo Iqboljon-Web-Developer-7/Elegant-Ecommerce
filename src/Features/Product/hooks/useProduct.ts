@@ -3,7 +3,7 @@ import { client } from "@/utils/Client";
 import { SANITY_PRODUCT_QUERY } from "@/utils/Data";
 import { ProductType } from "@/lib/types";
 
-const fetchProduct = async (id: string): Promise<ProductType> => {
+export const fetchProduct = async (id: string): Promise<ProductType> => {
   return await client.config({ useCdn: false }).fetch(SANITY_PRODUCT_QUERY(id));
 };
 

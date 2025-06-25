@@ -16,20 +16,16 @@ import { useProducts } from "@/Features/Home/hook/Products/useProducts";
 import { useSelector } from "react-redux";
 
 interface reduxStore  {
-  homePageData:{
+  HomePageData:{
     isShopCollectionInView: boolean
   }
 }
 
 const Products: FC<{ category?: string }> = ({ category }) => {
-  // const [mainRef, inView] = useInView({ triggerOnce: true});
   console.log(category);
   const { toast } = useToast();
 
-
-
-  const isShopCollectionInView = useSelector((state:reduxStore) => state?.homePageData?.isShopCollectionInView)
-
+  const isShopCollectionInView = useSelector((state:reduxStore) => state.HomePageData?.isShopCollectionInView)
   const { data: products, isLoading, isError, error } = useProducts(isShopCollectionInView)
 
   if (isError) {
