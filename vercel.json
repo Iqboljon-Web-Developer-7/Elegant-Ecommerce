@@ -1,20 +1,18 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ],
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node"
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/$1"
     }
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "env": {
-    "PUPPETEER_CACHE_DIR": "/tmp/puppeteer"
-  }
+  "framework": "vite"
 }
