@@ -6,6 +6,7 @@ import emailIcon from "@/assets/icons/mail.svg";
 import phoneIcon from "@/assets/icons/phone.svg";
 import Features from "@/Features/Home/_components/Features";
 import { ContactForm } from "./ContactForm";
+import { Helmet } from "react-helmet-async";
 
 const ContactUs = () => {
   const features = [
@@ -28,6 +29,12 @@ const ContactUs = () => {
 
   return (
     <>
+      <>
+        <Helmet>
+          <title>Contact Us | Elegant</title>
+          <meta name="description" content="Tell us about your idea, report and whatever" />
+        </Helmet>
+      </>
       <div className="container-xl">
         <div className="breadcrumb mt-4 text-sm inter">
           <span className="text-slate-600">Home {">"}</span> &nbsp; Contact Us

@@ -73,25 +73,6 @@ const Product: FC = () => {
     ? allImages.filter((img) => img.color === selectedVariant.color)
     : allImages;
 
-  // if (isLoading) {
-  //   return (
-  //     <>
-  //       <Helmet>
-  //         <title>Loading Product...</title>
-  //         <meta name="description" content="Loading product details..." />
-  //         <meta property="og:title" content="Loading Product..." />
-  //         <meta property="og:description" content="Loading product details..." />
-  //         <meta property="og:type" content="product" />
-  //         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
-  //         <meta name="twitter:card" content="summary_large_image" />
-  //         <meta name="twitter:title" content="Loading Product..." />
-  //         <meta name="twitter:description" content="Loading product details..." />
-  //       </Helmet>
-  //       <div>Loading...</div>
-  //     </>
-  //   );
-  // }
-
   if (isError) {
     toast({
       description: "Failed to fetch product data.",
@@ -100,26 +81,22 @@ const Product: FC = () => {
     return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
   }
 
-    // if (!productData) {
-    //   return null;
-    // }
-
   return (
     <>
       <Helmet>
         <title>{title}</title>
-        {description && <meta name="description" content={description.slice(0, 80)} />}
+        {<meta name="description" content={description?.slice(0, 80)} />}
         <meta property="og:title" content={title} />
-        {description && <meta property="og:description" content={description.slice(0, 80)} />}
+        {<meta property="og:description" content={description?.slice(0, 80)} />}
         <meta property="og:type" content="product" />
         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
-        {filteredImages?.[0]?.src && (
+        {(
           <meta property="og:image" content={urlFor(filteredImages[0].src)} />
         )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
-        {description && <meta name="twitter:description" content={description.slice(0, 80)} />}
-        {filteredImages?.[0]?.src && (
+        {<meta name="twitter:description" content={description?.slice(0, 80)} />}
+        {(
           <meta name="twitter:image" content={urlFor(filteredImages[0].src)} />
         )}
       </Helmet>
