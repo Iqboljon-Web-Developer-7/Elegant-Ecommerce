@@ -4,10 +4,10 @@ import { createClient } from '@sanity/client';
 
 const client = createClient({
   projectId: 'kvpqppgu',
-  apiVersion: '2023-05-03', // Stable version to fix experimental warning
+  apiVersion: 'vX', // Stable version to fix experimental warning
   dataset: 'production',
   useCdn: false,
-  token: process.env.VITE_SANITY_USER_TOKEN, // Use secure env variable
+  token: import.meta.env.VITE_SANITY_USER_TOKEN, // Use secure env variable
 });
 
 async function generateRoutes() {

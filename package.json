@@ -6,8 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "prerender": "node prerender.mjs",
-    "postbuild": "npm run prerender && react-snap",
     "preview": "vite preview"
   },
   "reactSnap": {
