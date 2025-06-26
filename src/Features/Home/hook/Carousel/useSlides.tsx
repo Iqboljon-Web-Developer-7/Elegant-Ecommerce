@@ -9,7 +9,7 @@ export const fetchSlides = async (media:string): Promise<SlideType[]> => {
 
 export const useSlides = (media:string) => {
   return useQuery({
-    queryKey: ["slides"],
+    queryKey: ["slides", media],
     queryFn: () => fetchSlides(media as string),
     staleTime: 30 * 60 * 1000 // 0.5 hour    
   });
