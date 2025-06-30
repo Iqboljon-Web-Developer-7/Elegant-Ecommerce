@@ -78,6 +78,7 @@ const ProductData: FC<ProductDataProps> = ({
     return (
       <VariantsComponent
         variants={variants}
+        selectedParamColor={selectedParamColor!}
         selectedVariant={selectedParamVariant!}
         changeParam={changeParam}
       />

@@ -16,50 +16,51 @@ const ColorsComponent: FC<{
   changeParam,
   images,
 }) => {
-  const availableColors = variants
-    .filter((variant) => variant.title === selectedVariant)
-    .map((variant) => variant.color);
+    const availableVariant = variants
+      .filter((variant) => variant.title === selectedVariant)
+      .map((variant) => ({ title: variant.title, stock: variant.stock, color: variant.color }))[0]
 
-  return (
-    <>
-      {colors.map((color, index) => {
-        const imageRef = images.find((img) => img.color === color.name)
-          ?.images[0]?.src
+    return (
+      <>
+        {colors.map((color, index) => {
+          const imageRef = images.find((img) => img.color === colors[index]?.name)
+            ?.images[0]?.src
 
-        const isAvailable = availableColors.includes(color.name);
-        if (isAvailable) {
-          setTimeout(() => {
-            changeParam("color", color.name, true);
-          }, 0);
-        }
+          const isAvailable = availableVariant?.color == colors[index]?.name
+          if (isAvailable) {
+            setTimeout(() => {
+              changeParam("color", colors[index]?.name, true);
+            }, 0);
+          }
 
-        return (
-          <div key={index} className="flex flex-wrap gap-4 p-2">
-            <img
-              src={imageRef ? urlFor(imageRef).width(100).height(100).toString() : ""}
-              alt={`${color.name} product`}
-              width={64}
-              height={64}
-              className={`w-16 h-16 border ${
-                color.name === selectedParamColor
+          return (
+            <div key={index} className="flex flex-wrap gap-4 p-2">
+              <img
+                src={imageRef ? urlFor(imageRef).width(100).height(100).toString() : ""}
+                alt={`${colors[index]?.name} product`}
+                width={64}
+                height={64}
+                className={`w-16 h-16 border ${colors[index]?.name === selectedParamColor
                   ? "border-black"
                   : "border-transparent"
-              } hover:p-[.1rem] duration-200 cursor-pointer ${
-                !isAvailable ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              title={
-                !isAvailable ? "Not available for the selected variant" : ""
-              }
-              onClick={() => {
-                // if (isAvailable) 
-                  changeParam("color", color.name, true);
-              }}
-            />
-          </div>
-        );
-      })}
-    </>
-  );
-};
+                  } hover:p-[.1rem] duration-200 cursor-pointer ${!isAvailable ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                title={
+                  !isAvailable ? "Not available for the selected variant" : ""
+                }
+                onClick={() => {
+                  let availableVariant = variants.filter((variant) => variant.color === colors[index].name && variant.stock > 0)[0]?.title
+                  if(availableVariant){
+
+                    changeParam("variant", availableVariant, true);
+                  }
+                }}
+              />
+            </div>
+          );
+        })}
+      </>
+    );
+  };
 
 export default ColorsComponent;

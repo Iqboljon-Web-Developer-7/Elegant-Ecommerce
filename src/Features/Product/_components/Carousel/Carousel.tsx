@@ -28,7 +28,7 @@ const Carousel: FC<ProductCarouselType> = ({
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
 
-  const {price, salePrice, color} = selectedVariant || {}
+  const { price, salePrice, color } = selectedVariant || {}
 
   const discountAmount = discount(price, salePrice)
 
@@ -40,7 +40,7 @@ const Carousel: FC<ProductCarouselType> = ({
   }, [color]);
 
   useEffect(() => {
-    const handleKeyDown = ({key}: KeyboardEvent) => {
+    const handleKeyDown = ({ key }: KeyboardEvent) => {
       const swiper = mainSwiperRef.current?.swiper;
       if (!swiper) return;
       key === "ArrowLeft" ? swiper.slidePrev() : key === "ArrowRight" && swiper.slideNext();
@@ -49,6 +49,43 @@ const Carousel: FC<ProductCarouselType> = ({
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+
+  /**
+   * Reason: Sanity image URLs can include a `rect` parameter that defines a manual crop area.
+   * When generating image previews or manipulating URLs, we sometimes need to override this `rect`
+   * — but only if it already exists in the URL.
+   *
+   * This function ensures:
+   * - The `rect` parameter is only updated, never added if missing (to avoid unintended cropping).
+   * - The crop dimensions do not exceed the actual image size, which is extracted from the URL itself.
+   *
+   * Why? Sanity stores image dimensions in the URL (e.g. -453x1080), and using a `rect` larger than 
+   * the image causes broken or distorted results. This function guarantees safe cropping behavior
+   * without accidentally affecting full-size images that shouldn't be cropped.
+ */
+  function updateSanityRect(url: string, { left, top, width, height }: { left: number; top: number; width: number; height: number }) {
+    const u = new URL(url);
+    const params = u.searchParams;
+
+    if (!params.has("rect")) {
+      return url; // leave untouched
+    }
+
+    const match = u.pathname.match(/-(\d+)x(\d+)\.\w+$/);
+    const originalWidth = match ? parseInt(match[1], 10) : null;
+    const originalHeight = match ? parseInt(match[2], 10) : null;
+
+    const finalWidth = originalWidth && width > originalWidth ? originalWidth : width;
+    const finalHeight = originalHeight && height > originalHeight ? originalHeight : height;
+
+    params.set("rect", `${left},${top},${finalWidth},${finalHeight}`);
+
+    return u.toString();
+  }
+
+
+
 
   return (
     <PhotoProvider>
@@ -80,12 +117,17 @@ const Carousel: FC<ProductCarouselType> = ({
           {filteredImages?.length ? (
             filteredImages?.map((image, idx) => (
               <SwiperSlide key={image.src}>
-                <PhotoView src={urlFor(image.src).toString()}>
+                <PhotoView src={urlFor(image.src).url()}>
                   <img
-                    className="max-w-[36.5rem] max-h-[36.5rem] mx-auto rounded-md animate-fade-in-scale duration-300"
-                    width={2000}
-                    height={2000}
-                    src={urlFor(image.src).width(600).height(600).toString()}
+                    className="max-w-[36.5rem] aspect-[1/1] max-h-[36.5rem] h-full w-full object-scale-down mx-auto rounded-md animate-fade-in-scale duration-300"
+                    width={600}
+                    height={600}
+                    src={updateSanityRect(urlFor(image.src).width(600).height(600).auto("format").url(), {
+                      left: 0,
+                      top: 0,
+                      width: 600,
+                      height: 600
+                    })}
                     loading="lazy"
                     alt={`Image ${idx + 1}`}
                   />
