@@ -355,3 +355,14 @@ h6 {
 /* SV: SimpleHeading end*/
 
 /* Style variables end */
+
+/* In your global CSS or Tailwind config */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+}

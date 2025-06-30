@@ -102,9 +102,9 @@ export interface ProductCarouselType {
 export interface ProductDataProps {
   productData?: ProductType;
   selectedVariant: ProductVariantType;
-  productColor: string | null;
-  productVariant: string | null;
-  productQuantity: number;
+  selectedParamColor: string | null;
+  selectedParamVariant: string | null;
+  selectedParamQuantity: number;
 }
 
 // Styled link

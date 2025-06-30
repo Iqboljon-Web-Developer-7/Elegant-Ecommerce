@@ -13,26 +13,29 @@ import ColorsComponent from "./Colors/Colors";
 import VariantsComponent from "./Variants/Variants";
 import useWishlist from "./Wishlist/Wishlist";
 import useChangeParam from "@/hooks/useChangeParam";
+import { Input } from "@/components/ui/input";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
+  selectedParamColor,
+  selectedParamVariant,
+  selectedParamQuantity,
   selectedVariant,
-  productColor,
-  productVariant,
-  productQuantity,
 }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { changeParam } = useChangeParam()
+
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
-  
-  const {changeParam} = useChangeParam()
+
+  const { _id, variants, colors, images, sku, categories, title, description } = productData || {}
 
   // Use custom wishlist hook if user and product data exist
   const { isInWishlist, isLoading, saveWishlist, removeWishlist } = useWishlist(
     userInfo?._id,
-    productData?._id!,
-    productColor!,
-    productVariant!
+    _id!,
+    selectedParamColor!,
+    selectedParamVariant!
   );
 
   const requireLogin = useCallback(() => {
@@ -71,41 +74,41 @@ const ProductData: FC<ProductDataProps> = ({
   }, [requireLogin, removeWishlist]);
 
   const Variants = useMemo(() => {
-    if (!productData?.variants) return null;
+    if (!variants) return null;
     return (
       <VariantsComponent
-        variants={productData.variants}
-        selectedVariant={productVariant!}
+        variants={variants}
+        selectedVariant={selectedParamVariant!}
         changeParam={changeParam}
       />
     );
-  }, [productData, productVariant, changeParam]);
+  }, [productData, selectedParamVariant, changeParam]);
 
   const Colors = useMemo(() => {
-    if (!productData?.colors) return null;
+    if (!colors) return null;
     return (
       <ColorsComponent
-        colors={productData.colors}
-        variants={productData.variants}
-        productVariant={productVariant!}
-        productColor={productColor!}
+        colors={colors}
+        variants={variants!}
+        selectedVariant={selectedParamVariant!}
+        selectedParamColor={selectedParamColor!}
         changeParam={changeParam}
-        images={productData.images}
+        images={images!}
       />
     );
-  }, [productData, productVariant, productColor, changeParam]);
+  }, [productData, selectedParamVariant, selectedParamColor, changeParam]);
 
   const Categories = useMemo(() => {
-    if (!productData?.categories) return null;
-    return <CategoriesComponent categories={productData.categories} />;
+    if (!categories) return null;
+    return <CategoriesComponent categories={categories} />;
   }, [productData]);
 
   if (!productData) return <InfoLoadingSkeleton />;
 
   return (
     <div className="singleProduct__top--texts flex-grow self-stretch flex flex-col gap-6">
-      <h4 className="text-neutral-700">{productData.title}</h4>
-      <p className="text-neutral-400 inter text-sm lg:text-base">{productData.description}</p>
+      <h4 className="text-neutral-700">{title}</h4>
+      <p className="text-neutral-400 inter text-sm lg:text-base">{description}</p>
       <div className="flex items-center gap-3">
         <h6>${selectedVariant?.salePrice}</h6>
         <span className="text-[1.25rem] line-through text-neutral-400">${selectedVariant?.price}</span>
@@ -115,7 +118,7 @@ const ProductData: FC<ProductDataProps> = ({
       <div className="colors flex mt-2 gap-2 flex-wrap">
         <div>
           <p className="text-sm text-neutral-400">Choose Color {">"}</p>
-          <p className="mt-2 capitalize">{productColor}</p>
+          <p className="mt-2 capitalize">{selectedParamColor}</p>
           <div className="flex mt-4 gap-2">{Colors}</div>
         </div>
         <div>
@@ -125,19 +128,34 @@ const ProductData: FC<ProductDataProps> = ({
       </div>
       <div className="user-collections flex flex-col gap-4 mt-4">
         <div className="flex items-center justify-between gap-6">
-          <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg">
+          <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg gap-3">
             <Button
               onClick={() => {
-                if (productQuantity > 1) changeParam("quantity", productQuantity - 1, true);
+                if (selectedParamQuantity > 1) changeParam("quantity", selectedParamQuantity - 1, true);
               }}
               className="bg-transparent shadow-none text-black group"
             >
               <span className="group-hover:text-white">-</span>
             </Button>
-            <span className="px-3">{productQuantity}</span>
+            <Input type="number" className="text-center no-spinner"
+              value={selectedParamQuantity}
+              onChange={(e) => {
+                const amount = +e.target.value;
+
+                if (amount >= 0) {
+                    if (amount > selectedVariant?.stock) {
+                      changeParam("quantity", selectedVariant?.stock, true);
+                    } else {
+                      changeParam("quantity", +e.target.value, true);
+                    }
+                  } else {
+                    changeParam("quantity", 1, true);
+                  }
+              }}
+            />
             <Button
               onClick={() => {
-                if (productQuantity < selectedVariant?.stock) changeParam("quantity", productQuantity + 1, true);
+                if (selectedParamQuantity < selectedVariant?.stock) changeParam("quantity", selectedParamQuantity + 1, true);
               }}
               className="bg-transparent shadow-none text-black group"
             >
@@ -169,7 +187,7 @@ const ProductData: FC<ProductDataProps> = ({
       <div className="border-t pt-6 mt-2 inter text-xs flex flex-col gap-2">
         <div className="flex">
           <p className="text-neutral-400 min-w-32">SKU</p>
-          <p>{selectedVariant?.sku || productData.sku}</p>
+          <p>{selectedVariant?.sku || sku}</p>
         </div>
         <div className="flex">
           <p className="text-neutral-400 min-w-32">CATEGORY</p>

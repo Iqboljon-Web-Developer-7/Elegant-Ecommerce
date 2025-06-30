@@ -4,20 +4,20 @@ import { FC } from "react";
 const ColorsComponent: FC<{
   colors: any[];
   variants: any[];
-  productVariant: string;
-  productColor: string;
+  selectedVariant: string;
+  selectedParamColor: string;
   changeParam: (key: string, value: any, replace: boolean) => void;
   images: any[];
 }> = ({
   colors,
   variants,
-  productVariant,
-  productColor,
+  selectedVariant,
+  selectedParamColor,
   changeParam,
   images,
 }) => {
   const availableColors = variants
-    .filter((variant) => variant.title === productVariant)
+    .filter((variant) => variant.title === selectedVariant)
     .map((variant) => variant.color);
 
   return (
@@ -25,6 +25,7 @@ const ColorsComponent: FC<{
       {colors.map((color, index) => {
         const imageRef = images.find((img) => img.color === color.name)
           ?.images[0]?.src
+
         const isAvailable = availableColors.includes(color.name);
         if (isAvailable) {
           setTimeout(() => {
@@ -40,7 +41,7 @@ const ColorsComponent: FC<{
               width={64}
               height={64}
               className={`w-16 h-16 border ${
-                color.name === productColor
+                color.name === selectedParamColor
                   ? "border-black"
                   : "border-transparent"
               } hover:p-[.1rem] duration-200 cursor-pointer ${
@@ -50,7 +51,8 @@ const ColorsComponent: FC<{
                 !isAvailable ? "Not available for the selected variant" : ""
               }
               onClick={() => {
-                if (isAvailable) changeParam("color", color.name, true);
+                // if (isAvailable) 
+                  changeParam("color", color.name, true);
               }}
             />
           </div>

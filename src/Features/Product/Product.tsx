@@ -20,25 +20,19 @@ import { urlFor } from "@/utils/Client";
 import { useToast } from "@/hooks/use-toast";
 
 const Product: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { data: productData, isError } = useProduct(id);
 
   const { variants, title, images, _createdAt, description } = productData || {};
 
-  const { color: productColor, variant: productVariant, quantity: productQuantity } =
+  const { color: selectedParamColor, variant: selectedParamVariant, quantity: selectedParamQuantity } =
     Object.fromEntries(searchParams);
 
-  const selectedVariant = variants?.find((variant) => variant.title === productVariant);
-
-  if (selectedVariant && +productQuantity > selectedVariant.stock) {
-    setSearchParams({
-      "quantity": selectedVariant.stock.toString(),
-    },
-      { replace: true }
-    )
-  }
+  const selectedVariant = variants?.find((variant) => variant.title === selectedParamVariant);
 
   const allImages = images?.flatMap((variation) =>
     variation.images?.map((item) => ({
@@ -47,28 +41,21 @@ const Product: FC = () => {
     })) ?? []
   ) ?? [];
 
-  const filteredImages = selectedVariant?.color
-    ? allImages.filter((img) => img.color === selectedVariant.color)
-    : allImages;
+  const filteredImages = allImages?.filter((img) => img.color === selectedVariant?.color)
 
-  if (isError) {
-    toast({
-      description: "Failed to fetch product data.",
-      variant: "destructive",
-    });
-    return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
+  // if input value (30) is more than new selected product quantity (20) input value is set to product quantity(20)
+  if (selectedVariant && +selectedParamQuantity > selectedVariant.stock) {
+    setSearchParams({
+      "quantity": selectedVariant.stock.toString(),
+    },
+      { replace: true }
+    )
   }
 
   useEffect(() => {
-    if (!productData) return;
+    const { color, title } = variants?.find((variant) => variant.stock > 0) || {}
 
-    const firstAvailableVariant = productData?.variants?.find((variant) =>
-      productData.colors.some((color) => color.name === variant.color && variant.stock > 0)
-    );
-
-    const { color, title } = firstAvailableVariant!
-
-    if (firstAvailableVariant) {
+    if (color && title) {
       setSearchParams(
         {
           color,
@@ -78,7 +65,15 @@ const Product: FC = () => {
         { replace: true }
       );
     }
-  }, []);
+  }, [productData]);
+
+  if (isError) {
+    toast({
+      description: "Failed to fetch product data.",
+      variant: "destructive",
+    });
+    return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
+  }
 
   return (
     <>
@@ -122,10 +117,10 @@ const Product: FC = () => {
         <div className="main-info pt-4 mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           <Carousel createdAt={_createdAt} selectedVariant={selectedVariant!} filteredImages={filteredImages} />
           <ProductData
-            productColor={productColor}
             productData={productData}
-            productQuantity={+productQuantity}
-            productVariant={productVariant}
+            selectedParamColor={selectedParamColor}
+            selectedParamVariant={selectedParamVariant}
+            selectedParamQuantity={+selectedParamQuantity}
             selectedVariant={selectedVariant!}
           />
         </div>
