@@ -65,7 +65,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
       type="button"
       {...restProps}
     >
-      <GoArrowLeft className="group-disabled:opacity-60" size={26} />
+      <GoArrowLeft className="group-disabled:opacity-60 md:text-xl lg:text-2xl"  />
       {children}
     </button>
   );
@@ -80,7 +80,7 @@ export const NextButton: React.FC<PropType> = (props) => {
       type="button"
       {...restProps}
     >
-      <GoArrowRight className="group-disabled:opacity-60" size={26} />
+      <GoArrowRight className="group-disabled:opacity-60 md:text-xl lg:text-2xl" />
       {children}
     </button>
   );

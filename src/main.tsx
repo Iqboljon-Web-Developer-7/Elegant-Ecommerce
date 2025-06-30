@@ -1,48 +1,43 @@
-import { createRoot, hydrateRoot } from "react-dom/client";
-import { StrictMode, lazy } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { StrictMode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-
-import "@/styles/index.css";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/index.ts";
 
-import App from "./App.tsx";
+import "@/styles/index.css";
 
-const Toaster = lazy(() =>
-  import("@/components/ui/toaster").then((module) => ({
-    default: module.Toaster,
-  }))
-);
+import App from "./App.tsx";
+import { Toaster } from "@/components/ui/toaster";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 30 * 60 * 1000, // 30 minutes
       refetchOnWindowFocus: false,
-      retry: 1,
+      retry: 2,
     },
   },
 });
 
-const rootElement = document.getElementById("root");
 const app = (
-  <StrictMode>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Provider store={store}>
+  // <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Provider store={store}>
+          <HelmetProvider>
             <App />
-          </Provider>
-          <Toaster />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </HelmetProvider>
-  </StrictMode>
+            <Toaster />
+          </HelmetProvider>
+        </Provider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  // </StrictMode>
 );
 
+const rootElement = document.getElementById("root")
 if (rootElement?.hasChildNodes()) {
   hydrateRoot(rootElement, app);
 } else if (rootElement) {

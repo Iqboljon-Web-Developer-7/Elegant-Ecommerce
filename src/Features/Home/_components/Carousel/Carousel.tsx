@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import "./styles.css";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import {
   NextButton,
   PrevButton,
@@ -15,8 +15,7 @@ import { urlFor } from "@/utils/Client";
 import { EmblaCarouselType } from "embla-carousel";
 import { useToast } from "@/hooks/use-toast";
 
-const prefetchSlides = async (queryClient: any) => {
-  queryClient = new queryClient
+const prefetchSlides = async (queryClient: QueryClient) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['slides'],
@@ -26,11 +25,12 @@ const prefetchSlides = async (queryClient: any) => {
 };
 
 const HomeCarousel = () => {
+  const queryClient = useQueryClient()
   useEffect(() => {
-    prefetchSlides(QueryClient)
+    prefetchSlides(queryClient)
   }, [])
+  const media = !window.matchMedia("(min-width: 768px)").matches ? "mobile" : "desktop"
 
-  const [media, setMedia] = useState("desktop")
   const { data: slides = [], isLoading, isError } = useSlides(media)
 
   const [slidesInView, setSlidesInView] = useState<number[]>([]);
@@ -72,13 +72,11 @@ const HomeCarousel = () => {
           aria-label={`indicator button ${index + 1}`}
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={`w-3 h-3 rounded-full bg-white transition-all shadow shadow-slate-400 hover:cursor-pointer${index === selectedIndex ? " !w-10" : ""
-            }`}
+          className={`w-3 h-3 rounded-full bg-white dark:bg-gray-300 transition-all shadow shadow-slate-400 hover:cursor-pointer${index === selectedIndex ? " !w-10" : ""}`}
         />
       )),
     [scrollSnaps, selectedIndex, onDotButtonClick]
   );
-
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -86,11 +84,6 @@ const HomeCarousel = () => {
     emblaApi.on("slidesInView", updateSlidesInView);
     emblaApi.on("reInit", updateSlidesInView);
   }, [emblaApi, updateSlidesInView]);
-
-
-  useLayoutEffect(() => {
-    setMedia(window.innerWidth < 768 ? "mobile" : "desktop")
-  }, [])
 
   if (isLoading) return <PlaceholderSlide />;
   if (isError) {
@@ -101,7 +94,7 @@ const HomeCarousel = () => {
     });
 
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+      <div className="flex flex-col items-center justify-center min-h-[400px] bg-gray-50 dark:bg-gray-900 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700">
         <div className="text-center space-y-4">
           <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,12 +102,12 @@ const HomeCarousel = () => {
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Unable to load carousel</h3>
-            <p className="text-sm text-gray-500 mt-1">Something went wrong while loading the slides.</p>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Unable to load carousel</h3>
+            <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">Something went wrong while loading the slides.</p>
           </div>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+            className="px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white rounded-md hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors text-sm font-medium"
           >
             Try again
           </button>
@@ -130,14 +123,14 @@ const HomeCarousel = () => {
         <div className="embla__container">
           {Slides.length === 0 ? (
             <div className="flex flex-col items-center justify-center min-h-[300px] text-center space-y-4 mx-auto">
-              <div className="w-12 h-12 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-medium text-gray-900">No slides available</h3>
-                <p className="text-sm text-gray-500 mt-1">There are currently no slides to display.</p>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No slides available</h3>
+                <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">There are currently no slides to display.</p>
               </div>
             </div>
           ) : (
@@ -149,13 +142,13 @@ const HomeCarousel = () => {
         <div className="embla__buttons">
           <PrevButton
             aria-label="prev-button"
-            className="carouselBtn left-8 group"
+            className="carouselBtn left-4 md:left-5 lg:left-6 group"
             onClick={onPrevButtonClick}
             disabled={prevBtnDisabled}
           />
           <NextButton
             aria-label="next-button"
-            className="carouselBtn right-8 group"
+            className="carouselBtn right-4 md:right-5 lg:right-6 group"
             onClick={onNextButtonClick}
             disabled={nextBtnDisabled}
           />

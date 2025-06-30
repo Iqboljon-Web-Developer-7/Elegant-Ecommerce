@@ -6,7 +6,7 @@ const ColorsComponent: FC<{
   variants: any[];
   productVariant: string;
   productColor: string;
-  changeParam: (key: string, value: any) => void;
+  changeParam: (key: string, value: any, replace: boolean) => void;
   images: any[];
 }> = ({
   colors,
@@ -24,18 +24,18 @@ const ColorsComponent: FC<{
     <>
       {colors.map((color, index) => {
         const imageRef = images.find((img) => img.color === color.name)
-          ?.images[0]?.image.asset._ref;
+          ?.images[0]?.src
         const isAvailable = availableColors.includes(color.name);
         if (isAvailable) {
           setTimeout(() => {
-            changeParam("color", color.name);
+            changeParam("color", color.name, true);
           }, 0);
         }
 
         return (
           <div key={index} className="flex flex-wrap gap-4 p-2">
             <img
-              src={imageRef ? urlFor(imageRef).toString() : ""}
+              src={imageRef ? urlFor(imageRef).width(100).height(100).toString() : ""}
               alt={`${color.name} product`}
               width={64}
               height={64}
@@ -50,7 +50,7 @@ const ColorsComponent: FC<{
                 !isAvailable ? "Not available for the selected variant" : ""
               }
               onClick={() => {
-                if (isAvailable) changeParam("color", color.name);
+                if (isAvailable) changeParam("color", color.name, true);
               }}
             />
           </div>

@@ -18,6 +18,7 @@ import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { discount, isNew } from "@/utils/Shared";
 
 const Carousel: FC<ProductCarouselType> = ({
   createdAt,
@@ -27,62 +28,40 @@ const Carousel: FC<ProductCarouselType> = ({
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const mainSwiperRef = useRef<any>();
 
-  const isNew = () => {
-    const CreatedAt = new Date(createdAt!);
-    const now = new Date();
-    const diffInMonths =
-      (now.getFullYear() - CreatedAt.getFullYear()) * 12 +
-      now.getMonth() -
-      CreatedAt.getMonth();
-    return diffInMonths < 6;
-  };
-  const discount = () =>
-    selectedVariant
-      ? Math.round(
-        ((selectedVariant.price - selectedVariant.salePrice) /
-          selectedVariant.price) *
-        100
-      )
-      : null;
+  const {price, salePrice, color} = selectedVariant || {}
 
-  // Slide to the first relevant image when selectedVariant changes
+  const discountAmount = discount(price, salePrice)
+
   useEffect(() => {
     if (mainSwiperRef.current && filteredImages.length > 0) {
       const swiper = mainSwiperRef.current.swiper;
       swiper.slideTo(0);
     }
-  }, [selectedVariant?.color]);
+  }, [color]);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (mainSwiperRef.current) {
-        const swiper = mainSwiperRef.current.swiper;
-        if (event.key === "ArrowLeft") {
-          swiper.slidePrev();
-        } else if (event.key === "ArrowRight") {
-          swiper.slideNext();
-        }
-      }
+    const handleKeyDown = ({key}: KeyboardEvent) => {
+      const swiper = mainSwiperRef.current?.swiper;
+      if (!swiper) return;
+      key === "ArrowLeft" ? swiper.slidePrev() : key === "ArrowRight" && swiper.slideNext();
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   return (
     <PhotoProvider>
       <div className="w-full h-full relative">
         <div className="product__main--status absolute top-4 left-4 flex flex-col gap-2 text-base text-center z-10">
-          {isNew() && (
+          {isNew(createdAt!) && (
             <p className="px-3 rounded-md bg-white font-semibold shadow-md">
               NEW
             </p>
           )}
-          {discount !== null && discount()! > 0 && (
+          {discount !== null && discountAmount! > 0 && (
             <p className="px-3 rounded-sm bg-secondary-green text-white font-medium shadow-md">
-              {`-${discount()}%`}
+              {`-${discountAmount}%`}
             </p>
           )}
         </div>
@@ -106,7 +85,7 @@ const Carousel: FC<ProductCarouselType> = ({
                     className="max-w-[36.5rem] max-h-[36.5rem] mx-auto rounded-md animate-fade-in-scale duration-300"
                     width={2000}
                     height={2000}
-                    src={urlFor(image.src).toString()}
+                    src={urlFor(image.src).width(600).height(600).toString()}
                     loading="lazy"
                     alt={`Image ${idx + 1}`}
                   />
@@ -152,7 +131,7 @@ const Carousel: FC<ProductCarouselType> = ({
                   loading="lazy"
                   width={140}
                   height={140}
-                  src={urlFor(image.src).toString()}
+                  src={urlFor(image.src).width(200).height(200).toString()}
                   alt={`Thumbnail ${idx + 1}`}
                 />
               </SwiperSlide>

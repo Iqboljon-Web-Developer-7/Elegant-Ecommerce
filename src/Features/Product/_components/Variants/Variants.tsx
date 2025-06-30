@@ -3,7 +3,7 @@ import { FC } from "react";
 const VariantsComponent: FC<{
     variants: any[];
     selectedVariant: string;
-    changeParam: (key: string, value: any) => void;
+    changeParam: (key: string, value: any, replace:boolean) => void;
   }> = ({ variants, selectedVariant, changeParam }) => {
     return (
       <>
@@ -16,7 +16,7 @@ const VariantsComponent: FC<{
               className={`py-1 px-2 border rounded-lg text-sm lg:text-base cursor-pointer ${isActive ? "border-black" : "border-gray-300"
                 } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : "hover:border-black"} transition`}
               onClick={() => {
-                if (!isOutOfStock) changeParam("variant", variant.title);
+                if (!isOutOfStock) changeParam("variant", variant.title, true);
               }}
               title={isOutOfStock ? "Out of stock" : ""}
             >

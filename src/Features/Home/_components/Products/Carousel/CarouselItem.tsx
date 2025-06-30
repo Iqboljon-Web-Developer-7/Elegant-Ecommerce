@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { urlFor } from "@/utils/Client";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import { useProductInWishlist } from "@/Features/Home/hook/Products/use-product-
 import { useWishlistActions } from "@/Features/Home/hook/Products/use-wishlist-actions";
 import { useQueryClient } from "@tanstack/react-query";
 import { fetchProduct } from "@/Features/Product/hooks/useProduct";
+import { discount, isNew } from "@/utils/Shared";
 
 export interface WishlistItem {
   _key: string;
@@ -27,7 +28,6 @@ export interface Wishlist {
   name: string;
   items: WishlistItem[];
 }
-
 
 const CarouselItem = ({ product }: { product: ProductType }) => {
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
@@ -52,8 +52,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
 
   const {
     isInWishlist,
-    // isLoading: wishlistLoading,
-    // error: wishlistError,
   } = useProductInWishlist(userInfo?._id, product._id);
 
   const { addToWishlist, removeFromWishlist } = useWishlistActions();
@@ -61,8 +59,8 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const getImageUrl = useCallback(
     (product: ProductType, index: number): string => {
       const images = product?.images[0]?.images || [];
-      const imageRef = images[index]?.image?.asset?._ref;
-      return urlFor(imageRef).width(230).height(230).url()
+      const imageRef = images[index]?.src;
+      return urlFor(imageRef).width(300).height(300).url()
     },
     []
   );
@@ -89,22 +87,6 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     },
     []
   );
-
-  const isNewProduct = useMemo(() => {
-    const createdAt = new Date(product._createdAt);
-    const now = new Date();
-    const diffInMonths =
-      (now.getFullYear() - createdAt.getFullYear()) * 12 +
-      now.getMonth() -
-      createdAt.getMonth();
-    return diffInMonths < 2;
-  }, [product._createdAt]);
-
-  const discountPercentage = useMemo(() => {
-    const price = product.variants[0].price;
-    const salePrice = product.variants[0].salePrice;
-    return Math.round(((price - salePrice) / price) * 100);
-  }, [product.variants]);
 
   const handleOpenProduct = useCallback(
     (event: React.MouseEvent<HTMLElement>, id: number) => {
@@ -223,12 +205,12 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
         </div>
 
         <div className="absolute left-4 top-4 flex flex-col gap-2 text-base text-center">
-          {isNewProduct && (
+          {isNew(product._createdAt) && (
             <p className="px-3 rounded-md bg-white font-semibold">NEW</p>
           )}
-          {discountPercentage > 0 && (
+          {discount(product.variants[0].price, product.variants[0].salePrice) > 0 && (
             <p className="px-3 rounded-sm bg-secondary-green text-white font-medium">
-              {`-${discountPercentage}%`}
+              {`-${discount(product.variants[0].price, product.variants[0].salePrice)}%`}
             </p>
           )}
         </div>

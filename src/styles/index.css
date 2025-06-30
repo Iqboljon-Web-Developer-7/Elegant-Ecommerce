@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme {
   --text-xl: 1.375rem;
   --text-2xl: 1.625rem;
@@ -70,14 +69,6 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
 
   *,
@@ -338,7 +329,7 @@ h6 {
 
 /* SV:Home Carousel */
 .carouselBtn {
-  @apply absolute top-[50%] hidden sm:flex h-11 w-11 translate-y-[-50%] items-center justify-center rounded-full md:flex hover:cursor-pointer disabled:cursor-not-allowed;
+  @apply absolute top-[50%] hidden sm:flex w-8 h-8 md:w-9 md:h-9 lg:h-11 lg:w-11 translate-y-[-50%] items-center justify-center rounded-full md:flex hover:cursor-pointer disabled:cursor-not-allowed;
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

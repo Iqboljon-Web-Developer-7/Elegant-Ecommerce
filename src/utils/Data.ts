@@ -10,8 +10,6 @@ export const SANITY_REGISTER_USER = (user: UserType) => {
 };
 
 export const SANITY_SLIDES_QUERY = (media: string) => {
-  console.log(media);
-  
   return `*[_type == "carousel" && media == '${media}']`
 }
 
@@ -31,12 +29,39 @@ export const SANITY_PRODUCTS_QUERY = (start = 0, end = 20) => {
     throw new Error('"start" cannot be greater than "end".');
   }
 
-  return `*[_type == "product"] | order(_id) [${start}...${end}]`;
+  return `*[_type == "product"] | order(_id) [${start}...${end}] {
+    _id,
+    variants,
+    title,
+    images[]{
+      color,
+      images[]{
+        _key,
+        "src": image.asset._ref
+      }
+    },
+    _createdAt,
+    description,
+    colors
+  }`;
 };
 
 export const SANITY_PRODUCT_QUERY = (id: string) => {
-  return `*[_type == "product" && _id == '${id}'][0]`;
-};
+  return `*[_type == "product" && _id == '${id}'][0]{
+   variants, 
+   title,
+   images[]{
+    color,
+    images[]{
+      _key,
+      "src": image.asset._ref
+    }
+   },
+   _createdAt,
+   description,
+   colors
+   }
+`;};
 
 export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;
 

@@ -1,8 +1,11 @@
 import { useEffect, FC } from "react";
-import { useToast } from "@/hooks/use-toast";
 import { useParams, useSearchParams } from "react-router-dom";
+
 import ProductData from "./_components/ProductData";
 import Carousel from "./_components/Carousel/Carousel";
+
+import { useProduct } from "./hooks/useProduct";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,13 +14,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useProduct } from "./hooks/useProduct";
-import { Helmet } from "react-helmet-async";
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "@/utils/Client";
 
-const builder = imageUrlBuilder(client);
-const urlFor = (source: string) => builder.image(source).url();
+import { Helmet } from "react-helmet-async";
+import { urlFor } from "@/utils/Client";
+import { useToast } from "@/hooks/use-toast";
 
 const Product: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,45 +30,23 @@ const Product: FC = () => {
   const { color: productColor, variant: productVariant, quantity: productQuantity } =
     Object.fromEntries(searchParams);
 
-  useEffect(() => {
-    if (!productData) return;
-    const firstAvailableVariant = productData?.variants?.find((variant) =>
-      productData.colors.some((color) => color.name === variant.color && variant.stock > 0)
-    );
-    if (firstAvailableVariant) {
-      setSearchParams(
-        {
-          color: firstAvailableVariant.color,
-          variant: firstAvailableVariant.title,
-          quantity: "1",
-        },
-        { replace: true }
-      );
-    }
-    window.scrollTo(0, 0);
-  }, [productData, setSearchParams]);
-
   const selectedVariant = variants?.find((variant) => variant.title === productVariant);
+
   if (selectedVariant && +productQuantity > selectedVariant.stock) {
-    setSearchParams(
-      {
-        quantity: selectedVariant.stock.toString(),
-      },
+    setSearchParams({
+      "quantity": selectedVariant.stock.toString(),
+    },
       { replace: true }
-    );
+    )
   }
 
-  const allImages = (() => {
-    let count = 0;
-    let array: { src: string; color: string }[] = [];
-    while ((images?.length ?? 0) > count) {
-      images?.[count]?.images?.forEach((item) => {
-        array.push({ src: item?.image?.asset?._ref, color: images?.[count]?.color });
-      });
-      count++;
-    }
-    return array;
-  })();
+  const allImages = images?.flatMap((variation) =>
+    variation.images?.map((item) => ({
+      src: item?.src,
+      color: variation.color,
+    })) ?? []
+  ) ?? [];
+
   const filteredImages = selectedVariant?.color
     ? allImages.filter((img) => img.color === selectedVariant.color)
     : allImages;
@@ -81,6 +59,28 @@ const Product: FC = () => {
     return <div className="py-20 text-center text-lg text-red-500">Failed to load product.</div>;
   }
 
+  useEffect(() => {
+    if (!productData) return;
+
+    const firstAvailableVariant = productData?.variants?.find((variant) =>
+      productData.colors.some((color) => color.name === variant.color && variant.stock > 0)
+    );
+
+    const { color, title } = firstAvailableVariant!
+
+    if (firstAvailableVariant) {
+      setSearchParams(
+        {
+          color,
+          variant: title,
+          quantity: "1",
+        },
+        { replace: true }
+      );
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -91,13 +91,15 @@ const Product: FC = () => {
         <meta property="og:type" content="product" />
         <meta property="og:url" content={typeof window !== "undefined" ? window.location.href : ""} />
         {(
-          <meta property="og:image" content={urlFor(filteredImages[0].src)} />
+          filteredImages.length &&
+          <meta property="og:image" content={urlFor(filteredImages[0]?.src).url()} />
         )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         {<meta name="twitter:description" content={description?.slice(0, 80)} />}
         {(
-          <meta name="twitter:image" content={urlFor(filteredImages[0].src)} />
+          filteredImages.length &&
+          <meta name="twitter:image" content={urlFor(filteredImages[0]?.src).url()} />
         )}
       </Helmet>
       <div className="container-xl mx-auto px-4 sm:px-6 lg:px-8">

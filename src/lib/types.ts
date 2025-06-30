@@ -24,9 +24,12 @@ export interface CollectionType {
 
 // Image Type Interface for Nested Images
 export interface ImageType {
-  image: {
-    asset: { _ref: string };
-  };
+  // image: {
+  //   asset: { _ref: string };
+  // };
+
+  color: string,
+  src: string
 }
 export interface ImageTypeArray {
   image: {

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { SidebarTrigger } from "../../ui/sidebar";
 import SearchIcon from "@/assets/icons/search.svg";
@@ -48,10 +48,7 @@ const Header = () => {
   const userInfo = useSelector((state: RootState) => state.PermanentData.userInfo);
   const dispatch = useDispatch();
 
-  const { wishlist: userWishlist, isLoading: wishlistLoading, error: wishlistError } = useUserWishlist(userInfo?._id);
-
-  console.log(wishlistError);
-  console.log(wishlistLoading);
+  const { wishlist: userWishlist } = useUserWishlist(userInfo?._id);
 
   const Links = useMemo(
     () =>
@@ -59,7 +56,7 @@ const Header = () => {
         <NavLink
           key={to}
           className={({ isActive }) =>
-            isActive ? "text-black" : "text-neutral-400"
+            isActive ? "text-black font-semibold" : "text-neutral-400"
           }
           to={to}
         >
@@ -162,4 +159,5 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);
+

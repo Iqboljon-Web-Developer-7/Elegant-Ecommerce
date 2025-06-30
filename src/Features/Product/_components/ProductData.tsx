@@ -4,7 +4,7 @@ import heartIcon from "@/assets/icons/heart.svg";
 import redHeartIcon from "@/assets/icons/red-heart.svg";
 import { ProductDataProps } from "@/lib/types";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useSelector } from "react-redux";
 import InfoLoadingSkeleton from "./InfoLoadingSkeleton";
@@ -12,6 +12,7 @@ import CategoriesComponent from "./Categories/Categories";
 import ColorsComponent from "./Colors/Colors";
 import VariantsComponent from "./Variants/Variants";
 import useWishlist from "./Wishlist/Wishlist";
+import useChangeParam from "@/hooks/useChangeParam";
 
 const ProductData: FC<ProductDataProps> = ({
   productData,
@@ -23,17 +24,8 @@ const ProductData: FC<ProductDataProps> = ({
   const { toast } = useToast();
   const navigate = useNavigate();
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
-
-  const [searchParams, setSearchParams] = useSearchParams();
   
-  const changeParam = useCallback(
-    (param: string, value: string | number) => {
-      const updatedParams = new URLSearchParams(searchParams);
-      updatedParams.set(param, value?.toString());
-      setSearchParams(updatedParams, { replace: true });
-    },
-    [searchParams, setSearchParams]
-  );
+  const {changeParam} = useChangeParam()
 
   // Use custom wishlist hook if user and product data exist
   const { isInWishlist, isLoading, saveWishlist, removeWishlist } = useWishlist(
@@ -136,7 +128,7 @@ const ProductData: FC<ProductDataProps> = ({
           <div className="counter flex items-center justify-center bg-neutral-200 rounded-lg">
             <Button
               onClick={() => {
-                if (productQuantity > 1) changeParam("quantity", productQuantity - 1);
+                if (productQuantity > 1) changeParam("quantity", productQuantity - 1, true);
               }}
               className="bg-transparent shadow-none text-black group"
             >
@@ -145,7 +137,7 @@ const ProductData: FC<ProductDataProps> = ({
             <span className="px-3">{productQuantity}</span>
             <Button
               onClick={() => {
-                if (productQuantity < selectedVariant?.stock) changeParam("quantity", productQuantity + 1);
+                if (productQuantity < selectedVariant?.stock) changeParam("quantity", productQuantity + 1, true);
               }}
               className="bg-transparent shadow-none text-black group"
             >
