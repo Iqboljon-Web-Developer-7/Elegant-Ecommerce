@@ -18,7 +18,7 @@ import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { discount, isNew } from "@/utils/Shared";
+import { discount, isNew, updateSanityRect } from "@/utils/Shared";
 
 const Carousel: FC<ProductCarouselType> = ({
   createdAt,
@@ -49,42 +49,6 @@ const Carousel: FC<ProductCarouselType> = ({
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-
-  /**
-   * Reason: Sanity image URLs can include a `rect` parameter that defines a manual crop area.
-   * When generating image previews or manipulating URLs, we sometimes need to override this `rect`
-   * — but only if it already exists in the URL.
-   *
-   * This function ensures:
-   * - The `rect` parameter is only updated, never added if missing (to avoid unintended cropping).
-   * - The crop dimensions do not exceed the actual image size, which is extracted from the URL itself.
-   *
-   * Why? Sanity stores image dimensions in the URL (e.g. -453x1080), and using a `rect` larger than 
-   * the image causes broken or distorted results. This function guarantees safe cropping behavior
-   * without accidentally affecting full-size images that shouldn't be cropped.
- */
-  function updateSanityRect(url: string, { left, top, width, height }: { left: number; top: number; width: number; height: number }) {
-    const u = new URL(url);
-    const params = u.searchParams;
-
-    if (!params.has("rect")) {
-      return url; // leave untouched
-    }
-
-    const match = u.pathname.match(/-(\d+)x(\d+)\.\w+$/);
-    const originalWidth = match ? parseInt(match[1], 10) : null;
-    const originalHeight = match ? parseInt(match[2], 10) : null;
-
-    const finalWidth = originalWidth && width > originalWidth ? originalWidth : width;
-    const finalHeight = originalHeight && height > originalHeight ? originalHeight : height;
-
-    params.set("rect", `${left},${top},${finalWidth},${finalHeight}`);
-
-    return u.toString();
-  }
-
-
 
 
   return (
@@ -122,7 +86,7 @@ const Carousel: FC<ProductCarouselType> = ({
                     className="max-w-[36.5rem] aspect-[1/1] max-h-[36.5rem] h-full w-full object-scale-down mx-auto rounded-md animate-fade-in-scale duration-300"
                     width={600}
                     height={600}
-                    src={updateSanityRect(urlFor(image.src).width(600).height(600).auto("format").url(), {
+                    src={updateSanityRect(urlFor(image.src).width(600).height(600).url(), {
                       left: 0,
                       top: 0,
                       width: 600,
@@ -173,7 +137,12 @@ const Carousel: FC<ProductCarouselType> = ({
                   loading="lazy"
                   width={140}
                   height={140}
-                  src={urlFor(image.src).width(200).height(200).toString()}
+                  src={updateSanityRect(urlFor(image.src).width(200).height(200).toString(), {
+                    left: 0,
+                    top: 0,
+                    width: 600,
+                    height: 600
+                  })}
                   alt={`Thumbnail ${idx + 1}`}
                 />
               </SwiperSlide>
