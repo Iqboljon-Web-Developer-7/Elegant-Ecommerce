@@ -1,11 +1,13 @@
-import { Route, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
 import Loading from "./loading";
 
 import "react-medium-image-zoom/dist/styles.css";
 
 import AppErrorBoundary from "./components/molecules/ErrorBoundary"
 import Layout from "./components/molecules/Layout"
+import PrivacyPolicy from "./Features/PrivacyPolicy";
+import TermsOfUse from "./Features/TermsOfUse";
 
 const Home = lazy(() => import("./Features/Home/Home"));
 const Search = lazy(() => import("./Features/Search"));
@@ -19,6 +21,13 @@ const Login = lazy(() => import("./Features/Auth/Login"));
 const NotFound = lazy(() => import("./components/molecules/notFound"));
 
 const App = () => {
+  const pathname = useLocation().pathname
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+
   return (
     <AppErrorBoundary>
       <Suspense fallback={<Loading />}>
@@ -29,6 +38,8 @@ const App = () => {
             <Route path="products/:id" element={<Product />} />
             <Route path="contact-us" element={<ContactUs />} />
             <Route path="search" element={<Search />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-of-use" element={<TermsOfUse />} />
           </Route>
           <Route path="/auth" element={<Auth />}>
             <Route path="register" element={<Register />} />

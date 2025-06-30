@@ -10,7 +10,7 @@ import { setShopCollectionView } from "@/redux/slices/homePageData";
 
 const ShopCollection = () => {
   const [mainRef, inView] = useInView({ triggerOnce: true });
-  const { data: collections, isLoading } = useCollections(inView)
+  const { data: collections, isFetching } = useCollections(inView)
 
   const dispatch = useDispatch()
 
@@ -18,7 +18,7 @@ const ShopCollection = () => {
     if(inView){
       setTimeout(() => {
         dispatch(setShopCollectionView(inView))
-      }, 2200);
+      }, 2000);
     }
   },[inView])
 
@@ -49,7 +49,7 @@ const ShopCollection = () => {
         Shop Collection
       </h2>
       <div className="min-h-[44rem] grid sm:grid-cols-2 gap-6 md:mt-12">
-        {isLoading || !Collections?.length ? <SkeletonLoader count={3} /> : Collections}
+        {isFetching || !Collections?.length ? <SkeletonLoader count={3} /> : Collections}
       </div>
     </div>
   );

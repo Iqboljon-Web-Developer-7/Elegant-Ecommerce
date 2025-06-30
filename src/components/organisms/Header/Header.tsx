@@ -38,10 +38,10 @@ interface RootState {
 }
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/shop", label: "Shop" },
-  { to: "/product", label: "Product" },
-  { to: "/contact-us", label: "Contact Us" },
+  { url: "/", label: "Home" },
+  { url: "/shop", label: "Shop" },
+  { url: "/product", label: "Product" },
+  { url: "/contact-us", label: "Contact Us" },
 ];
 
 const Header = () => {
@@ -52,13 +52,13 @@ const Header = () => {
 
   const Links = useMemo(
     () =>
-      navLinks.map(({ to, label }) => (
+      navLinks.map(({ url, label }) => (
         <NavLink
-          key={to}
+          key={url}
           className={({ isActive }) =>
             isActive ? "text-black font-semibold" : "text-neutral-400"
           }
-          to={to}
+          to={url}
         >
           {label}
         </NavLink>

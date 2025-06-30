@@ -33,22 +33,22 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo);
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
   const [optimisticSaved, setOptimisticSaved] = useState<null | boolean>(null);
   const [hoveredImageIndex, setHoveredImageIndex] = useState<
-  Record<number, number>
+    Record<number, number>
   >({});
   const [currentImgIndex, setCurrentImgIndex] = useState(hoveredImageIndex[product._id] || 0);
-  
+
   const queryClient = useQueryClient();
   
-    const prefetchProduct = async () => {
-      await queryClient.prefetchQuery({
-        queryKey: ['product', product?._id],
-        queryFn: () => fetchProduct(product?._id.toString()),
-        staleTime: 30 * 60 * 1000, // 0.5 hour
-      });
-    };
+  const prefetchProduct = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: ['product', product?._id],
+      queryFn: () => fetchProduct(product?._id.toString()),
+      staleTime: 30 * 60 * 1000, // 0.5 hour
+    });
+  };
 
   const {
     isInWishlist,

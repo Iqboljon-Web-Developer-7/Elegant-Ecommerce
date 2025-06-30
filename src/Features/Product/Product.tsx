@@ -78,7 +78,6 @@ const Product: FC = () => {
         { replace: true }
       );
     }
-    window.scrollTo(0, 0);
   }, []);
 
   return (

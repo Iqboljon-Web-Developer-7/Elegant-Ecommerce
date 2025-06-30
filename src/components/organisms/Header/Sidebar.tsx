@@ -1,10 +1,10 @@
+import { useMemo } from "react";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { SearchForm } from "./SidebarSearch";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "../../ui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUserInfo } from "@/redux/slices/permamentData";
-import { useMemo, useState, useEffect } from "react";
 import CartIcon from "@/assets/icons/cart.svg";
 import HeartIcon from "@/assets/icons/heart.svg";
 import UserIcon from "@/assets/icons/user.svg";
@@ -12,59 +12,65 @@ import InstagramIcon from "@/assets/icons/instagram.svg";
 import FacebookIcon from "@/assets/icons/facebook.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 
-const items = [
-  { title: "Home", url: "/" },
-  { title: "Shop", url: "/shop" },
-  { title: "Product", url: "/product" },
-  { title: "Contact Us", url: "/contact" },
-];
 
-export function HeaderSidebar() {
-  const { toggleSidebar, open } = useSidebar();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+export default function HeaderSidebar() {
   const userInfo = useSelector((state: any) => state.PermanentData.userInfo, (prev, next) => prev === next); // Memoized selector
-  const [loadImages, setLoadImages] = useState(false);
+  const { toggleSidebar } = useSidebar();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (open) {
-      setLoadImages(true);
-    }
-  }, [open]);
+  const items = [
+    { title: "Home", url: '/' },
+    { title: "Shop", url: "/shop" },
+    { title: "Product", url: "/product" },
+    { title: "Contact Us", url: "/contact-us" },
+  ];
 
-  // Memoize userInfo rendering to avoid unnecessary re-renders
+  const MenuContents = items.map((item) => (
+    <SidebarMenuItem key={item.url}>
+      <SidebarMenuButton>
+        <NavLink
+          onClick={() => toggleSidebar()}
+          to={item.url}
+          className={({ isActive }) => `w-full ${isActive ? "text-black font-semibold" : "text-neutral-400"}`}
+        >
+          {item.title}
+        </NavLink>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  ))
+
   const userSection = useMemo(() => (
     userInfo ? (
       <div className="flex items-center justify-between py-3">
         <div className="flex items-center justify-center gap-3">
-          {loadImages && <img src={UserIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />}
-          <div>
-            <h4 className="text-sm">{userInfo?.username}</h4>
-            <p className="text-xs">{userInfo?.email?.slice(0, 20)}</p>
+          <img src={UserIcon} alt="sidebar icon" loading="lazy" width={24} height={24} />
+          <div className="max-w-40">
+            <p className="font-semibold truncate" title={userInfo?.username}>{userInfo?.username}</p>
+            <p className="text-xs truncate" title={userInfo?.email}>{userInfo?.email}</p>
           </div>
         </div>
         <Button
           variant="destructive"
-          className="text-xs px-2 py-1"
+          className="text-xs px-3 py-1"
           onClick={() => dispatch(clearUserInfo())}
         >
           Sign Out
         </Button>
       </div>
     ) : (
-      <Button
-        onClick={() => navigate("/auth/login")}
-        className="my-3 text-xs px-2 py-1"
+      <Link
+        to={"/auth/login"}
+        className="bg-black rounded-md text-white px-3 py-2 text-sm text-center"
       >
         Sign In
-      </Button>
+      </Link>
     )
-  ), [userInfo, dispatch, navigate, loadImages]);
+  ), [userInfo]);
 
   return (
     <Sidebar>
-      <SidebarContent>
-        <SidebarGroup className="h-full">
+      <SidebarContent className="!max-w-2xs">
+        <SidebarGroup className="h-full ">
           <SidebarGroupLabel className="flex items-center justify-between text-black text-base font-semibold">
             Elegant
             <span className="cursor-pointer text-lg" onClick={toggleSidebar}>×</span>
@@ -72,15 +78,7 @@ export function HeaderSidebar() {
           <SearchForm />
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link to={item.url} className="border-b rounded-none py-3 text-sm">
-                      {item.title}
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {MenuContents}
             </SidebarMenu>
           </SidebarGroupContent>
           <div className="h-full flex items-end">
@@ -91,7 +89,7 @@ export function HeaderSidebar() {
               >
                 Cart
                 <div className="flex items-center justify-center gap-1">
-                  {loadImages && <img src={CartIcon} alt="cart-icon" className="max-w-5" loading="lazy" width={20} height={20} />}
+                  <img src={CartIcon} alt="cart-icon" className="max-w-5" loading="lazy" width={20} height={20} />
                   <p className="w-4 h-4 rounded-full bg-black text-[.6rem] font-bold text-white flex items-center justify-center">2</p>
                 </div>
               </NavLink>
@@ -101,7 +99,7 @@ export function HeaderSidebar() {
               >
                 Wishlist
                 <div className="flex items-center justify-center gap-1">
-                  {loadImages && <img src={HeartIcon} alt="heart icon" loading="lazy" width={22} height={22} />}
+                  <img src={HeartIcon} alt="heart icon" loading="lazy" width={22} height={22} />
                   <p className="w-4 h-4 rounded-full bg-black text-[.6rem] font-bold text-white flex items-center justify-center">2</p>
                 </div>
               </NavLink>
@@ -109,13 +107,9 @@ export function HeaderSidebar() {
           </div>
           {userSection}
           <div className="flex items-center gap-3 mt-2">
-            {loadImages && (
-              <>
-                <img src={InstagramIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
-                <img src={FacebookIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
-                <img src={YoutubeIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
-              </>
-            )}
+            <img src={InstagramIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
+            <img src={FacebookIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
+            <img src={YoutubeIcon} alt="sidebar icon" loading="lazy" width={20} height={20} />
           </div>
         </SidebarGroup>
       </SidebarContent>

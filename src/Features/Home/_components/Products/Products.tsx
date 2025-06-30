@@ -11,7 +11,6 @@ import StyledLink from "@/components/atoms/StyledLink";
 
 import ProductLoading from "./ProductLoading";
 
-// import { useInView } from "react-intersection-observer";
 import { useProducts } from "@/Features/Home/hook/Products/useProducts";
 import { useSelector } from "react-redux";
 
@@ -45,7 +44,6 @@ const Products: FC<{ category?: string }> = ({ category }) => {
 
   return (
     <div className="products mb-6 mx-1" 
-    // ref={mainRef}
     >
       <div className="products__info my-12 flex items-end justify-between">
         <span className="w-[3ch] leading-[2.75rem] font-medium ont-medium text-[2.125rem] tracking-[-0.0375rem];">New Arrival</span>
@@ -65,7 +63,7 @@ const Products: FC<{ category?: string }> = ({ category }) => {
         modules={[Scrollbar, Mousewheel]}
         className="mySwiper"
       > 
-        {isLoading ? <ProductLoading /> : SwiperContents}
+        {isLoading || !isShopCollectionInView ? <ProductLoading /> : SwiperContents}
       </Swiper>
     </div>
   );

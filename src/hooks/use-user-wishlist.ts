@@ -7,6 +7,12 @@ interface WishlistItem {
   [key: string]: any;
 }
 
+async function fetchUserWishlist(userId: string) {
+  if (!userId) return null;
+  const result = await client.fetch(SANITY_USER_WISHLIST(userId));
+  return result || { items: [] };
+}
+
 export function useUserWishlist(userId?: string) {
   const queryClient = useQueryClient();
 
@@ -19,11 +25,7 @@ export function useUserWishlist(userId?: string) {
     Error
   >({
     queryKey: ["user-wishlist", userId],
-    queryFn: async () => {
-      if (!userId) return null;
-      const result = await client.fetch(SANITY_USER_WISHLIST(userId));
-      return result || { items: [] };
-    },
+    queryFn: async () => fetchUserWishlist(userId!),
     enabled: !!userId,
   });
 

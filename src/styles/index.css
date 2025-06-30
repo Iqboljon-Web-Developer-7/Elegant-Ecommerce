@@ -283,31 +283,31 @@ body {
 }
 
 h1 {
-  @apply font-medium leading-21 text-[5rem] tracking-[-0.1875rem];
+  @apply font-medium leading-21 text-[5rem];
 }
 
 h2 {
-  @apply font-medium leading-19 tracking-[-0.125rem];
+  @apply font-medium leading-19;
   font-feature-settings: "liga" off, "clig" off;
 }
 
 h3 {
-  @apply font-medium leading-14.5 text-[3.375rem] tracking-[-0.0625rem];
+  @apply font-medium leading-14.5 text-[3.375rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 
 h4 {
-  @apply font-medium leading-9 lg:leading-11 text-[2.125rem] md:text-3xl lg:text-[2.5rem] tracking-[-0.025rem];
+  @apply font-medium leading-9 lg:leading-11 text-[2.125rem] md:text-3xl lg:text-[2.5rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 
 h5 {
-  @apply font-medium leading-9 text-[2.125rem] tracking-[-0.0375rem];
+  @apply font-medium leading-9 text-[2.125rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 
 h6 {
-  @apply font-medium leading-8.5 text-[1.75rem] tracking-[-0.0375rem];
+  @apply font-medium leading-8.5 text-[1.75rem];
   font-feature-settings: "liga" off, "clig" off;
 }
 

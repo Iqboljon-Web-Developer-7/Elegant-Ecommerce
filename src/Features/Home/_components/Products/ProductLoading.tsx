@@ -1,6 +1,6 @@
 export default function ProductLoading() {
   return (
-    <div className="mb-16 pt-1 flex items-center gap-6 overflow-x-auto">
+    <div className="mb-15 flex items-center gap-6 overflow-x-auto">
       {Array.from({ length: 4 }).map((_, index) => (
         <div
           key={index}

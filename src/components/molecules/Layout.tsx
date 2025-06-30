@@ -1,22 +1,22 @@
 import { SidebarProvider } from "../ui/sidebar";
 import Header from "../organisms/Header/Header";
-import { HeaderSidebar } from "../organisms/Header/Sidebar";
 import { Outlet } from "react-router-dom";
 import Footer from "../organisms/Footer/Footer";
-import { memo } from "react";
+import { lazy } from "react";
+const HeaderSidebar = lazy(() => import("../organisms/Header/Sidebar"));
 
 const Layout = () => {
-  console.log("Layout rendering");
+  const isHeaderSideBar = !window.matchMedia("(min-width: 768px)").matches
 
   return <SidebarProvider>
     <main className="w-full bg-backgrounds-worm-grey">
       <Header />
-      <HeaderSidebar />
+      {isHeaderSideBar && <HeaderSidebar />}
       <Outlet />
       <Footer />
     </main>
   </SidebarProvider>
 }
 
-export default memo(Layout);
+export default Layout
 
