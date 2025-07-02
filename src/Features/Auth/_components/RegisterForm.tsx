@@ -75,7 +75,7 @@ export function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-sm">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="registerForm" className="space-y-4 text-sm mt-8 inter">
         <FormField
           control={form.control}
           name="name"
@@ -83,7 +83,8 @@ export function RegisterForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="outline-none border-none bg-neutral-50"
+                  className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
+
                   placeholder="Your Name"
                   {...field}
                 />
@@ -99,7 +100,8 @@ export function RegisterForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="outline-none border-none bg-neutral-50"
+                  className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
+
                   placeholder="Username"
                   {...field}
                 />
@@ -116,7 +118,8 @@ export function RegisterForm() {
               <FormControl>
                 <Input
                   type="email"
-                  className="outline-none border-none bg-neutral-50"
+                  className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
+
                   placeholder="Your Email"
                   {...field}
                 />
@@ -133,7 +136,7 @@ export function RegisterForm() {
               <FormControl>
                 <div className="relative">
                   <Input
-                    className="outline-none border-none bg-neutral-50 pr-10"
+                    className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     {...field}
@@ -156,10 +159,10 @@ export function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button disabled={isPending} type="submit" className="w-full">
-          {isPending ? <div className="loader"></div> : "Sign Up"}
-        </Button>
       </form>
+      <Button disabled={isPending} form="registerForm" type="submit" className="w-full mt-8">
+        {isPending ? <div className="loader"></div> : "Sign Up"}
+      </Button>
     </Form>
   );
 }

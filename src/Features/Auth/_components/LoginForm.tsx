@@ -43,7 +43,7 @@ export function LoginForm() {
       const user = await mutateAsync(values);
       if (user) {
         console.log(user);
-        
+
         dispatch(setUserInfo(user));
         const returnUrl = sessionStorage.getItem("returnUrl") || "/";
         sessionStorage.removeItem("returnUrl");
@@ -64,7 +64,7 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} id="loginForm" className="space-y-4 mt-8 inter">
         <FormField
           control={form.control}
           name="name"
@@ -72,7 +72,7 @@ export function LoginForm() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="bg-slate-50"
+                  className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
                   placeholder="Your username or email address"
                   {...field}
                 />
@@ -89,7 +89,7 @@ export function LoginForm() {
               <FormControl>
                 <div className="relative">
                   <Input
-                    className="bg-slate-50 pr-10"
+                    className="bg-backgrounds-worm-grey text-sm md:text-base border-b border-b-black rounded-none focus-visible:ring-0 shadow-none"
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     {...field}
@@ -112,10 +112,15 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button disabled={isPending} type="submit" className="w-full">
-          {isPending ? <div className="loader"></div> : "Sign In"}
-        </Button>
       </form>
+      <Button
+        form="loginForm"
+        disabled={isPending}
+        type="submit"
+        className="w-full mt-8"
+      >
+        {isPending ? <div className="loader"></div> : "Sign In"}
+      </Button>
     </Form>
   );
 }

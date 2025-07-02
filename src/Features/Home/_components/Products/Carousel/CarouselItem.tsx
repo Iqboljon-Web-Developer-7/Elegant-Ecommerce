@@ -60,7 +60,7 @@ const CarouselItem = ({ product }: { product: ProductType }) => {
     (product: ProductType, index: number): string => {
       const images = product?.images[0]?.images || [];
       const imageRef = images[index]?.src;
-      return urlFor(imageRef).width(300).height(300).url()
+      return urlFor(imageRef).width(400).height(400).url()
     },
     []
   );

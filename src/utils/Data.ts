@@ -60,7 +60,8 @@ export const SANITY_PRODUCT_QUERY = (id: string) => {
    _createdAt,
    description,
    colors,
-   categories
+   categories,
+   reviews
    }
 `;};
 

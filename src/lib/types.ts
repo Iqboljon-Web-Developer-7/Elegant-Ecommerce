@@ -76,6 +76,14 @@ export interface ProductType {
     material: string;
     weight: string;
   };
+  reviews: {
+    rating: number,
+    comment: string,
+    _key: string,
+    postedBy: {
+      _ref:string
+    }
+  }
 }
 
 export interface ProductVariantType {
