@@ -63,7 +63,13 @@ export const SANITY_PRODUCT_QUERY = (id: string) => {
    categories,
    reviews
    }
-`;};
+`;
+};
+export const SANITY_PRODUCT_REVIEWS = (productId: string, start: number, end: number) => {
+  return `*[_type == "review" && product._ref == '${productId}'] | order(_createdAt desc) [${start}...${end}] {
+            rating, comment, postedBy->{name}
+          }
+        `}
 
 export const SANITY_INSTAFEED_QUERY = `*[_type == "InstaFeed"]`;
 

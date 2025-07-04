@@ -83,7 +83,7 @@ export interface ProductType {
     postedBy: {
       _ref:string
     }
-  }
+  }[]
 }
 
 export interface ProductVariantType {

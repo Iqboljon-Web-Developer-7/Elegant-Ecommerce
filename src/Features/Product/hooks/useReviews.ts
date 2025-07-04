@@ -1,19 +1,37 @@
-import { client } from "@/utils/Client"; // Adjust import based on your setup
-// import { UserType } from "@/lib/types";
+import { client } from "@/utils/Client"
+import { SANITY_PRODUCT_REVIEWS } from "@/utils/Data"
+import { useInfiniteQuery } from "@tanstack/react-query"
 
-export const SANITY_CREATE_REVIEW = async (productId: string, review: { rating: number; comment: string }, userId: string) => {
-  const reviewDoc = {
-    _type: "review",
-    rating: review.rating,
-    comment: review.comment,
-    postedBy: { _ref: userId },
-  };
+interface Reviews {
+    reviews: {
+        rating: number;
+        comment: string;
+        _key: string;
+        postedBy: {
+            _ref: string;
+        };
+    }[]
+}
 
-  // Create the review and patch it into the product's reviews array
-  const transaction = client.transaction()
-    .create(reviewDoc)
-    .patch(productId, (p) => p.insert("after", "reviews[-1]", [{ _key: reviewDoc._id, ...reviewDoc }]))
-    .commit();
+const getProductReviews = async (id: string | undefined, start: number, end: number): Promise<Reviews> => {
+    return await client.fetch(SANITY_PRODUCT_REVIEWS(id!, start, end))
+}
 
-  return transaction;
-};
+export const useProductReviews = (id: string | undefined, start: number, end: number) => {
+    return useInfiniteQuery({
+        queryKey: ['product-reviews', id],
+        queryFn: async ({ pageParam = 0 }) => {
+            const start = pageParam * 10;
+            const end = start + 10;
+            return getProductReviews(id, start, end)
+        },
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) => lastPage.reviews?.length == 10 ? allPages.length : undefined
+    })
+}
+// useQuery({
+//     queryKey: ["productReviews"],
+//     queryFn: () => getProductReviews(id, start, end),
+//     staleTime: 60 * 60 * 1000, // 1 hour
+//     enabled: !!id,
+// })
