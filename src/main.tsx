@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 });
 
 const app = (
-  // <StrictMode>
+  <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Provider store={store}>
@@ -34,7 +34,7 @@ const app = (
         </Provider>
       </BrowserRouter>
     </QueryClientProvider>
-  // </StrictMode>
+  </StrictMode>
 );
 
 const rootElement = document.getElementById("root")

@@ -22,7 +22,7 @@ const ColorsComponent: FC<{
 
     return (
       <>
-        {colors.map((color, index) => {
+        {colors.map((_color, index) => {
           const imageRef = images.find((img) => img.color === colors[index]?.name)
             ?.images[0]?.src
 

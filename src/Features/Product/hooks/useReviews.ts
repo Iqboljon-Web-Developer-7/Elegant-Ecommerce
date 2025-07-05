@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface Review {
     reviews: {
+        _id: number,
         rating: number;
         comment: string;
         _key: string;
@@ -15,11 +16,10 @@ interface Review {
     }[]
 }
 
-export const fetchProductReviews = async (id: string | undefined, start: number, end: number) => {
-    if (!id) throw new Error('Missing product id');
-    console.log(id);
-
-    const res = await client.fetch<Review[]>(SANITY_PRODUCT_REVIEWS(id, start, end));
+export const fetchProductReviews = async (productId: string | undefined, start: number, end: number) => {
+    if (!productId) throw new Error('Missing product id');
+    console.log(productId, start, end);
+    const res = await client.fetch<Review[]>(SANITY_PRODUCT_REVIEWS(productId, start, end));
     console.log(res);
     return res
 }
@@ -28,7 +28,7 @@ export const fetchProductReviews = async (id: string | undefined, start: number,
 export const useProductReviews = (productId?: string) => {
     return useInfiniteQuery<Review[], Error>({
         queryKey: ['product-reviews', productId],
-        initialPageParam: 1,
+        initialPageParam: 0,
         queryFn: async ({ pageParam = 0 }) => {
             const start = Number(pageParam) * 5;
             const end = start + 5;
@@ -58,32 +58,12 @@ export const useCreateReview = (productId: string) => {
             };
             return client.createIfNotExists(reviewDoc);
         },
-        // onMutate: async newReview => {
-        //     const res = await client.createIfNotExists()
-        //     // const previous = qc.getQueryData<Review[][]>(['product-reviews', productId]);
-        //     // qc.setQueryData<Review[][]>(['product-reviews', productId], old => {
-        //     //     const flat = old?.flat() || [];
-        //     //     const temp: Review = {
-        //     //         _id: 'temp-' + Date.now(),
-        //     //         rating: newReview.rating,
-        //     //         comment: newReview.comment,
-        //     //         _createdAt: new Date().toISOString(),
-        //     //         postedBy: { _id: newReview.userId, name: qc.getQueryData(['user', newReview.userId])?.name || 'You' },
-        //     //         likes: [],
-        //     //         replies: []
-        //     //     } as any;
-        //     //     return [[temp, ...flat]];
-        //     // });
-        //     // return { previous };
-        // },
         onError: (_err, _newReview, context: any) => {
             console.log(_err);
-
             qc.setQueryData(['product-reviews', productId], context.previous);
         },
         onSettled: () => {
             console.log("successfully created review");
-            
             qc.invalidateQueries(
                 {
                     queryKey: ['posts'],
@@ -104,7 +84,7 @@ export const useDeleteReview = (productId: string) => {
                 await qc.cancelQueries({ queryKey: ['product-reviews', productId], exact: true });
                 const previous = qc.getQueryData<Review[][]>(['product-reviews', productId]);
                 qc.setQueryData<Review[][]>(['product-reviews', productId], old =>
-                    old?.map(page => page.filter(r => r._id !== reviewId))
+                    old?.map(page => page.filter(r => r.reviews[0]._id.toString() !== reviewId))
                 );
                 return { previous };
             },

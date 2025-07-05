@@ -10,8 +10,6 @@ const VariantsComponent: FC<{
   const availableVariants = variants
     .filter((variant) => variant.color == selectedParamColor)
     .map((variant) => variant.title);
-
-  console.log(availableVariants);
   return (
     <>
       {variants.map((variant) => {
