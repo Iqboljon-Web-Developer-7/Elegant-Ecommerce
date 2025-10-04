@@ -1,8 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
-import Loading from "./loading";
 
 import "react-medium-image-zoom/dist/styles.css";
+import Loading from "./loading";
 
 import AppErrorBoundary from "./components/molecules/ErrorBoundary"
 import Layout from "./components/molecules/Layout"
