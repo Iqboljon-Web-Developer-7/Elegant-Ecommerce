@@ -54,3 +54,5 @@ For any inquiries, please contact [your email].
 ---
 
 This README provides a comprehensive overview of the Elegant-Ecommerce project, including its features, installation instructions, and configuration details. Feel free to reach out if you have any questions or need further assistance.
+
+Feel free to give me a feedback!
