@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dialog"
 import { ToastAction } from "@/components/ui/toast";
 import { useCreateReview, useDeleteReview, useProductReviews } from "./hooks/useReviews";
-import { Star. Trash2 } from "lucide-react";
+import { Star, Trash2 } from "lucide-react";
 import { StarRating } from "./_components/StarRating";
 
 const Product: FC = () => {
